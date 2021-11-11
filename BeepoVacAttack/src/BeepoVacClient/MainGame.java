@@ -1,4 +1,4 @@
-package BeepoVacFiles;
+package BeepoVacClient;
 
 import jig.Entity;
 
