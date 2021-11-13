@@ -33,16 +33,16 @@ public class Caller extends Thread {
 //        }
     }
 
-    public void move(int move) {
+    public void move(String move) {
 
         System.out.println(move);
         printWriter.println(move);
         printWriter.flush();
-        try {
-            sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            sleep(100);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
     }
 }
