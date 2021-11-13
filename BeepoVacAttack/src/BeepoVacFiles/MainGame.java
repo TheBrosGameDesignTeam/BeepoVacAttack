@@ -11,10 +11,11 @@ public class MainGame extends StateBasedGame {
 
     public static final int STARTUPSTATE = 0;
 
+    Caller caller;
+
     public MainGame(String title, int width, int height) {
         super(title);
         Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
-
     }
 
 
@@ -36,7 +37,6 @@ public class MainGame extends StateBasedGame {
         }
 
     }
-
 
 }
 

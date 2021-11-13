@@ -21,6 +21,9 @@ class StartUpState extends BasicGameState {
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         container.setSoundOn(false);
+
+        MainGame bg = (MainGame)game;
+
         Socket socket = null;
         try {
             socket = new Socket("localhost", 4999);
@@ -38,8 +41,9 @@ class StartUpState extends BasicGameState {
             System.exit(1);
         }
 
-        Caller caller = new Caller(printWriter);
-        caller.start();
+        bg.caller = new Caller(printWriter);
+
+        bg.caller.start();
     }
 
 
@@ -57,6 +61,13 @@ class StartUpState extends BasicGameState {
 
         Input input = container.getInput();
         MainGame bg = (MainGame)game;
+
+        if (input.isKeyPressed(Input.KEY_1)){
+            bg.caller.move(1);
+        }
+        if (input.isKeyPressed(Input.KEY_2)){
+            bg.caller.move(2);
+        }
 
     }
 
