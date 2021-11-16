@@ -11,7 +11,7 @@ public class Caller extends Thread {
     }
 
     public void run() {
-        printWriter.println("Hello, Server!");
+//        printWriter.println("Hello, Server!");
         printWriter.flush();
 
 //        while (true) {
@@ -35,7 +35,7 @@ public class Caller extends Thread {
 
     public void move(String move) {
 
-        System.out.println(move);
+//        System.out.println(move);
         printWriter.println(move);
         printWriter.flush();
 //        try {

@@ -26,7 +26,7 @@ class StartUpState extends BasicGameState {
 
         Socket socket = null;
         try {
-            socket = new Socket("10.0.0.93", 4999);
+            socket = new Socket("localhost", 4999);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
@@ -67,6 +67,12 @@ class StartUpState extends BasicGameState {
         }
         if (input.isKeyDown(Input.KEY_S)){
             bg.caller.move("s");
+        }
+        if (input.isKeyDown(Input.KEY_D)){
+            bg.caller.move("d");
+        }
+        if (input.isKeyDown(Input.KEY_A)){
+            bg.caller.move("a");
         }
 
     }
