@@ -1,4 +1,4 @@
-package BeepoVacClient;
+package BeepoVacAttack.BeepoVacClient;
 
 import java.io.Serializable;
 

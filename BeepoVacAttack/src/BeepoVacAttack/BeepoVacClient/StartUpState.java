@@ -1,5 +1,6 @@
-package BeepoVacClient;
-
+package BeepoVacAttack.BeepoVacClient;
+import BeepoVacAttack.Networking.Packet;
+import BeepoVacAttack.Networking.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -46,7 +47,7 @@ class StartUpState extends BasicGameState {
         }
 
         bg.caller = new Caller(printWriter);
-        bg.listener = new Listener(bufferedReader);
+        bg.listener = new Listener(bufferedReader, MainGame.queue);
 
         bg.listener.start();
 
@@ -78,7 +79,7 @@ class StartUpState extends BasicGameState {
             Object message = MainGame.queue.poll();
 
             if (message instanceof Packet) {
-                System.out.println("Returned from server " + ((Packet) message).message);
+                System.out.println("Returned from server " + ((Packet) message).getMessage());
                 // here we would check for confirmation return from the server to switch to the first level
             }
         }

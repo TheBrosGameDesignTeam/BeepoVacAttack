@@ -1,6 +1,6 @@
-package BeepoVacClient;
+package BeepoVacAttack.Networking;
 
-import java.io.BufferedReader;
+import BeepoVacAttack.Networking.Packet;
 import java.io.PrintWriter;
 
 public class Caller {
@@ -11,9 +11,9 @@ public class Caller {
         this.printWriter = printWriter;
     }
 
-    public void push(String move) {
+    public void push(String message) {
 
-        printWriter.println(move);
+        printWriter.println(message);
         printWriter.flush();
 
     }
