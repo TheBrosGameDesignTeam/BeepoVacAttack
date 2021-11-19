@@ -7,7 +7,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -32,18 +34,24 @@ class StartUpState extends BasicGameState {
             System.exit(1);
         }
 
-
         PrintWriter printWriter = null;
+
+        //testing 2 way communication
+        BufferedReader bufferedReader = null;
+
         try {
             printWriter = new PrintWriter(socket.getOutputStream());
+            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
         }
 
         bg.caller = new Caller(printWriter);
+        bg.listener = new Listener(bufferedReader);
 
-        bg.caller.start();
+        bg.listener.start();
+
     }
 
 
@@ -63,18 +71,28 @@ class StartUpState extends BasicGameState {
         MainGame bg = (MainGame)game;
 
         if (input.isKeyDown(Input.KEY_W)){
-            bg.caller.move("w");
+            bg.caller.push("w");
         }
         if (input.isKeyDown(Input.KEY_S)){
-            bg.caller.move("s");
+            bg.caller.push("s");
         }
         if (input.isKeyDown(Input.KEY_D)){
-            bg.caller.move("d");
+            bg.caller.push("d");
         }
         if (input.isKeyDown(Input.KEY_A)){
-            bg.caller.move("a");
+            bg.caller.push("a");
         }
 
+        while (!MainGame.queue.isEmpty()) {
+
+            System.out.println("We are here");
+
+            Object message = MainGame.queue.poll();
+
+            if (message instanceof Packet) {
+                System.out.println("Returned from server " + ((Packet) message).message);
+            }
+        }
     }
 
     @Override
