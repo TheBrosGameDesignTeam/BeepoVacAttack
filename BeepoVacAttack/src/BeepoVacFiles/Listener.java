@@ -19,7 +19,6 @@ public class Listener extends Thread {
 
         while (true) {
 
-            System.out.println("We are in listener");
             try {
                 String line = bufferedReader.readLine();
                 if (line == null) {

@@ -35,8 +35,6 @@ class StartUpState extends BasicGameState {
         }
 
         PrintWriter printWriter = null;
-
-        //testing 2 way communication
         BufferedReader bufferedReader = null;
 
         try {
@@ -70,27 +68,18 @@ class StartUpState extends BasicGameState {
         Input input = container.getInput();
         MainGame bg = (MainGame)game;
 
-        if (input.isKeyDown(Input.KEY_W)){
-            bg.caller.push("w");
-        }
-        if (input.isKeyDown(Input.KEY_S)){
-            bg.caller.push("s");
-        }
-        if (input.isKeyDown(Input.KEY_D)){
-            bg.caller.push("d");
-        }
-        if (input.isKeyDown(Input.KEY_A)){
-            bg.caller.push("a");
+        // press space if you are ready to start the game!
+        if (input.isKeyPressed(Input.KEY_SPACE)){
+            bg.caller.push("space");
         }
 
         while (!MainGame.queue.isEmpty()) {
-
-            System.out.println("We are here");
 
             Object message = MainGame.queue.poll();
 
             if (message instanceof Packet) {
                 System.out.println("Returned from server " + ((Packet) message).message);
+                // here we would check for confirmation return from the server to switch to the first level
             }
         }
     }
