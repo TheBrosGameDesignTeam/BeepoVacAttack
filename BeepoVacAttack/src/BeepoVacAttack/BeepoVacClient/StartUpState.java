@@ -25,7 +25,7 @@ class StartUpState extends BasicGameState {
     public void enter(GameContainer container, StateBasedGame game) {
         container.setSoundOn(false);
 
-        MainGame bg = (MainGame)game;
+        BeepoVacAttack.BeepoVacClient.MainGame bg = (BeepoVacAttack.BeepoVacClient.MainGame)game;
 
         Socket socket = null;
         try {
@@ -57,7 +57,7 @@ class StartUpState extends BasicGameState {
     @Override
     public void render(GameContainer container, StateBasedGame game,
                        Graphics g) throws SlickException {
-        MainGame bg = (MainGame)game;
+//        BeepoVacAttack.BeepoVacClient.MainGame bg = (BeepoVacAttack.BeepoVacClient.MainGame)game;
 
         g.drawString("Connection to Server Made", 100, 100);
     }
@@ -74,13 +74,15 @@ class StartUpState extends BasicGameState {
             bg.caller.push("space");
         }
 
+        // this is where the client gets info back from the observer
         while (!MainGame.queue.isEmpty()) {
-
             Object message = MainGame.queue.poll();
-
-            if (message instanceof Packet) {
-                System.out.println("Returned from server " + ((Packet) message).getMessage());
+            if (message instanceof Packet pack) {
+//                System.out.println("Returned from server " + ((Packet) message).getMessage());
                 // here we would check for confirmation return from the server to switch to the first level
+                if (pack.getMessage().compareTo("space") == 0) {
+                    bg.enterState(MainGame.PLAYINGSTATE);
+                }
             }
         }
     }

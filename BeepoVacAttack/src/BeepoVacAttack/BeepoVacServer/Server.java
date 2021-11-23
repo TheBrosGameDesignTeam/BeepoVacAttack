@@ -51,7 +51,6 @@ public class Server extends Thread {
             BufferedReader bufferedReader;
             bufferedReader = new BufferedReader(inputStreamReader);
 
-            // testing 2 way communication
             PrintWriter printWriter;
             try {
                 printWriter = new PrintWriter(socket.getOutputStream());
@@ -60,6 +59,8 @@ public class Server extends Thread {
             }
 
             Listener listener = new Listener(bufferedReader, MainGame.queue);
+            listener.setPlayer(++connections);
+
             Caller caller = new Caller(printWriter);
 
             MainGame.observer.add(caller);
@@ -67,8 +68,6 @@ public class Server extends Thread {
             listener.start();
 
         }
-
-        // once we are done accepting connections, set number of current connections?
 
         try {
             serverSocket.close();

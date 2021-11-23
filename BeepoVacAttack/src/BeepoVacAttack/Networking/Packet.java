@@ -4,15 +4,14 @@ import java.io.Serializable;
 
 public class Packet implements Serializable {
 
-    int player;
     String message;
+    int player;
 
     float p1X = 0; float p1Y = 0;
 
-    public Packet(String message, int player, float x, float y) {
-        this.player = player;
+    public Packet(String message, int player) {
         this.message = message;
-        this.p1X = x; this.p1Y = y;
+        this.player = player;
     }
 
     public String getMessage(){ return this.message; }

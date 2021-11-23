@@ -1,4 +1,5 @@
 package BeepoVacAttack.BeepoVacServer;
+import BeepoVacAttack.GamePlay.BeepoVac;
 import BeepoVacAttack.Networking.Listener;
 import BeepoVacAttack.Networking.Packet;
 import org.newdawn.slick.GameContainer;
@@ -53,42 +54,22 @@ class StartUpState extends BasicGameState {
 
                 Packet pack = (Packet) message;
 
-//                System.out.println("Message Received from player " + pack.getPlayer());
-                System.out.println(pack.getMessage());
-
-                // move the player
-                if (pack.getPlayer() == 1) {
-                    System.out.println("Player " + pack.getPlayer() + " is ready!");
-//                    bg.players[0].setMove(pack.getMessage());
-                    bg.players[0] = new BeepoVac(200, 200);
-                } else if (pack.getPlayer() == 2) {
-                    System.out.println("Player " + pack.getPlayer() + " is ready!");
-//                    bg.players[1].setMove(pack.getMessage());
-                    bg.players[1] = new BeepoVac(400, 200);
-                }
-
-                if (bg.players[0] != null && bg.players[1] != null) {
+                // if the first player presses space, start the game
+                if (pack.getPlayer() == 1 && pack.getMessage().compareTo("space") == 0) {
+                    System.out.println("Go to playing state!");
+                    // send the object to the observer - confirm that we change states
+                    MainGame.observer.send(message);
                     // go to next state
-                    System.out.println("We are ready to start the game!!!");
-
+                    bg.enterState(MainGame.PLAYINGSTATE);
                 }
-
-                // send the object to the observer - testing
-                MainGame.observer.send(message);
 
             } else if (message instanceof Listener) {
-                MainGame.listeners.add((Listener) message);
-//                System.out.println(MainGame.listeners.peek());
-//                bg.player[] = new BeepoVac(200, 200);
+                Listener listener = (Listener) message;
+                MainGame.listeners.add(listener);
+                MainGame.players.add(new BeepoVac(100, 100));
+                System.out.println("Player " + listener.getPlayer() + " has joined!!!");
             }
         }
-
-//        // update player - put this in next state
-//        for (BeepoVac beep : bg.players) {
-//            if (beep != null) beep.update(delta);
-//        }
-
-        // send confirmation to each client to say we are changing states.
 
     }
 

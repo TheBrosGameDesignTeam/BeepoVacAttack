@@ -10,12 +10,11 @@ public class Listener extends Thread {
 
     private final BufferedReader bufferedReader;
     public static ConcurrentLinkedQueue<Object> queue;
-    public int player;
+    public int player = 0;
 
     public Listener(BufferedReader bufferedReader, ConcurrentLinkedQueue queue) {
         this.bufferedReader = bufferedReader;
         this.queue = queue;
-        this.player = player;
     }
 
     public void run() {
@@ -28,7 +27,7 @@ public class Listener extends Thread {
                 if (line == null) {
                     break;
                 }
-                this.queue.add(new Packet(line, this.player, 0, 0));
+                this.queue.add(new Packet(line, this.player));
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -40,5 +39,8 @@ public class Listener extends Thread {
             e.printStackTrace();
         }
     }
+
+    public void setPlayer( int player ) { this.player = player; }
+    public int getPlayer() { return this.player; }
 
 }

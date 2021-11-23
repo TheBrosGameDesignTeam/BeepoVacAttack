@@ -1,7 +1,9 @@
 package BeepoVacAttack.BeepoVacClient;
+//import BeepoVacAttack.BeepoVacServer.PlayingState;
 import BeepoVacAttack.Networking.*;
 import jig.Entity;
 
+import jig.ResourceManager;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -12,6 +14,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class MainGame extends StateBasedGame {
 
     public static final int STARTUPSTATE = 0;
+    public static final int PLAYINGSTATE = 1;
+
+    public static final String VAC_TEST_1 = "BeepoVacAttack/resources/Vac1.png";
 
     public static ConcurrentLinkedQueue<Object> queue;
     Caller caller;
@@ -27,6 +32,8 @@ public class MainGame extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
         addState(new StartUpState());
+        addState(new PlayingState());
+        ResourceManager.loadImage(VAC_TEST_1);
     }
 
     public static void main(String[] args) {

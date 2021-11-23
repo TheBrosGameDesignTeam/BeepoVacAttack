@@ -1,16 +1,18 @@
-package BeepoVacAttack.BeepoVacServer;
+package BeepoVacAttack.GamePlay;
 
 import jig.Entity;
 import jig.ResourceManager;
 import jig.Vector;
 
-class BeepoVac extends Entity {
+public class BeepoVac extends Entity {
 
     Vector move;
 
     public BeepoVac(final float x, final float y) {
         super(x,y);
         this.move = new Vector(0,0);
+        addImageWithBoundingBox(ResourceManager
+                .getImage("BeepoVacAttack/resources/Vac1.png"));
     }
 
     public void setMove(String move) {
