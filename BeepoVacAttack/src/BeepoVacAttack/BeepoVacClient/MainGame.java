@@ -1,5 +1,6 @@
 package BeepoVacAttack.BeepoVacClient;
 //import BeepoVacAttack.BeepoVacServer.PlayingState;
+import BeepoVacAttack.GamePlay.BeepoVac;
 import BeepoVacAttack.Networking.*;
 import jig.Entity;
 
@@ -9,6 +10,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MainGame extends StateBasedGame {
@@ -22,10 +24,16 @@ public class MainGame extends StateBasedGame {
     Caller caller;
     Listener listener;
 
+    // gameplay
+    public int whichPlayer;
+    public BeepoVac player;
+
     public MainGame(String title, int width, int height) {
         super(title);
+
         queue = new ConcurrentLinkedQueue<Object>();
         Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
+
     }
 
 

@@ -46,17 +46,18 @@ class StartUpState extends BasicGameState {
         // read from ConcurrentLinkedQueue
         while (!MainGame.queue.isEmpty()) {
 
-            System.out.println("Msg received");
-
             Object message = MainGame.queue.poll();
 
             if (message instanceof Packet) {
 
                 Packet pack = (Packet) message;
 
+                // testing
+                System.out.println("Msg received " + pack.getMessage());
+                MainGame.observer.send(message);
+
                 // if the first player presses space, start the game
                 if (pack.getPlayer() == 1 && pack.getMessage().compareTo("space") == 0) {
-                    System.out.println("Go to playing state!");
                     // send the object to the observer - confirm that we change states
                     MainGame.observer.send(message);
                     // go to next state
@@ -66,8 +67,10 @@ class StartUpState extends BasicGameState {
             } else if (message instanceof Listener) {
                 Listener listener = (Listener) message;
                 MainGame.listeners.add(listener);
-                MainGame.players.add(new BeepoVac(100, 100));
                 System.out.println("Player " + listener.getPlayer() + " has joined!!!");
+
+                // this sends that a player has joined
+                MainGame.observer.send(new Packet("player"));
             }
         }
 

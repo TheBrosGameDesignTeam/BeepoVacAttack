@@ -39,29 +39,26 @@ public class Server extends Thread {
                 continue;
             }
 
-            InputStreamReader inputStreamReader;
-
+            ObjectOutputStream outputStream;
             try {
-                inputStreamReader = new InputStreamReader(socket.getInputStream());
+                outputStream = new ObjectOutputStream(socket.getOutputStream());
+            } catch (IOException e) {
+                continue;
+            }
+
+            ObjectInputStream inputStream = null;
+            try {
+                inputStream = new ObjectInputStream(socket.getInputStream());
             } catch (IOException e) {
                 e.printStackTrace();
-                continue;
             }
 
-            BufferedReader bufferedReader;
-            bufferedReader = new BufferedReader(inputStreamReader);
+            Listener listener = new Listener(inputStream, MainGame.queue);
 
-            PrintWriter printWriter;
-            try {
-                printWriter = new PrintWriter(socket.getOutputStream());
-            } catch (IOException e) {
-                continue;
-            }
-
-            Listener listener = new Listener(bufferedReader, MainGame.queue);
+            // set the player of the listener
             listener.setPlayer(++connections);
 
-            Caller caller = new Caller(printWriter);
+            Caller caller = new Caller(outputStream);
 
             MainGame.observer.add(caller);
 

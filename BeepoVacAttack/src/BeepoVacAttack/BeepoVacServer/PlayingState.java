@@ -24,7 +24,7 @@ public class PlayingState extends BasicGameState {
     @Override
     public void render(GameContainer container, StateBasedGame game,
                        Graphics g) throws SlickException {
-       MainGame bg = (MainGame)game;
+        MainGame bg = (MainGame)game;
         g.drawString("We are playing!", 100, 100);
 
     }

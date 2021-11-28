@@ -33,7 +33,7 @@ public class PlayingState extends BasicGameState {
                        int delta) throws SlickException {
 
         Input input = container.getInput();
-
+        MainGame bg = (MainGame)game;
 
     }
 

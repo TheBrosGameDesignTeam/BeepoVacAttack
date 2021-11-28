@@ -1,20 +1,31 @@
 package BeepoVacAttack.Networking;
 
 import BeepoVacAttack.Networking.Packet;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
 public class Caller {
 
-    private final PrintWriter printWriter;
+    private final ObjectOutputStream outputStream;
 
-    public Caller(PrintWriter printWriter) {
-        this.printWriter = printWriter;
+    public Caller(ObjectOutputStream outputStream) {
+        this.outputStream = outputStream;
     }
 
-    public void push(String message) {
+    public void push(Packet message){
 
-        printWriter.println(message);
-        printWriter.flush();
+        try {
+            outputStream.writeObject(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

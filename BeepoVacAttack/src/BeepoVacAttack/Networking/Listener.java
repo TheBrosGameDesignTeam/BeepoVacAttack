@@ -4,39 +4,37 @@ import BeepoVacAttack.Networking.Packet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Listener extends Thread {
 
-    private final BufferedReader bufferedReader;
+    private final ObjectInputStream inputStream;
+
     public static ConcurrentLinkedQueue<Object> queue;
     public int player = 0;
 
-    public Listener(BufferedReader bufferedReader, ConcurrentLinkedQueue queue) {
-        this.bufferedReader = bufferedReader;
+    public Listener(ObjectInputStream inputStream, ConcurrentLinkedQueue queue) {
+        this.inputStream = inputStream;
         this.queue = queue;
     }
 
     public void run() {
         // where the magic happens
-        this.queue.add(this);
+        queue.add(this);
 
         while (true) {
             try {
-                String line = bufferedReader.readLine();
+                Object line = inputStream.readObject();
                 if (line == null) {
                     break;
                 }
-                this.queue.add(new Packet(line, this.player));
+//                Packet pack = (Packet) line;
+                queue.add(line);
 
-            } catch (IOException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        }
-        try {
-            bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

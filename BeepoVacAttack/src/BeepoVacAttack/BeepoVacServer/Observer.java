@@ -16,9 +16,10 @@ public class Observer {
         this.callers.add(caller);
     }
 
+    // ensure that it is a packet
     public void send(Object message) {
         for (Caller caller : this.callers) {
-            caller.push(((Packet) message).getMessage());
+            caller.push(((Packet) message));
         }
     }
 }
