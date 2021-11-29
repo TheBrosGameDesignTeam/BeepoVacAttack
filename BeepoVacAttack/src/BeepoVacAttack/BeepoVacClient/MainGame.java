@@ -25,14 +25,15 @@ public class MainGame extends StateBasedGame {
     Listener listener;
 
     // gameplay
-    public int whichPlayer;
-    public BeepoVac player;
+    public int whichPlayer = 0;
+//    public LinkedList<BeepoVac> players;
 
     public MainGame(String title, int width, int height) {
         super(title);
 
         queue = new ConcurrentLinkedQueue<Object>();
         Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
+//        players = new LinkedList<BeepoVac>();
 
     }
 

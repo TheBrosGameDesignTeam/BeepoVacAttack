@@ -48,29 +48,30 @@ class StartUpState extends BasicGameState {
 
             Object message = MainGame.queue.poll();
 
-            if (message instanceof Packet) {
-
-                Packet pack = (Packet) message;
-
-                // testing
-                System.out.println("Msg received " + pack.getMessage());
-                MainGame.observer.send(message);
+            if (message instanceof Packet pack) {
 
                 // if the first player presses space, start the game
-                if (pack.getPlayer() == 1 && pack.getMessage().compareTo("space") == 0) {
-                    // send the object to the observer - confirm that we change states
-                    MainGame.observer.send(message);
-                    // go to next state
+                if (pack.getPlayer()==1 && pack.getMessage().compareTo("space")==0) {
+
+                    // create each BeepoVac
+                    for (int i=0; i < MainGame.listeners.size(); i++){
+                        MainGame.players.add(new BeepoVac(100, 100));
+                    }
+
                     bg.enterState(MainGame.PLAYINGSTATE);
                 }
 
-            } else if (message instanceof Listener) {
-                Listener listener = (Listener) message;
+            } else if (message instanceof Listener listener) {
+
                 MainGame.listeners.add(listener);
                 System.out.println("Player " + listener.getPlayer() + " has joined!!!");
 
+                // send back which player the client is
+                Packet pack = new Packet("player");
+                pack.setPlayer(listener.getPlayer());
+
                 // this sends that a player has joined
-                MainGame.observer.send(new Packet("player"));
+                MainGame.observer.send(pack);
             }
         }
 

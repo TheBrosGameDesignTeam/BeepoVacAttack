@@ -1,4 +1,5 @@
 package BeepoVacAttack.BeepoVacClient;
+import BeepoVacAttack.GamePlay.BeepoVac;
 import BeepoVacAttack.Networking.Packet;
 import BeepoVacAttack.Networking.*;
 import org.newdawn.slick.GameContainer;
@@ -72,7 +73,10 @@ class StartUpState extends BasicGameState {
 
         // press space if you are ready to start the game!
         if (input.isKeyPressed(Input.KEY_SPACE)){
-            bg.caller.push(new Packet("space"));
+            // send both the player and the message.
+            Packet pack = new Packet("space");
+            pack.setPlayer(bg.whichPlayer);
+            bg.caller.push(pack);
         }
 
         // this is where the client gets info back from the observer
@@ -81,17 +85,14 @@ class StartUpState extends BasicGameState {
             Object message = MainGame.queue.poll();
 
             if (message instanceof Packet pack) {
-                System.out.println("Returned from server " + ((Packet) message).getMessage());
 
                 // here we check to see which player this client is
                 if (pack.getMessage().compareTo("player") == 0) {
-                    bg.whichPlayer = pack.getPlayer();
+                    if (bg.whichPlayer == 0) {
+                        bg.whichPlayer = pack.getPlayer();
+                    }
                     System.out.println("I am player " + bg.whichPlayer);
-                }
-
-                // here we would check for confirmation return from the server to switch to the first level
-                if (pack.getMessage().compareTo("space") == 0) {
-                    System.out.println("Going to playing state");
+                } else {
                     bg.enterState(MainGame.PLAYINGSTATE);
                 }
             }

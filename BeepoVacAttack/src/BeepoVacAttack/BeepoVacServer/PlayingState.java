@@ -2,6 +2,7 @@ package BeepoVacAttack.BeepoVacServer;
 
 import BeepoVacAttack.Networking.Listener;
 import BeepoVacAttack.Networking.Packet;
+import jig.Vector;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -35,6 +36,27 @@ public class PlayingState extends BasicGameState {
 
         Input input = container.getInput();
         MainGame bg = (MainGame)game;
+
+        // read from ConcurrentLinkedQueue
+        while (!MainGame.queue.isEmpty()) {
+
+            Object message = MainGame.queue.poll();
+            Packet pack = (Packet) message;
+//            System.out.println(pack.getMessage());
+            if (pack.getPlayer() == 1) {
+                MainGame.players.get(0).setMove(pack.getMessage());
+            }
+
+//            else if (pack.getPlayer() == 2) {
+//                MainGame.players.get(1).setMove(pack.getMessage());
+//            }
+
+            // get the pos of each player and save it in snapshot
+            Packet snapShot = new Packet("snapshot");
+            snapShot.setP1(MainGame.players.get(0).getPosition());
+            MainGame.observer.send(snapShot);
+
+        }
 
     }
 
