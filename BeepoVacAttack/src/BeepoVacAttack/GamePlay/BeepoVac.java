@@ -11,8 +11,6 @@ public class BeepoVac extends Entity {
     public BeepoVac(final float x, final float y) {
         super(x,y);
         this.move = new Vector(0,0);
-        addImageWithBoundingBox(ResourceManager
-                .getImage("BeepoVacAttack/resources/Vac1.png"));
     }
 
     public void setMove(String move) {

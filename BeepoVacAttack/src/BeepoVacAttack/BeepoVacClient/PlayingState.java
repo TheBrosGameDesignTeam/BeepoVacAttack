@@ -12,7 +12,7 @@ import BeepoVacAttack.Networking.Packet;
 
 public class PlayingState extends BasicGameState {
 
-    public float p1X = 0, p1Y = 0;
+//    public float p1X = 0, p1Y = 0;
 
     @Override
     public void init(GameContainer container, StateBasedGame game)
@@ -30,8 +30,9 @@ public class PlayingState extends BasicGameState {
         MainGame bg = (MainGame)game;
         g.drawString("We are playing!", 100, 100);
 
-        if (this.p1X != 0 && this.p1Y != 0)
-            g.drawImage(ResourceManager.getImage(MainGame.VAC_TEST_1), this.p1X, this.p1Y);
+        bg.players.forEach(
+            (player) -> g.drawImage(ResourceManager.getImage(MainGame.VAC_TEST_1), player.getX(), player.getY())
+        );
 
     }
 
@@ -70,12 +71,13 @@ public class PlayingState extends BasicGameState {
             Object message = MainGame.queue.poll();
             Packet test = (Packet) message;
 
-            this.p1X = test.p1X;
-            this.p1Y = test.p1Y;
-
-//            System.out.println(test.getMessage());
+            // make sure this is a snapshot
+            if (test.getMessage().compareTo("snapshot")==0) {
+                // set each position
+                bg.players.get(0).setBeepoVacPos(test.p1X, test.p1Y);
+                bg.players.get(1).setBeepoVacPos(test.p2X, test.p2Y);
+            }
         }
-
     }
 
     @Override

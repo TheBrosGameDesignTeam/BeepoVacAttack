@@ -43,21 +43,20 @@ public class PlayingState extends BasicGameState {
             Object message = MainGame.queue.poll();
             Packet pack = (Packet) message;
 //            System.out.println(pack.getMessage());
+
+            // temp - move which player that pack belongs to
             if (pack.getPlayer() == 1) {
                 MainGame.players.get(0).setMove(pack.getMessage());
+            } else {
+                MainGame.players.get(1).setMove(pack.getMessage());
             }
 
-//            else if (pack.getPlayer() == 2) {
-//                MainGame.players.get(1).setMove(pack.getMessage());
-//            }
-
-            // get the pos of each player and save it in snapshot
-            Packet snapShot = new Packet("snapshot");
-            snapShot.setP1(MainGame.players.get(0).getPosition());
-            MainGame.observer.send(snapShot);
+            // get the pos of each player and save it in a snapshot
+            Packet retPack = new Packet("snapshot");
+            retPack.setSnapshot(MainGame.players);
+            MainGame.observer.send(retPack);
 
         }
-
     }
 
     @Override

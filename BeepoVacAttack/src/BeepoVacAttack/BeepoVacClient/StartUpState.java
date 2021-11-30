@@ -74,6 +74,7 @@ class StartUpState extends BasicGameState {
         // press space if you are ready to start the game!
         if (input.isKeyPressed(Input.KEY_SPACE)){
             // send both the player and the message.
+            System.out.println("We are sending space");
             Packet pack = new Packet("space");
             pack.setPlayer(bg.whichPlayer);
             bg.caller.push(pack);
@@ -88,11 +89,18 @@ class StartUpState extends BasicGameState {
 
                 // here we check to see which player this client is
                 if (pack.getMessage().compareTo("player") == 0) {
-                    if (bg.whichPlayer == 0) {
-                        bg.whichPlayer = pack.getPlayer();
-                    }
+
+                    // assign which player if not assigned
+                    if (bg.whichPlayer == 0) bg.whichPlayer = pack.getPlayer();
                     System.out.println("I am player " + bg.whichPlayer);
-                } else {
+
+                } else if (pack.getMessage().compareTo("goToPlayingState") == 0) {
+
+                    // create the beepovacs
+                    for (int i=0; i<pack.getHowManyPlayers(); i++)
+                        bg.players.add(new ClientBeepoVac());
+                    System.out.println("This is how many Beeps we have: " + bg.players.size());
+
                     bg.enterState(MainGame.PLAYINGSTATE);
                 }
             }
