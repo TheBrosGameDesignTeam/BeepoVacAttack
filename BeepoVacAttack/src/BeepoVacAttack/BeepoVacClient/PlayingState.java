@@ -45,6 +45,7 @@ public class PlayingState extends BasicGameState {
 
         Packet pack = null;
 
+        // temp - need to refactor
         if (input.isKeyDown(Input.KEY_A)){
             pack = new Packet("a");
             pack.setPlayer(bg.whichPlayer);
@@ -73,7 +74,9 @@ public class PlayingState extends BasicGameState {
 
             // make sure this is a snapshot
             if (test.getMessage().compareTo("snapshot")==0) {
-                // set each position
+
+                // make an array of all the positions we need.
+                // set each position to each Beepo
                 bg.players.get(0).setBeepoVacPos(test.p1X, test.p1Y);
                 bg.players.get(1).setBeepoVacPos(test.p2X, test.p2Y);
             }

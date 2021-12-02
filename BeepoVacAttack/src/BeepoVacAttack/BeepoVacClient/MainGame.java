@@ -1,6 +1,4 @@
 package BeepoVacAttack.BeepoVacClient;
-//import BeepoVacAttack.BeepoVacServer.PlayingState;
-import BeepoVacAttack.GamePlay.BeepoVac;
 import BeepoVacAttack.Networking.*;
 import jig.Entity;
 
@@ -51,6 +49,7 @@ public class MainGame extends StateBasedGame {
             app = new AppGameContainer(new MainGame("Client", 800, 600));
             app.setDisplayMode(800, 600, false);
             app.setVSync(true);
+            app.setAlwaysRender(true);
             app.start();
         } catch (SlickException e) {
             e.printStackTrace();
