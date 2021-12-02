@@ -18,6 +18,7 @@ public class MainGame extends StateBasedGame {
 
     public static final String VAC_TEST_1 = "BeepoVacAttack/resources/Vac1.png";
 
+    // networking
     public static ConcurrentLinkedQueue<Object> queue;
     Caller caller;
     Listener listener;

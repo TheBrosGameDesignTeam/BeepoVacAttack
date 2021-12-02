@@ -74,7 +74,6 @@ class StartUpState extends BasicGameState {
         // press space if you are ready to start the game!
         if (input.isKeyPressed(Input.KEY_SPACE)){
             // send both the player and the message.
-            System.out.println("We are sending space");
             Packet pack = new Packet("space");
             pack.setPlayer(bg.whichPlayer);
             bg.caller.push(pack);
@@ -99,7 +98,6 @@ class StartUpState extends BasicGameState {
                     // create the beepovacs
                     for (int i=0; i<pack.getHowManyPlayers(); i++)
                         bg.players.add(new ClientBeepoVac());
-                    System.out.println("This is how many Beeps we have: " + bg.players.size());
 
                     bg.enterState(MainGame.PLAYINGSTATE);
                 }

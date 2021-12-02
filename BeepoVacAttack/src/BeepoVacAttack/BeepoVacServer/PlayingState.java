@@ -42,12 +42,11 @@ public class PlayingState extends BasicGameState {
 
             Object message = MainGame.queue.poll();
             Packet pack = (Packet) message;
-//            System.out.println(pack.getMessage());
 
-            // temp - move which player that pack belongs to
+            // move which player that pack belongs to
             if (pack.getPlayer() == 1) {
                 MainGame.players.get(0).setMove(pack.getMessage());
-            } else {
+            } else if (pack.getPlayer() == 2){
                 MainGame.players.get(1).setMove(pack.getMessage());
             }
 

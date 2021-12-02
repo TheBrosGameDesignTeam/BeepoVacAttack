@@ -1,6 +1,7 @@
 package BeepoVacAttack.BeepoVacClient;
 
 //import BeepoVacAttack.BeepoVacServer.MainGame;
+import BeepoVacAttack.GamePlay.BeepoVac;
 import jig.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -75,10 +76,12 @@ public class PlayingState extends BasicGameState {
             // make sure this is a snapshot
             if (test.getMessage().compareTo("snapshot")==0) {
 
-                // make an array of all the positions we need.
-                // set each position to each Beepo
-                bg.players.get(0).setBeepoVacPos(test.p1X, test.p1Y);
-                bg.players.get(1).setBeepoVacPos(test.p2X, test.p2Y);
+                // load all positions into beepoVacs
+                for (ClientBeepoVac beepoVac : bg.players) {
+                    float x = test.positions.poll();
+                    float y = test.positions.poll();
+                    beepoVac.setBeepoVacPos(x,y);
+                }
             }
         }
     }
