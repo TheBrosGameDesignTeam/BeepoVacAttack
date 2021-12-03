@@ -2,7 +2,7 @@
 <Level>
     <FurnitureRecipes>
         <FurnitureRecipe name="chairRight">
-            <Image src="BeepoVacLevelEditor/chairRight.png" x="0" y="0" w="237" h="244" />
+            <Image src="chairRight.png" x="0" y="0" w="237" h="244" />
             <Wall x="68" y="75" w="24" h="24" />
             <Wall x="68" y="186" w="24" h="24" />
             <Wall x="153" y="75" w="24" h="24" />
@@ -10,7 +10,7 @@
         </FurnitureRecipe>
 
         <FurnitureRecipe name="chairLeft">
-            <Image src="BeepoVacLevelEditor/chairLeft.png" x="0" y="0" w="237" h="244" />
+            <Image src="chairLeft.png" x="0" y="0" w="237" h="244" />
             <Wall x="60" y="75" w="24" h="24" />
             <Wall x="60" y="186" w="24" h="24" />
             <Wall x="145" y="75" w="24" h="24" />
@@ -18,7 +18,7 @@
         </FurnitureRecipe>
 
         <FurnitureRecipe name="sofa">
-            <Image src="BeepoVacLevelEditor/sofa.png" x="0" y="0" w="499" h="254" />
+            <Image src="sofa.png" x="0" y="0" w="499" h="254" />
             <Wall x="64" y="75" w="24" h="24" />
             <Wall x="64" y="214" w="24" h="24" />
             <Wall x="413" y="75" w="24" h="24" />
@@ -26,7 +26,7 @@
         </FurnitureRecipe>
 
         <FurnitureRecipe name="desk">
-            <Image src="BeepoVacLevelEditor/desk.png" x="0" y="0" w="273" h="393" />
+            <Image src="desk.png" x="0" y="0" w="273" h="393" />
             <Wall x="65" y="65" w="31" h="31" />
             <Wall x="65" y="333" w="31" h="31" />
             <Wall x="192" y="65" w="31" h="31" />
@@ -34,17 +34,17 @@
         </FurnitureRecipe>
 
         <FurnitureRecipe name="tv">
-            <Image src="BeepoVacLevelEditor/television.png" x="0" y="0" w="319" h="101" />
+            <Image src="television.png" x="0" y="0" w="319" h="101" />
             <Wall x="72" y="36" w="169" h="42" />
         </FurnitureRecipe>
 
         <FurnitureRecipe name="lamp">
-            <Image src="BeepoVacLevelEditor/lamp.png" x="0" y="0" w="147" h="144" />
+            <Image src="lamp.png" x="0" y="0" w="147" h="144" />
             <Wall x="78" y="92" r="38" />
         </FurnitureRecipe>
 
         <FurnitureRecipe name="bed">
-            <Image src="BeepoVacLevelEditor/bed.png" x="0" y="0" w="440" h="546" />
+            <Image src="bed.png" x="0" y="0" w="440" h="546" />
             <Wall x="70" y="84" w="40" h="40" />
             <Wall x="70" y="463" w="40" h="40" />
             <Wall x="343" y="84" w="40" h="40" />
@@ -52,7 +52,7 @@
         </FurnitureRecipe>
 
         <FurnitureRecipe name="coffeeTable">
-            <Image src="BeepoVacLevelEditor/coffeeTable.png" x="0" y="0" w="356" h="191" />
+            <Image src="coffeeTable.png" x="0" y="0" w="356" h="191" />
             <Wall x="97" y="82" r="13" />
             <Wall x="97" y="152" r="13" />
             <Wall x="268" y="82" r="13" />
@@ -60,7 +60,7 @@
         </FurnitureRecipe>
 
         <FurnitureRecipe name="smallTable">
-            <Image src="BeepoVacLevelEditor/smallTable.png" x="0" y="0" w="232" h="288" />
+            <Image src="smallTable.png" x="0" y="0" w="232" h="288" />
             <Wall x="120" y="105" r="40" />
             <Wall x="99" y="134" w="40" h="20" />
             <Wall x="99" y="252" w="40" h="20" />
@@ -69,7 +69,7 @@
     </FurnitureRecipes>
 
     <World>
-        <Image src="BeepoVacLevelEditor/BasicFloorPlans.png" x="36" y="9" w="2600" h="1900" />
+        <Image src="BasicFloorPlans.png" x="36" y="9" w="2600" h="1900" />
 
         <Wall x="142" y="14" w="2426" h="120" />
         <Wall x="22" y="14" w="120" h="1851" />

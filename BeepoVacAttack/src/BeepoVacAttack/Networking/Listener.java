@@ -3,6 +3,7 @@ import BeepoVacAttack.BeepoVacServer.MainGame;
 import BeepoVacAttack.Networking.Packet;
 
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.concurrent.ConcurrentLinkedQueue;

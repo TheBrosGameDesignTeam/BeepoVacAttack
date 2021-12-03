@@ -1,6 +1,5 @@
 package BeepoVacAttack.GamePlay;
 
-import BufferedImageSpike.DustMap;
 import jig.Vector;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -38,7 +37,7 @@ public class Level {
     public static Level fromXML(String pathToXML) throws Exception {
         Level newLevel = new Level();
 
-        File xmlFile = new File(pathToXML);
+        File xmlFile = new File("BeepoVacAttack/BeepoVacAttack/src/BeepoVacAttack/resources/level/" + pathToXML);
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();

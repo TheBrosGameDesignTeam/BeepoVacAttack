@@ -29,7 +29,7 @@ public class PlayingState extends BasicGameState {
         container.setSoundOn(false);
 
         try {
-            level = Level.fromXML("BeepoVacAttack/BeepoVacAttack/src/BeepoVacAttack/resources/level/ExampleLevel.xml");
+            level = Level.fromXML("ExampleLevel.xml");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -52,7 +52,7 @@ public class PlayingState extends BasicGameState {
         level.renderBackground(g);
 
         bg.players.forEach(
-            (player) -> g.drawImage(ResourceManager.getImage(MainGame.VAC_TEST_1), player.getX(), player.getY())
+            (player) -> player.render(g)
         );
 
         level.renderOverlay(g);
