@@ -24,7 +24,7 @@ public class ClientBeepoVac {
     public void setBeepoVacPos(float x, float y, Level l) {
         this.x = x; this.y = y;
 
-        l.eraseCircle(Math.round(x) + radius / 2, Math.round(y) + radius / 2, Math.round(radius * 1.4f));
+        l.eraseCircle(Math.round(x) + radius / 2, Math.round(y) + radius / 2, Math.round(radius));
     }
 
     public void render(Graphics g) {
