@@ -34,6 +34,7 @@ public class Listener extends Thread {
 
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
+                System.exit(0);
             }
         }
     }

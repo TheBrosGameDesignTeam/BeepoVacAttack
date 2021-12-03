@@ -11,9 +11,14 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import BeepoVacAttack.Networking.Packet;
 
+import BeepoVacLevelEditor.Level;
+
+
 public class PlayingState extends BasicGameState {
 
 //    public float p1X = 0, p1Y = 0;
+
+    private Level level = null;
 
     @Override
     public void init(GameContainer container, StateBasedGame game)
@@ -23,6 +28,20 @@ public class PlayingState extends BasicGameState {
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         container.setSoundOn(false);
+
+        try {
+            level = Level.fromXML("BeepoVacLevelEditor/ExampleLevel.xml");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (level == null) {
+            System.out.println("level couldn't be loaded :(");
+            return;
+        }
+
+        level.initializeDustMap();
     }
 
     @Override
@@ -31,9 +50,13 @@ public class PlayingState extends BasicGameState {
         MainGame bg = (MainGame)game;
         g.drawString("We are playing!", 100, 100);
 
+        level.renderBackground(g);
+
         bg.players.forEach(
             (player) -> g.drawImage(ResourceManager.getImage(MainGame.VAC_TEST_1), player.getX(), player.getY())
         );
+
+        level.renderOverlay(g);
 
     }
 
@@ -80,7 +103,7 @@ public class PlayingState extends BasicGameState {
                 for (ClientBeepoVac beepoVac : bg.players) {
                     float x = test.positions.poll();
                     float y = test.positions.poll();
-                    beepoVac.setBeepoVacPos(x,y);
+                    beepoVac.setBeepoVacPos(x,y, level);
                 }
             }
         }
