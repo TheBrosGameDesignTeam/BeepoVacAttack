@@ -29,7 +29,7 @@ public class PlayingState extends BasicGameState {
         container.setSoundOn(false);
 
         try {
-            level = Level.fromXML("BeepoVacAttack/BeepoVacAttack/src/BeepoVacAttack/resources/level/ExampleLevel.xml");
+            level = Level.fromXML("ExampleLevel.xml");
         }
         catch (Exception e) {
             e.printStackTrace();
