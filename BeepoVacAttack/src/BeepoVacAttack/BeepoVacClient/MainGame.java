@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MainGame extends StateBasedGame {
+    private static MainGame instance;
 
     public static final int STARTUPSTATE = 0;
     public static final int PLAYINGSTATE = 1;
@@ -27,14 +28,24 @@ public class MainGame extends StateBasedGame {
     public int whichPlayer = 0;
     public LinkedList<ClientBeepoVac> players;
 
+    // store screen width and height
+    public final int ScreenWidth;
+    public final int ScreenHeight;
+
     public MainGame(String title, int width, int height) {
         super(title);
+        ScreenWidth = width;
+        ScreenHeight = height;
 
         queue = new ConcurrentLinkedQueue<Object>();
         Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
         players = new LinkedList<ClientBeepoVac>();
 
+        instance = this;
     }
+
+    public static int getWidth() { return instance.ScreenWidth; }
+    public static int getHeight() { return instance.ScreenHeight; }
 
 
     @Override
