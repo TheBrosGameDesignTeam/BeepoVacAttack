@@ -1,6 +1,5 @@
 package BeepoVacAttack.GamePlay;
 
-import BufferedImageSpike.DustMap;
 import jig.Vector;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
