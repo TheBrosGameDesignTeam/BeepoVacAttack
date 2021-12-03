@@ -198,7 +198,7 @@ public class Level {
     }
 
     public void initializeDustMap() {
-        dustMap = new DustMap(2671, 1917, 0.1f);
+        dustMap = new DustMap(2671, 1917, 0.2f);
         dustMap.resetClear();
 
         for (LevelDustArea dustArea : dustAreas) {
