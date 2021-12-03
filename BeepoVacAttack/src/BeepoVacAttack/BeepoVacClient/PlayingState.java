@@ -1,7 +1,6 @@
 package BeepoVacAttack.BeepoVacClient;
 
 //import BeepoVacAttack.BeepoVacServer.MainGame;
-import BeepoVacAttack.GamePlay.BeepoVac;
 import jig.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,7 +10,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import BeepoVacAttack.Networking.Packet;
 
-import BeepoVacLevelEditor.Level;
+import BeepoVacAttack.GamePlay.Level;
 
 
 public class PlayingState extends BasicGameState {
@@ -30,7 +29,7 @@ public class PlayingState extends BasicGameState {
         container.setSoundOn(false);
 
         try {
-            level = Level.fromXML("BeepoVacLevelEditor/ExampleLevel.xml");
+            level = Level.fromXML("BeepoVacAttack/BeepoVacAttack/src/BeepoVacAttack/resources/level/ExampleLevel.xml");
         }
         catch (Exception e) {
             e.printStackTrace();

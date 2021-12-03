@@ -1,6 +1,6 @@
 package BeepoVacAttack.BeepoVacClient;
 
-import BeepoVacLevelEditor.Level;
+import BeepoVacAttack.GamePlay.Level;
 
 public class ClientBeepoVac {
 

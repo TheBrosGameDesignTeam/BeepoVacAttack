@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Level>
+    <FurnitureRecipes>
+        <FurnitureRecipe name="chairRight">
+            <Image src="BeepoVacLevelEditor/chairRight.png" x="0" y="0" w="237" h="244" />
+            <Wall x="68" y="75" w="24" h="24" />
+            <Wall x="68" y="186" w="24" h="24" />
+            <Wall x="153" y="75" w="24" h="24" />
+            <Wall x="153" y="186" w="24" h="24" />
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="chairLeft">
+            <Image src="BeepoVacLevelEditor/chairLeft.png" x="0" y="0" w="237" h="244" />
+            <Wall x="60" y="75" w="24" h="24" />
+            <Wall x="60" y="186" w="24" h="24" />
+            <Wall x="145" y="75" w="24" h="24" />
+            <Wall x="145" y="186" w="24" h="24" />
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="sofa">
+            <Image src="BeepoVacLevelEditor/sofa.png" x="0" y="0" w="499" h="254" />
+            <Wall x="64" y="75" w="24" h="24" />
+            <Wall x="64" y="214" w="24" h="24" />
+            <Wall x="413" y="75" w="24" h="24" />
+            <Wall x="413" y="214" w="24" h="24" />
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="desk">
+            <Image src="BeepoVacLevelEditor/desk.png" x="0" y="0" w="273" h="393" />
+            <Wall x="65" y="65" w="31" h="31" />
+            <Wall x="65" y="333" w="31" h="31" />
+            <Wall x="192" y="65" w="31" h="31" />
+            <Wall x="192" y="333" w="31" h="31" />
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="tv">
+            <Image src="BeepoVacLevelEditor/television.png" x="0" y="0" w="319" h="101" />
+            <Wall x="72" y="36" w="169" h="42" />
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="lamp">
+            <Image src="BeepoVacLevelEditor/lamp.png" x="0" y="0" w="147" h="144" />
+            <Wall x="78" y="92" r="38" />
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="bed">
+            <Image src="BeepoVacLevelEditor/bed.png" x="0" y="0" w="440" h="546" />
+            <Wall x="70" y="84" w="40" h="40" />
+            <Wall x="70" y="463" w="40" h="40" />
+            <Wall x="343" y="84" w="40" h="40" />
+            <Wall x="343" y="463" w="40" h="40" />
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="coffeeTable">
+            <Image src="BeepoVacLevelEditor/coffeeTable.png" x="0" y="0" w="356" h="191" />
+            <Wall x="97" y="82" r="13" />
+            <Wall x="97" y="152" r="13" />
+            <Wall x="268" y="82" r="13" />
+            <Wall x="268" y="152" r="13" />
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="smallTable">
+            <Image src="BeepoVacLevelEditor/smallTable.png" x="0" y="0" w="232" h="288" />
+            <Wall x="120" y="105" r="40" />
+            <Wall x="99" y="134" w="40" h="20" />
+            <Wall x="99" y="252" w="40" h="20" />
+        </FurnitureRecipe>
+
+    </FurnitureRecipes>
+
+    <World>
+        <Image src="BeepoVacLevelEditor/BasicFloorPlans.png" x="36" y="9" w="2600" h="1900" />
+
+        <Wall x="142" y="14" w="2426" h="120" />
+        <Wall x="22" y="14" w="120" h="1851" />
+        <Wall x="1230" y="134" w="215" h="648" />
+        <Wall x="1445" y="134" w="235" h="130" />
+        <Wall x="1680" y="134" w="163" h="505" />
+        <Wall x="1843" y="134" w="55" h="630" />
+        <Wall x="2513" y="134" w="55" h="1611" />
+        <Wall x="1652" y="765" w="272" h="45" />
+        <Wall x="2086" y="765" w="427" h="45" />
+        <Wall x="142" y="996" w="1059" h="60" />
+        <Wall x="286" y="1056" w="71" h="195" />
+        <Wall x="286" y="1634" w="71" h="110" />
+        <Wall x="142" y="1745" w="2426" h="120" />
+        <Wall x="1389" y="1235" w="758" h="45" />
+        <Wall x="1869" y="1280" w="70" h="61" />
+        <Wall x="1869" y="1494" w="70" h="251" />
+        <Wall x="2330" y="1235" w="183" h="510" />
+        <Wall x="1389" y="1603" w="70" h="141" />
+        <Wall x="1389" y="1559" w="112" h="45" />
+        <Wall x="1827" y="1559" w="42" h="45" />
+        <Wall x="1389" y="996" w="70" h="239" />
+        <Wall x="1807" y="996" w="70" h="239" />
+        <Wall x="2330" y="1067" w="41" h="168" />
+        <Wall x="1877" y="996" w="239" h="45" />
+        <Wall x="2046" y="1198" w="70" h="37" />
+
+        <Wall x="2102" y="1603" w="228" h="142" />
+        <Wall x="1972" y="1603" w="92" h="142" />
+
+
+        <Surface x="1445" y="264" w="235" h="518" type="tile" /> <!-- kitchen tile -->
+        <Surface x="1680" y="639" w="163" h="143" type="tile" /> <!-- small kitchen tile -->
+        <Surface x="1901" y="1243" w="456" h="502" type="tile" /> <!-- bathroom tile -->
+        <Surface x="144" y="1056" w="176" h="708" type="tile" /> <!-- balcony tile -->
+
+        <DustArea x="142" y="134" w="2371" h="1611" />
+
+        <!-- Living room furniture -->
+        <Surface x="322" y="233" w="652" h="437" type="carpet" />
+        <Furniture name="lamp" x="277" y="98" />
+        <Furniture name="sofa" x="399" y="82" />
+        <Furniture name="lamp" x="867" y="98" />
+        <Furniture name="chairRight" x="190" y="349" />
+        <Furniture name="chairLeft" x="864" y="349" />
+        <Furniture name="coffeeTable" x="459" y="360" />
+        <Furniture name="tv" x="492" y="908" />
+        <Furniture name="smallTable" x="119" y="677" />
+
+        <!-- Den -->
+        <Surface x="1998" y="233" w="421" h="395" type="carpet" />
+        <Furniture name="chairRight" x="2058" y="230" />
+        <Furniture name="desk" x="2240" y="155" />
+
+        <!-- Bedroom -->
+        <Surface x="574" y="1230" w="421" h="395" type="carpet" />
+        <Furniture name="chairLeft" x="1163" y="1501" />
+        <Furniture name="tv" x="625" y="1025" />
+        <Furniture name="lamp" x="482" y="1611" />
+        <Furniture name="bed" x="561" y="1235" />
+        <Furniture name="lamp" x="940" y="1611" />
+    </World>
+</Level>
