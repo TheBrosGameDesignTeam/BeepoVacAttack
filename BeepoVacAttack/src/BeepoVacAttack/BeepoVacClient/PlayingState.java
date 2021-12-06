@@ -47,15 +47,14 @@ public class PlayingState extends BasicGameState {
         level.initializeDustMap();
     }
 
-    private void centerCameraAt(Vector position, float zoom, Graphics g) {
+    private void centerCameraAt(Vector position, Graphics g) {
         // Store some stuff
         float hWidth = MainGame.getWidth() / 2;
         float hHeight = MainGame.getHeight() / 2;
 
         // Translate the camera so that the center is at the origin
-        g.translate(hWidth, hHeight);
-        // Scale by what we want
-        g.scale(zoom, zoom);
+        g.translate(MainGame.getWidth(), MainGame.getHeight());
+
         // Translate the camera back
         g.translate(-hWidth - position.getX(), -hHeight - position.getY());
 
@@ -68,7 +67,7 @@ public class PlayingState extends BasicGameState {
         MainGame bg = (MainGame)game;
         g.drawString("We are playing!", 100, 100);
 
-        centerCameraAt(cameraPosition, cameraScale, g);
+        centerCameraAt(cameraPosition, g);
 
         level.renderBackground(g);
 
@@ -120,6 +119,10 @@ public class PlayingState extends BasicGameState {
             bg.caller.push(pack);
             cameraPosition = cameraPosition.add(up.scale(deltaAdjustedSpeed));
         }
+
+        ClientBeepoVac myBeepoVac = bg.players.get(bg.whichPlayer - 1);
+
+        cameraPosition = new Vector(myBeepoVac.getX(), myBeepoVac.getY());
 
         // take in the game state and apply it.
         while (!MainGame.queue.isEmpty()) {
