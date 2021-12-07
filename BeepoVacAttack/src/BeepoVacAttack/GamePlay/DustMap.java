@@ -1,11 +1,15 @@
 package BeepoVacAttack.GamePlay;
 
+import BeepoVacAttack.BeepoVacClient.ClientBeepoVac;
+import BeepoVacAttack.BeepoVacClient.MainGame;
 import jig.Vector;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.RasterFormatException;
 import java.io.IOException;
 
 public class DustMap {
@@ -109,6 +113,7 @@ public class DustMap {
         int totalDustAfter = getClearPixels();
         int dustPickedUp = totalDustAfter - totalDustBefore;
 
+
         updateSlickImage();
         return dustPickedUp;
     }
@@ -140,12 +145,33 @@ public class DustMap {
         Texture i = null;
         try
         {
-            i = BufferedImageUtil.getTexture("image", image);
+            ClientBeepoVac myBeepoVac = MainGame.instance.players.get(MainGame.instance.whichPlayer - 1);
+            float x = myBeepoVac.getX();
+            float y = myBeepoVac.getY();
+
+            int subimageX = Math.round(Math.max(0, (x - MainGame.getWidth() / 2)) * ratio);
+            int subimageY = Math.round(Math.max(0, (y - MainGame.getHeight() / 2)) * ratio);
+
+
+            BufferedImage subimage = image.getSubimage(
+                    subimageX, subimageY,
+                    Math.round(MainGame.getWidth() * ratio), Math.round(MainGame.getHeight() * ratio)
+            );
+            i = BufferedImageUtil.getTexture("image", subimage);
+            slickImage = new org.newdawn.slick.Image(i);
+
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (RasterFormatException e) {
+            e.printStackTrace();
+            try {
+                slickImage = new org.newdawn.slick.Image(Math.round(MainGame.getWidth() * ratio), Math.round(MainGame.getHeight() * ratio));
+            } catch (SlickException e2) {
+                e2.printStackTrace();
+            }
         }
 
-        slickImage = new org.newdawn.slick.Image(i);
+
     }
 
 

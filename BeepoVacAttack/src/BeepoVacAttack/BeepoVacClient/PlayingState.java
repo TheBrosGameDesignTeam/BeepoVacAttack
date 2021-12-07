@@ -52,13 +52,11 @@ public class PlayingState extends BasicGameState {
         float hWidth = MainGame.getWidth() / 2;
         float hHeight = MainGame.getHeight() / 2;
 
-        // Translate the camera so that the center is at the origin
-        g.translate(MainGame.getWidth(), MainGame.getHeight());
+        float camX = hWidth - position.getX();
+        float camY = hHeight - position.getY();
 
-        // Translate the camera back
-        g.translate(-hWidth - position.getX(), -hHeight - position.getY());
-
-        g.pushTransform();
+        // Translate the camera
+        g.translate(camX, camY);
     }
 
     @Override
@@ -122,6 +120,8 @@ public class PlayingState extends BasicGameState {
 
         ClientBeepoVac myBeepoVac = bg.players.get(bg.whichPlayer - 1);
 
+
+        // TODO: bound camera at edges of level
         cameraPosition = new Vector(myBeepoVac.getX(), myBeepoVac.getY());
 
         // take in the game state and apply it.
