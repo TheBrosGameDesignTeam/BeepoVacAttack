@@ -1,5 +1,7 @@
 package BeepoVacAttack.GamePlay;
 
+import BeepoVacAttack.BeepoVacClient.ClientBeepoVac;
+import BeepoVacAttack.BeepoVacClient.MainGame;
 import jig.Vector;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -198,7 +200,7 @@ public class Level {
     }
 
     public void initializeDustMap() {
-        dustMap = new DustMap(2671, 1917, 0.1f);
+        dustMap = new DustMap(2671, 1917, 0.15f);
         dustMap.resetClear();
 
         for (LevelDustArea dustArea : dustAreas) {
@@ -236,10 +238,15 @@ public class Level {
 
         Image dustMapImage = getSlickDustMapImage();
         if (dustMapImage != null) {
+
+
+            ClientBeepoVac b = MainGame.instance.players.get(MainGame.instance.whichPlayer - 1);
+            float x = b.getX() - MainGame.getWidth() / 2;
+            float y = b.getY() - MainGame.getHeight() / 2;
             dustMapImage.draw(
-                    0, 0,
-                    dustMapImage.getWidth() / getDustMapRatio(),
-                    dustMapImage.getHeight() / getDustMapRatio()
+                    x, y,
+                    MainGame.getWidth(),
+                    MainGame.getHeight()
             );
         }
 

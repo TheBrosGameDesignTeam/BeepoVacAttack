@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MainGame extends StateBasedGame {
-    private static MainGame instance;
+    public static MainGame instance;
 
     public static final int STARTUPSTATE = 0;
     public static final int PLAYINGSTATE = 1;
