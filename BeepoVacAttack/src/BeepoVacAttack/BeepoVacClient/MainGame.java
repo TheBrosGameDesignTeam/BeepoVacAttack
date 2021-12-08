@@ -1,4 +1,5 @@
 package BeepoVacAttack.BeepoVacClient;
+import BeepoVacAttack.GamePlay.Level;
 import BeepoVacAttack.Networking.*;
 import jig.Entity;
 
@@ -42,6 +43,9 @@ public class MainGame extends StateBasedGame {
         players = new LinkedList<ClientBeepoVac>();
 
         instance = this;
+
+        ClientBeepoVac.loadResources();
+        Level.loadResources();
     }
 
     public static int getWidth() { return instance.ScreenWidth; }
