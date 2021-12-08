@@ -90,39 +90,36 @@ public class PlayingState extends BasicGameState {
         Vector down = up.scale(-1);
         float deltaAdjustedSpeed = playerSpeed * ((float)delta / 1000.0f);
 
+        // Deal with player input. Get it ready to send
         Packet pack = null;
+        String sendMove = "";
 
-        // temp - need to refactor
         if (input.isKeyDown(Input.KEY_A)){
-            pack = new Packet("a");
-            pack.setPlayer(bg.whichPlayer);
-            bg.caller.push(pack);
+            sendMove += "a";
             cameraPosition = cameraPosition.add(left.scale(deltaAdjustedSpeed));
         }
         if (input.isKeyDown(Input.KEY_D)){
-            pack = new Packet("d");
-            pack.setPlayer(bg.whichPlayer);
-            bg.caller.push(pack);
+            sendMove += "d";
             cameraPosition = cameraPosition.add(right.scale(deltaAdjustedSpeed));
         }
         if (input.isKeyDown(Input.KEY_S)){
-            pack = new Packet("s");
-            pack.setPlayer(bg.whichPlayer);
-            bg.caller.push(pack);
+            sendMove += "s";
             cameraPosition = cameraPosition.add(down.scale(deltaAdjustedSpeed));
         }
         if (input.isKeyDown(Input.KEY_W)){
-            pack = new Packet("w");
-            pack.setPlayer(bg.whichPlayer);
-            bg.caller.push(pack);
+            sendMove += "w";
             cameraPosition = cameraPosition.add(up.scale(deltaAdjustedSpeed));
         }
 
+        // send concatenated string only if values are assigned
+        if (sendMove.compareTo("") != 0) {
+            System.out.println(sendMove);
+            pack = new Packet(sendMove);
+            pack.setPlayer(bg.whichPlayer);
+            bg.caller.push(pack);
+        }
+
         ClientBeepoVac myBeepoVac = bg.players.get(bg.whichPlayer - 1);
-
-
-        // TODO: bound camera at edges of level
-        cameraPosition = new Vector(myBeepoVac.getX(), myBeepoVac.getY());
 
         // take in the game state and apply it.
         while (!MainGame.queue.isEmpty()) {
@@ -140,6 +137,10 @@ public class PlayingState extends BasicGameState {
                 }
             }
         }
+
+        // TODO: bound camera at edges of level
+        cameraPosition = new Vector(myBeepoVac.getX(), myBeepoVac.getY());
+
     }
 
     @Override

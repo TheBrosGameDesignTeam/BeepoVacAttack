@@ -69,42 +69,47 @@
     </FurnitureRecipes>
 
     <World>
-        <Image src="BasicFloorPlans.png" x="36" y="9" w="2600" h="1900" />
+        <Image src="BasicFloorPlansL1.png" x="36" y="9" w="2600" h="1900" />
 
-        <Wall x="142" y="14" w="2426" h="120" />
+        <Wall x="142" y="10" w="2426" h="120" />
         <Wall x="22" y="14" w="120" h="1851" />
-        <Wall x="1230" y="134" w="215" h="648" />
-        <Wall x="1445" y="134" w="235" h="130" />
-        <Wall x="1680" y="134" w="163" h="505" />
-        <Wall x="1843" y="134" w="55" h="630" />
-        <Wall x="2513" y="134" w="55" h="1611" />
-        <Wall x="1652" y="765" w="272" h="45" />
-        <Wall x="2086" y="765" w="427" h="45" />
-        <Wall x="142" y="996" w="1059" h="60" />
-        <Wall x="286" y="1056" w="71" h="195" />
-        <Wall x="286" y="1634" w="71" h="110" />
+        <Wall x="1230" y="130" w="215" h="652" />
+        <Wall x="1445" y="130" w="230" h="134" />
+        <Wall x="1675" y="130" w="163" h="610" />
+        <Wall x="1838" y="130" w="57" h="652" />
+        <Wall x="2513" y="130" w="55" h="1616" />
+        <Wall x="1660" y="740" w="200" h="42" />
+        <Wall x="2086" y="734" w="427" h="48" />
+        <Wall x="142" y="996" w="1072" h="60" />
+        <Wall x="289" y="1056" w="67" h="135" />
+        <Wall x="290" y="1638" w="67" h="110" />
         <Wall x="142" y="1745" w="2426" h="120" />
-        <Wall x="1389" y="1235" w="758" h="45" />
-        <Wall x="1869" y="1280" w="70" h="61" />
-        <Wall x="1869" y="1494" w="70" h="251" />
-        <Wall x="2330" y="1235" w="183" h="510" />
-        <Wall x="1389" y="1603" w="70" h="141" />
-        <Wall x="1389" y="1559" w="112" h="45" />
-        <Wall x="1827" y="1559" w="42" h="45" />
-        <Wall x="1389" y="996" w="70" h="239" />
-        <Wall x="1807" y="996" w="70" h="239" />
-        <Wall x="2330" y="1067" w="41" h="168" />
-        <Wall x="1877" y="996" w="239" h="45" />
-        <Wall x="2046" y="1198" w="70" h="37" />
+        <Wall x="1414" y="1231" w="734" h="47" />
+        <Wall x="1876" y="1278" w="57" h="63" />
+        <Wall x="1876" y="1497" w="57" h="251" />
+        <Wall x="2360" y="1228" w="153" h="517" />
 
+        <Wall x="1412" y="1603" w="40" h="142" />
+        <Wall x="1412" y="1559" w="95" h="45" />
+        <Wall x="1817" y="1559" w="59" h="45" />
+        <Wall x="1413" y="997" w="40" h="239" />
+        <Wall x="1821" y="996" w="40" h="239" />
+        <Wall x="2328" y="1063" w="30" h="180" />
+        <Wall x="1860" y="996" w="232" h="54" />
+        <Wall x="2060" y="1196" w="37" h="37" />
+
+        <!-- Toilet and sink   -->
         <Wall x="2102" y="1603" w="228" h="142" />
         <Wall x="1972" y="1603" w="92" h="142" />
 
 
-        <Surface x="1445" y="264" w="235" h="518" type="tile" /> <!-- kitchen tile -->
-        <Surface x="1680" y="639" w="163" h="143" type="tile" /> <!-- small kitchen tile -->
-        <Surface x="1901" y="1243" w="456" h="502" type="tile" /> <!-- bathroom tile -->
-        <Surface x="144" y="1056" w="176" h="708" type="tile" /> <!-- balcony tile -->
+        <Surface x="1445" y="264" w="230" h="490" type="tile" /> <!-- kitchen tile -->
+        <Surface x="1445" y="754" w="214" h="27" type="tile" /> <!-- small kitchen tile -->
+        <Surface x="1933" y="1278" w="427" h="462" type="tile" /> <!-- bathroom tile -->
+        <Surface x="1908" y="1340" w="25" h="157" type="tile" /> <!-- small bathroom tile left -->
+        <Surface x="2149" y="1257" w="149" h="20" type="tile" /> <!-- small bathroom tile up -->
+        <Surface x="144" y="1056" w="147" h="690" type="tile" /> <!-- balcony tile -->
+        <Surface x="290" y="1191" w="37" h="446" type="tile" /> <!-- small balcony tile -->
 
         <DustArea x="142" y="134" w="2371" h="1611" />
 
