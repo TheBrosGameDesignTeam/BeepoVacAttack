@@ -2,6 +2,7 @@ package BeepoVacAttack.GamePlay;
 
 import BeepoVacAttack.BeepoVacClient.ClientBeepoVac;
 import BeepoVacAttack.BeepoVacClient.MainGame;
+import jig.ResourceManager;
 import jig.Vector;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -35,6 +36,13 @@ public class Level {
     public LinkedList<LevelDustArea> getDustAreas() { return dustAreas; }
     public HashMap<String, LevelFurnitureRecipe> getFurnitureRecipes() { return furnitureRecipes; }
     public LinkedList<LevelFurnitureInstance> getFurnitureInstances() { return furnitureInstances; }
+
+    public static final String RES_NOISE_IMG = "BeepoVacAttack/resources/noiseTexture.png";
+
+    public static void loadResources()
+    {
+        ResourceManager.loadImage(RES_NOISE_IMG);
+    }
 
     public static Level fromXML(String pathToXML) throws Exception {
         Level newLevel = new Level();
@@ -243,11 +251,24 @@ public class Level {
             ClientBeepoVac b = MainGame.instance.players.get(MainGame.instance.whichPlayer - 1);
             float x = b.getX() - MainGame.getWidth() / 2;
             float y = b.getY() - MainGame.getHeight() / 2;
+
+            g.setDrawMode(Graphics.MODE_ALPHA_MAP);
             dustMapImage.draw(
                     x, y,
                     MainGame.getWidth(),
-                    MainGame.getHeight()
+                    MainGame.getHeight(),
+                    new Color(225, 190, 100, 120)
             );
+
+            g.setDrawMode(Graphics.MODE_ALPHA_BLEND);
+            ResourceManager.getImage(RES_NOISE_IMG).draw(
+                    0, 0,
+                    2671,
+                    1917,
+                    new Color(225, 190, 100, 80)
+            );
+
+            g.setDrawMode(Graphics.MODE_NORMAL);
         }
 
         for (LevelSurface surface : getSurfaces()) {
