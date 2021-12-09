@@ -37,6 +37,7 @@ public class MainGame extends StateBasedGame {
     // gameplay
     public int whichPlayer = 0;
     public LinkedList<ClientBeepoVac> players;
+    public LinkedList<ClientDustBunny> bunnies;
 
     // store screen width and height
     public final int ScreenWidth;
@@ -50,10 +51,12 @@ public class MainGame extends StateBasedGame {
         queue = new ConcurrentLinkedQueue<Object>();
         Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
         players = new LinkedList<ClientBeepoVac>();
+        bunnies = new LinkedList<ClientDustBunny>();
 
         instance = this;
 
         ClientBeepoVac.loadResources();
+        ClientDustBunny.loadResources();
         Level.loadResources();
     }
 

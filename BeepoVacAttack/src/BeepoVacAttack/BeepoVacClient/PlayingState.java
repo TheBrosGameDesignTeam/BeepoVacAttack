@@ -22,7 +22,7 @@ public class PlayingState extends BasicGameState {
     private float cameraScale = 1f;
     private final float playerSpeed = 100;
 
-    private final int initialTime = 1000 * 5;
+    private final int initialTime = 1000 * 50;
     private int timeRemaining = initialTime;
 
     @Override
@@ -79,6 +79,9 @@ public class PlayingState extends BasicGameState {
         bg.players.forEach(
             (player) -> player.render(g)
         );
+        bg.bunnies.forEach(
+            (bunny) -> bunny.render(g)
+        );
 
         level.renderOverlay(g);
 
@@ -116,33 +119,30 @@ public class PlayingState extends BasicGameState {
         if (input.isKeyDown(Input.KEY_A)){
             sendMove += "a";
             cameraPosition = cameraPosition.add(left.scale(deltaAdjustedSpeed));
-            //myBeepoVac.setBeepoVacDir(1);
         }
         if (input.isKeyDown(Input.KEY_D)){
             sendMove += "d";
             cameraPosition = cameraPosition.add(right.scale(deltaAdjustedSpeed));
-            //myBeepoVac.setBeepoVacDir(3);
         }
         if (input.isKeyDown(Input.KEY_S)){
             sendMove += "s";
             cameraPosition = cameraPosition.add(down.scale(deltaAdjustedSpeed));
-            //myBeepoVac.setBeepoVacDir(2);
         }
         if (input.isKeyDown(Input.KEY_W)){
             sendMove += "w";
             cameraPosition = cameraPosition.add(up.scale(deltaAdjustedSpeed));
-            //myBeepoVac.setBeepoVacDir(0);
         }
+
         // set the direction
         myBeepoVac.setBeepoVacDir(sendMove);
 
         // send concatenated string only if values are assigned
-        if (sendMove.compareTo("") != 0) {
-            System.out.println(sendMove);
-            pack = new Packet(sendMove);
-            pack.setPlayer(bg.whichPlayer);
-            bg.caller.push(pack);
-        }
+        //if (sendMove.compareTo("") != 0) {
+        System.out.println(sendMove);
+        pack = new Packet(sendMove);
+        pack.setPlayer(bg.whichPlayer);
+        bg.caller.push(pack);
+        //}
 
         // take in the game state and apply it.
         while (!MainGame.queue.isEmpty()) {
@@ -154,8 +154,8 @@ public class PlayingState extends BasicGameState {
 
                 // load all positions into beepoVacs
                 for (ClientBeepoVac beepoVac : bg.players) {
-                    float x = test.positions.poll();
-                    float y = test.positions.poll();
+                    float x = test.vacPositions.poll();
+                    float y = test.vacPositions.poll();
                     beepoVac.setBeepoVacPos(x,y, level);
                 }
             }
