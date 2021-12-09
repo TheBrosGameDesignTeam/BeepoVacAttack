@@ -1,6 +1,7 @@
 package BeepoVacAttack.Networking;
 
 import BeepoVacAttack.GamePlay.BeepoVac;
+import BeepoVacAttack.GamePlay.DustBunny;
 import jig.Vector;
 
 import java.io.Serializable;
@@ -31,7 +32,7 @@ public class Packet implements Serializable {
 //    public void setP1(Vector p1Pos) { this.p1X = p1Pos.getX(); this.p1Y = p1Pos.getY(); }
 //    public void setP2(Vector p2Pos) { this.p2X = p2Pos.getX(); this.p2Y = p2Pos.getY(); }
 
-    public void setSnapshot(LinkedList<BeepoVac> players) {
+    public void setSnapshot(LinkedList<BeepoVac> players, LinkedList<DustBunny> bunnies) {
 
         // add all movements to the linked list
         for (BeepoVac beepoVac : players) {
@@ -39,6 +40,11 @@ public class Packet implements Serializable {
             this.vacPositions.add(beepoVac.getY());
         }
 
+        // add all movements to the linked list
+        for (DustBunny dustBunny : bunnies) {
+            this.enemyPositions.add(dustBunny.getX());
+            this.enemyPositions.add(dustBunny.getY());
+        }
 
     }
 

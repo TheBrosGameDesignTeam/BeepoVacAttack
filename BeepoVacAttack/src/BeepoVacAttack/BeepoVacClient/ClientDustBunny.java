@@ -26,7 +26,7 @@ public class ClientDustBunny {
     private int radius = 30;
 
     // Store where to draw the image
-    public void setDustBunnyPos(float x, float y, Level l) {
+    public void setDustBunnyPos(float x, float y) {
         this.x = x; this.y = y;
     }
 

@@ -156,14 +156,20 @@ public class PlayingState extends BasicGameState {
                 for (ClientBeepoVac beepoVac : bg.players) {
                     float x = test.vacPositions.poll();
                     float y = test.vacPositions.poll();
-                    beepoVac.setBeepoVacPos(x,y, level);
+                    beepoVac.setBeepoVacPos(x, y, level);
+                }
+
+                // load all positions into dustBunnies
+                for (ClientDustBunny dustBunny : bg.bunnies) {
+                    float x = test.enemyPositions.poll();
+                    float y = test.enemyPositions.poll();
+                    dustBunny.setDustBunnyPos(x, y);
                 }
             }
         }
 
         // TODO: bound camera at edges of level
         cameraPosition = new Vector(myBeepoVac.getX(), myBeepoVac.getY());
-
 
 
         // TODO: Handle time up!

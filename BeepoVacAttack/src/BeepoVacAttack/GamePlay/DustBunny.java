@@ -6,28 +6,36 @@ import jig.Vector;
 
 public class DustBunny extends Entity {
 
-    private final Vector up = new Vector(0,-3);
-    private final Vector left = new Vector(-3,0);
-    private final Vector down = new Vector(0,3);
-    private final Vector right = new Vector(3,0);
+    private final Vector start = new Vector(1,0);
     Vector move;
+
+    private int timer;
+    private int time = 2000;
 
     public DustBunny(final float x, final float y) {
         super(x,y);
-        this.move = new Vector(0,0);
+        this.move = start;
+        timer = time;
     }
 
-    public void setMove(String move) {
+    public void reset() {
+        timer = time;
+    }
 
-        Vector newMove = new Vector(0,0);
-
-        this.translate(down);
-
+    public void setMove() {
+        float length = start.length();
+        move = Vector.getRandom(length);
     }
 
     public void update(final int delta) {
+        timer -= delta;
 
+        if (timer <= 0) {
+            this.setMove();
+            reset();
+        }
 
+        this.translate(move);
     }
 
 }
