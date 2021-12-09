@@ -2,6 +2,7 @@ package BeepoVacAttack.BeepoVacClient;
 
 import BeepoVacAttack.GamePlay.Level;
 import jig.ResourceManager;
+import jig.Vector;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
@@ -29,15 +30,25 @@ public class ClientBeepoVac {
         l.eraseCircle(Math.round(x) + radius / 2, Math.round(y) + radius / 2, Math.round(radius));
     }
 
-    public void setBeepoVacDir(int dir) {
-        this.direction = dir;
+    public void setBeepoVacDir(String dirs) {
+        this.direction = switch (dirs) {
+            case "d" -> 0;
+            case "s" -> 2;
+            case "a" -> 4;
+            case "w" -> 6;
+            case "ds" -> 1;
+            case "as" -> 3;
+            case "aw" -> 5;
+            case "dw" -> 7;
+            default -> this.direction;
+        };
     }
 
     public void render(Graphics g) {
         // Image img = ResourceManager.getImage(RES_PLAYER_IMG_SRC);
-        SpriteSheet sprite = new SpriteSheet(ResourceManager.getImage(RES_PLAYER_IMG_SRC), 410, 410);
+        SpriteSheet sprite = new SpriteSheet(ResourceManager.getImage(RES_PLAYER_IMG_SRC), 205, 205);
         int rows = 3;
-        int cols = 4;
+        int cols = 8;
 
         int srcX = 0;
         int srcY = 0;

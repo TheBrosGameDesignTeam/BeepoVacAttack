@@ -116,23 +116,25 @@ public class PlayingState extends BasicGameState {
         if (input.isKeyDown(Input.KEY_A)){
             sendMove += "a";
             cameraPosition = cameraPosition.add(left.scale(deltaAdjustedSpeed));
-            myBeepoVac.setBeepoVacDir(1);
+            //myBeepoVac.setBeepoVacDir(1);
         }
         if (input.isKeyDown(Input.KEY_D)){
             sendMove += "d";
             cameraPosition = cameraPosition.add(right.scale(deltaAdjustedSpeed));
-            myBeepoVac.setBeepoVacDir(3);
+            //myBeepoVac.setBeepoVacDir(3);
         }
         if (input.isKeyDown(Input.KEY_S)){
             sendMove += "s";
             cameraPosition = cameraPosition.add(down.scale(deltaAdjustedSpeed));
-            myBeepoVac.setBeepoVacDir(2);
+            //myBeepoVac.setBeepoVacDir(2);
         }
         if (input.isKeyDown(Input.KEY_W)){
             sendMove += "w";
             cameraPosition = cameraPosition.add(up.scale(deltaAdjustedSpeed));
-            myBeepoVac.setBeepoVacDir(0);
+            //myBeepoVac.setBeepoVacDir(0);
         }
+        // set the direction
+        myBeepoVac.setBeepoVacDir(sendMove);
 
         // send concatenated string only if values are assigned
         if (sendMove.compareTo("") != 0) {
