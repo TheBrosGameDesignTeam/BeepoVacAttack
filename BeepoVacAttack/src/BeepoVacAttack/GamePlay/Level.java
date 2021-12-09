@@ -37,7 +37,7 @@ public class Level {
     public HashMap<String, LevelFurnitureRecipe> getFurnitureRecipes() { return furnitureRecipes; }
     public LinkedList<LevelFurnitureInstance> getFurnitureInstances() { return furnitureInstances; }
 
-    public static final String RES_NOISE_IMG = "BeepoVacAttack/resources/noiseTexture.png";
+    public static final String RES_NOISE_IMG = "BeepoVacAttack/resources/noise4.png";
 
     public static void loadResources()
     {
@@ -257,7 +257,7 @@ public class Level {
                     x, y,
                     MainGame.getWidth(),
                     MainGame.getHeight(),
-                    new Color(225, 190, 100, 120)
+                    new Color(225, 190, 100, 80)
             );
 
             g.setDrawMode(Graphics.MODE_ALPHA_BLEND);
