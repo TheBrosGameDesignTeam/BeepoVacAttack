@@ -10,6 +10,8 @@ import BeepoVacAttack.Networking.Packet;
 
 import BeepoVacAttack.GamePlay.Level;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class PlayingState extends BasicGameState {
 
@@ -19,6 +21,9 @@ public class PlayingState extends BasicGameState {
     private Vector cameraPosition = new Vector(0,0);
     private float cameraScale = 1f;
     private final float playerSpeed = 100;
+
+    private final int initialTime = 1000 * 5;
+    private int timeRemaining = initialTime;
 
     @Override
     public void init(GameContainer container, StateBasedGame game)
@@ -42,6 +47,12 @@ public class PlayingState extends BasicGameState {
         }
 
         level.initializeDustMap();
+    }
+
+    private String msToTimeString(int ms)
+    {
+        long tu = TimeUnit.MILLISECONDS.toSeconds(ms);
+        return "Time: " + tu;
     }
 
     private void centerCameraAt(Vector position, Graphics g) {
@@ -75,7 +86,7 @@ public class PlayingState extends BasicGameState {
         g.setColor(Color.white);
         g.setFont(MainGame.getNormalFont());
 
-        g.drawString("05:00", 10, 40);
+        g.drawString(msToTimeString(timeRemaining), 10, 40);
         g.drawString(String.format("%.0f", level.getDustMap().getPercentClear()) + "%", 10, 40 + 5 + 25);
 
     }
@@ -83,6 +94,9 @@ public class PlayingState extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game,
                        int delta) throws SlickException {
+
+        // If the game is over, don't send any more output
+        if (timeRemaining < 0) { return; }
 
         Input input = container.getInput();
         MainGame bg = (MainGame)game;
@@ -148,6 +162,17 @@ public class PlayingState extends BasicGameState {
         // TODO: bound camera at edges of level
         cameraPosition = new Vector(myBeepoVac.getX(), myBeepoVac.getY());
 
+
+
+        // TODO: Handle time up!
+        if (timeRemaining < 0)
+        {
+            System.out.println("TIME UP");
+        }
+        else
+        {
+            timeRemaining -= delta;
+        }
     }
 
     @Override
