@@ -94,21 +94,27 @@ public class PlayingState extends BasicGameState {
         Packet pack = null;
         String sendMove = "";
 
+        ClientBeepoVac myBeepoVac = bg.players.get(bg.whichPlayer - 1);
+
         if (input.isKeyDown(Input.KEY_A)){
             sendMove += "a";
             cameraPosition = cameraPosition.add(left.scale(deltaAdjustedSpeed));
+            myBeepoVac.setBeepoVacDir(1);
         }
         if (input.isKeyDown(Input.KEY_D)){
             sendMove += "d";
             cameraPosition = cameraPosition.add(right.scale(deltaAdjustedSpeed));
+            myBeepoVac.setBeepoVacDir(3);
         }
         if (input.isKeyDown(Input.KEY_S)){
             sendMove += "s";
             cameraPosition = cameraPosition.add(down.scale(deltaAdjustedSpeed));
+            myBeepoVac.setBeepoVacDir(2);
         }
         if (input.isKeyDown(Input.KEY_W)){
             sendMove += "w";
             cameraPosition = cameraPosition.add(up.scale(deltaAdjustedSpeed));
+            myBeepoVac.setBeepoVacDir(0);
         }
 
         // send concatenated string only if values are assigned
@@ -118,8 +124,6 @@ public class PlayingState extends BasicGameState {
             pack.setPlayer(bg.whichPlayer);
             bg.caller.push(pack);
         }
-
-        ClientBeepoVac myBeepoVac = bg.players.get(bg.whichPlayer - 1);
 
         // take in the game state and apply it.
         while (!MainGame.queue.isEmpty()) {
