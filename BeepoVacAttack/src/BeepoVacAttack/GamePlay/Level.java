@@ -238,6 +238,10 @@ public class Level {
         return dustMap.getRatio();
     }
 
+    public DustMap getDustMap() {
+        return dustMap;
+    }
+
 
     public void renderBackground(Graphics g) {
         for (LevelImage image : getImages()) {
