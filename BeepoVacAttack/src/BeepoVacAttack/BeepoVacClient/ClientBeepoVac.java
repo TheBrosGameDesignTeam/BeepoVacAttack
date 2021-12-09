@@ -8,7 +8,7 @@ import org.newdawn.slick.SpriteSheet;
 
 public class ClientBeepoVac {
 
-    public static String RES_PLAYER_IMG_SRC = "BeepoVacAttack/resources/beepovacs_v2.png";
+    public static String RES_PLAYER_IMG_SRC = "BeepoVacAttack/resources/beepovacs_v3.png";
     private static Image playerImage = null;
 
     public static void loadResources() {
