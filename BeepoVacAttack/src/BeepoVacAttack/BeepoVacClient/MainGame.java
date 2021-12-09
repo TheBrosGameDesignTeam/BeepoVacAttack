@@ -7,8 +7,12 @@ import jig.ResourceManager;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
+import org.newdawn.slick.font.effects.OutlineEffect;
 import org.newdawn.slick.state.StateBasedGame;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -19,6 +23,11 @@ public class MainGame extends StateBasedGame {
     public static final int PLAYINGSTATE = 1;
 
     public static final String VAC_TEST_1 = "BeepoVacAttack/resources/Vac1.png";
+
+    public static final String RES_FONT = "BeepoVacAttack/resources/font/FredokaOne-Regular.ttf";
+
+    private UnicodeFont normalFont;
+    public static UnicodeFont getNormalFont() { return instance.normalFont; }
 
     // networking
     public static ConcurrentLinkedQueue<Object> queue;
@@ -57,6 +66,16 @@ public class MainGame extends StateBasedGame {
         addState(new StartUpState());
         addState(new PlayingState());
         ResourceManager.loadImage(VAC_TEST_1);
+
+        // Load font
+        normalFont = new UnicodeFont(RES_FONT, 25, false, false);
+
+        normalFont.getEffects().add(new OutlineEffect(3, Color.black));
+        normalFont.getEffects().add(new ColorEffect(Color.white));
+        normalFont.addAsciiGlyphs();
+        normalFont.loadGlyphs();
+
+        container.setDefaultFont(getNormalFont());
     }
 
     public static void main(String[] args) {

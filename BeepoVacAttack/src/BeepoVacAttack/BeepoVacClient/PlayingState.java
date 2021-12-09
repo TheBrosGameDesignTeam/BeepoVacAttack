@@ -3,10 +3,7 @@ package BeepoVacAttack.BeepoVacClient;
 //import BeepoVacAttack.BeepoVacServer.MainGame;
 import jig.ResourceManager;
 import jig.Vector;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import BeepoVacAttack.Networking.Packet;
@@ -63,7 +60,6 @@ public class PlayingState extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game,
                        Graphics g) throws SlickException {
         MainGame bg = (MainGame)game;
-        g.drawString("We are playing!", 100, 100);
 
         centerCameraAt(cameraPosition, g);
 
@@ -74,6 +70,13 @@ public class PlayingState extends BasicGameState {
         );
 
         level.renderOverlay(g);
+
+        g.resetTransform();
+        g.setColor(Color.white);
+        g.setFont(MainGame.getNormalFont());
+
+        g.drawString("05:00", 10, 40);
+        g.drawString(String.format("%.0f", level.getDustMap().getPercentClear()) + "%", 10, 40 + 5 + 25);
 
     }
 
