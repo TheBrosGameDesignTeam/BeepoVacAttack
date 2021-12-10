@@ -138,7 +138,7 @@ public class PlayingState extends BasicGameState {
 
         // send concatenated string only if values are assigned
         //if (sendMove.compareTo("") != 0) {
-        System.out.println(sendMove);
+        if (sendMove.length() > 0) System.out.println(sendMove);
         pack = new Packet(sendMove);
         pack.setPlayer(bg.whichPlayer);
         bg.caller.push(pack);
