@@ -25,6 +25,14 @@
             <Wall x="145" y="186" w="24" h="24" />
         </FurnitureRecipe>
 
+        <FurnitureRecipe name="chairDen">
+            <Image src="denChair.png" x="0" y="0" w="237" h="244" />
+            <Wall x="60" y="75" w="24" h="24" />
+            <Wall x="60" y="186" w="24" h="24" />
+            <Wall x="145" y="75" w="24" h="24" />
+            <Wall x="145" y="186" w="24" h="24" />
+        </FurnitureRecipe>
+
         <FurnitureRecipe name="sofa">
             <Image src="sofa.png" x="0" y="0" w="499" h="254" />
             <Wall x="64" y="75" w="24" h="24" />
@@ -76,7 +84,7 @@
 
         <FurnitureRecipe name="plant">
             <Image src="plant.png" x="0" y="0" w="111" h="113" />
-
+            <Wall x="58" y="70" r="33" />
         </FurnitureRecipe>
 
     </FurnitureRecipes>
@@ -142,10 +150,12 @@
         <Furniture name="coffeeTable" x="459" y="360" />
         <Furniture name="tv" x="492" y="908" />
         <Furniture name="smallTable" x="119" y="677" />
+        <Furniture name="plant" x="148" y="125" />
+        <Furniture name="plant" x="1114" y="141" />
 
         <!-- Den -->
         <Surface x="1998" y="233" w="421" h="395" type="carpet" />
-        <Furniture name="chairRight" x="2058" y="230" />
+        <Furniture name="chairDen" x="2058" y="230" />
         <Furniture name="desk" x="2240" y="155" />
 
         <!-- Bedroom -->
@@ -155,5 +165,9 @@
         <Furniture name="lamp" x="482" y="1611" />
         <Furniture name="bed" x="561" y="1235" />
         <Furniture name="lamp" x="940" y="1611" />
+
+        <!-- Patio -->
+        <Furniture name="plant" x="172" y="1068" />
+
     </World>
 </Level>
