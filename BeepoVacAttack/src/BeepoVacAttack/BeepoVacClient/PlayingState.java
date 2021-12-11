@@ -137,12 +137,11 @@ public class PlayingState extends BasicGameState {
         myBeepoVac.setBeepoVacDir(sendMove);
 
         // send concatenated string only if values are assigned
-        if (sendMove.compareTo("") != 0) {
-        if (sendMove.length() > 0) System.out.println(sendMove);
-            pack = new Packet(sendMove);
-            pack.setPlayer(bg.whichPlayer);
-            bg.caller.push(pack);
-        }
+//        if (sendMove.compareTo("") != 0) {
+        pack = new Packet(sendMove);
+        pack.setPlayer(bg.whichPlayer);
+        bg.caller.push(pack);
+//        }
 
         // take in the game state and apply it.
         while (!MainGame.queue.isEmpty()) {

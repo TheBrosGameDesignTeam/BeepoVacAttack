@@ -17,6 +17,14 @@
             <Wall x="145" y="186" w="24" h="24" />
         </FurnitureRecipe>
 
+        <FurnitureRecipe name="chairBedroom">
+            <Image src="bedroomChair.png" x="0" y="0" w="237" h="244" />
+            <Wall x="60" y="75" w="24" h="24" />
+            <Wall x="60" y="186" w="24" h="24" />
+            <Wall x="145" y="75" w="24" h="24" />
+            <Wall x="145" y="186" w="24" h="24" />
+        </FurnitureRecipe>
+
         <FurnitureRecipe name="sofa">
             <Image src="sofa.png" x="0" y="0" w="499" h="254" />
             <Wall x="64" y="75" w="24" h="24" />
@@ -64,6 +72,11 @@
             <Wall x="120" y="105" r="40" />
             <Wall x="99" y="134" w="40" h="20" />
             <Wall x="99" y="252" w="40" h="20" />
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="plant">
+            <Image src="plant.png" x="0" y="0" w="111" h="113" />
+
         </FurnitureRecipe>
 
     </FurnitureRecipes>
@@ -137,7 +150,7 @@
 
         <!-- Bedroom -->
         <Surface x="574" y="1230" w="421" h="395" type="carpet" />
-        <Furniture name="chairLeft" x="1163" y="1501" />
+        <Furniture name="chairBedroom" x="1163" y="1501" />
         <Furniture name="tv" x="625" y="1025" />
         <Furniture name="lamp" x="482" y="1611" />
         <Furniture name="bed" x="561" y="1235" />

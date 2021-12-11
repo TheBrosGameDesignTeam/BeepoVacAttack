@@ -51,15 +51,15 @@ public class PlayingState extends BasicGameState {
                 MainGame.players.get(1).setMove(pack.getMessage());
             }
 
+            // update the dust bunnies
+            MainGame.bunnies.forEach((bunny) -> bunny.update(delta));
+
+            // get the pos of each player and save it in a snapshot
+            Packet retPack = new Packet("snapshot");
+            retPack.setSnapshot(MainGame.players, MainGame.bunnies);
+            MainGame.observer.send(retPack);
+
         }
-
-        // update the dust bunnies
-        MainGame.bunnies.forEach((bunny) -> bunny.update(delta));
-
-        // get the pos of each player and save it in a snapshot
-        Packet retPack = new Packet("snapshot");
-        retPack.setSnapshot(MainGame.players, MainGame.bunnies);
-        MainGame.observer.send(retPack);
 
     }
 
