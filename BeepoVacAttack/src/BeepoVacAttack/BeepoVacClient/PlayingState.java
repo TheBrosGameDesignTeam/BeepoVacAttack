@@ -1,7 +1,8 @@
 package BeepoVacAttack.BeepoVacClient;
 
 //import BeepoVacAttack.BeepoVacServer.MainGame;
-import jig.ResourceManager;
+import BeepoVacAttack.GamePlay.GameOverScreen;
+import Tweeninator.TweenManager;
 import jig.Vector;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -22,12 +23,15 @@ public class PlayingState extends BasicGameState {
     private float cameraScale = 1f;
     private final float playerSpeed = 100;
 
-    private final int initialTime = 1000 * 50;
+    private final int initialTime = 1000 * 3;
     private int timeRemaining = initialTime;
+
+    private GameOverScreen gameOverScreen;
 
     @Override
     public void init(GameContainer container, StateBasedGame game)
             throws SlickException {
+        gameOverScreen = new GameOverScreen();
     }
 
     @Override
@@ -90,13 +94,18 @@ public class PlayingState extends BasicGameState {
         g.setFont(MainGame.getNormalFont());
 
         g.drawString(msToTimeString(timeRemaining), 10, 40);
-        g.drawString(String.format("%.0f", level.getDustMap().getPercentClear()) + "%", 10, 40 + 5 + 25);
+        g.drawString(String.format("%.0f", 100 - level.getDustMap().getPercentRemaining()) + "%", 10, 40 + 5 + 25);
+
+
+        // Draw game over stuff
+        gameOverScreen.render(g);
 
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game,
                        int delta) throws SlickException {
+        TweenManager.update(delta);
 
         // If the game is over, don't send any more output
         if (timeRemaining < 0) { return; }
@@ -170,15 +179,12 @@ public class PlayingState extends BasicGameState {
         // TODO: bound camera at edges of level
         cameraPosition = new Vector(myBeepoVac.getX(), myBeepoVac.getY());
 
-
+        timeRemaining -= delta;
         // TODO: Handle time up!
         if (timeRemaining < 0)
         {
             System.out.println("TIME UP");
-        }
-        else
-        {
-            timeRemaining -= delta;
+            gameOverScreen.animateIn(level.getPercentClear());
         }
     }
 

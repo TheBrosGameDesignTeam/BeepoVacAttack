@@ -2,10 +2,7 @@ package BeepoVacAttack.BeepoVacClient;
 import BeepoVacAttack.GamePlay.BeepoVac;
 import BeepoVacAttack.Networking.Packet;
 import BeepoVacAttack.Networking.*;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -56,12 +53,27 @@ class StartUpState extends BasicGameState {
 
     }
 
-
     @Override
     public void render(GameContainer container, StateBasedGame game,
                        Graphics g) throws SlickException {
 
-        g.drawString("Connection to Server Made", 100, 100);
+        MainGame bg = (MainGame)game;
+
+        // Draw background colors
+        g.setColor(new Color(170, 160, 255));
+        g.fillRect(0, 0, MainGame.getWidth(), MainGame.getHeight());
+
+        g.setColor(Color.white);
+        g.setFont(MainGame.getNormalFont());
+
+        String line1 = "You Are Player " + bg.whichPlayer;
+        g.drawString(line1, MainGame.xPosForStringCenteredAt(MainGame.getWidth() / 2, line1, MainGame.getNormalFont()), MainGame.getHeight() * 0.4f);
+
+        String line2 = "---";
+        if (bg.whichPlayer == 1) line2 = "Press Space to Start!";
+        else  line2 = "Waiting for Player 1 to Start...";
+
+        g.drawString(line2, MainGame.xPosForStringCenteredAt(MainGame.getWidth() / 2, line2, MainGame.getNormalFont()), MainGame.getHeight() * 0.5f);
     }
 
     @Override

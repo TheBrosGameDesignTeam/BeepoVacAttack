@@ -29,6 +29,9 @@ public class MainGame extends StateBasedGame {
     private UnicodeFont normalFont;
     public static UnicodeFont getNormalFont() { return instance.normalFont; }
 
+    private UnicodeFont largeFont;
+    public static UnicodeFont getLargeFont() { return instance.largeFont; }
+
     // networking
     public static ConcurrentLinkedQueue<Object> queue;
     Caller caller;
@@ -63,6 +66,11 @@ public class MainGame extends StateBasedGame {
     public static int getWidth() { return instance.ScreenWidth; }
     public static int getHeight() { return instance.ScreenHeight; }
 
+    public static int xPosForStringCenteredAt(int x, String text, org.newdawn.slick.Font font)
+    {
+        return x - font.getWidth(text) / 2;
+    }
+
 
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
@@ -72,11 +80,18 @@ public class MainGame extends StateBasedGame {
 
         // Load font
         normalFont = new UnicodeFont(RES_FONT, 25, false, false);
-
         normalFont.getEffects().add(new OutlineEffect(3, Color.black));
         normalFont.getEffects().add(new ColorEffect(Color.white));
         normalFont.addAsciiGlyphs();
         normalFont.loadGlyphs();
+
+
+        // Load font
+        largeFont = new UnicodeFont(RES_FONT, 50, false, false);
+        largeFont.getEffects().add(new OutlineEffect(3, Color.black));
+        largeFont.getEffects().add(new ColorEffect(Color.white));
+        largeFont.addAsciiGlyphs();
+        largeFont.loadGlyphs();
 
         container.setDefaultFont(getNormalFont());
     }
