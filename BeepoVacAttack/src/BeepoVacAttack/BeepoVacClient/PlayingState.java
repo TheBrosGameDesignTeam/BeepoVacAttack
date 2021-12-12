@@ -15,8 +15,6 @@ import java.util.concurrent.TimeUnit;
 
 public class PlayingState extends BasicGameState {
 
-//    public float p1X = 0, p1Y = 0;
-
     private Level level = null;
     private Vector cameraPosition = new Vector(0,0);
     private float cameraScale = 1f;
@@ -131,6 +129,11 @@ public class PlayingState extends BasicGameState {
         if (input.isKeyDown(Input.KEY_W)){
             sendMove += "w";
             cameraPosition = cameraPosition.add(up.scale(deltaAdjustedSpeed));
+        }
+
+        // testing switching vacs
+        if (input.isKeyPressed(Input.KEY_E)) {
+            myBeepoVac.setBeepoVacType();
         }
 
         // set the direction

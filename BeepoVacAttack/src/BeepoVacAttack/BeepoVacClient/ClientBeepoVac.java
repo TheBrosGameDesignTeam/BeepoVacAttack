@@ -22,6 +22,7 @@ public class ClientBeepoVac {
 
     private int direction = 0;
     private int radius = 30;
+    private int vacType = 1;
 
     // Store where to draw the image
     public void setBeepoVacPos(float x, float y, Level l) {
@@ -44,6 +45,14 @@ public class ClientBeepoVac {
         };
     }
 
+    public void setBeepoVacType() {
+
+        // cycle threw values for vacs
+        if (this.vacType == 2) this.vacType = 0;
+        else this.vacType++;
+
+    }
+
     public void render(Graphics g) {
         // Image img = ResourceManager.getImage(RES_PLAYER_IMG_SRC);
         SpriteSheet sprite = new SpriteSheet(ResourceManager.getImage(RES_PLAYER_IMG_SRC), 205, 205);
@@ -56,7 +65,7 @@ public class ClientBeepoVac {
         int srcY2 = sprite.getHeight() / rows;
 
         g.drawImage(
-                sprite.getSprite(direction, 1),
+                sprite.getSprite(direction, this.vacType),
                 getX() - radius, getY() - radius,
                 getX() + radius * 2, getY() + radius * 2,
                 srcX, srcY,     // what sprite
