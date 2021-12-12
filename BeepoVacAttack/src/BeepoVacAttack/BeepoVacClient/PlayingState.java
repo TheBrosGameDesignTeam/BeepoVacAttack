@@ -131,18 +131,20 @@ public class PlayingState extends BasicGameState {
             cameraPosition = cameraPosition.add(up.scale(deltaAdjustedSpeed));
         }
 
-        // testing switching vacs
+        // switching vacs
         if (input.isKeyPressed(Input.KEY_E)) {
-            myBeepoVac.setBeepoVacType();
+//            myBeepoVac.setBeepoVacType();
+            sendMove += "e";
         }
 
         // set the direction
         myBeepoVac.setBeepoVacDir(sendMove);
 
-        // send concatenated string only if values are assigned
+        // send concatenated string
 //        if (sendMove.compareTo("") != 0) {
         pack = new Packet(sendMove);
         pack.setPlayer(bg.whichPlayer);
+//        pack.setWhatVac(bg.players.get(bg.whichPlayer-1).getBeepoVacType());
         bg.caller.push(pack);
 //        }
 
@@ -158,6 +160,10 @@ public class PlayingState extends BasicGameState {
                 for (ClientBeepoVac beepoVac : bg.players) {
                     float x = test.vacPositions.poll();
                     float y = test.vacPositions.poll();
+
+                    // set vac type too
+                    beepoVac.setBeepoVacType(test.vacTypes.poll());
+
                     beepoVac.setBeepoVacPos(x, y, level);
                 }
 

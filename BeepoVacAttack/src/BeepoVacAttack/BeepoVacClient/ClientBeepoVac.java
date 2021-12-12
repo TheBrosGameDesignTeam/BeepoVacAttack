@@ -45,12 +45,15 @@ public class ClientBeepoVac {
         };
     }
 
-    public void setBeepoVacType() {
-
+    public void setBeepoVacType(int vacType) {
         // cycle threw values for vacs
-        if (this.vacType == 2) this.vacType = 0;
-        else this.vacType++;
+        this.vacType = vacType;
+//        if (this.vacType == 2) this.vacType = 0;
+//        else this.vacType++;
+    }
 
+    public int getBeepoVacType() {
+        return this.vacType;
     }
 
     public void render(Graphics g) {
