@@ -18,6 +18,7 @@ public class Packet implements Serializable {
     public LinkedList<Float> vacPositions = new LinkedList<Float>();
     public LinkedList<Float> enemyPositions = new LinkedList<Float>();
     public LinkedList<Integer> vacTypes = new LinkedList<Integer>();
+    public LinkedList<Integer> vacDirections = new LinkedList<Integer>();
 
     public Packet(String message) {
         this.message = message;
@@ -43,6 +44,7 @@ public class Packet implements Serializable {
             this.vacPositions.add(beepoVac.getX());
             this.vacPositions.add(beepoVac.getY());
             this.vacTypes.add(beepoVac.getVacType());
+            this.vacDirections.add(beepoVac.getVacDirection());
         }
 
         // add all movements to the linked list

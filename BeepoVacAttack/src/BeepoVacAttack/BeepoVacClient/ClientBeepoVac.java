@@ -31,18 +31,20 @@ public class ClientBeepoVac {
         l.eraseCircle(Math.round(x) + radius / 2, Math.round(y) + radius / 2, Math.round(radius));
     }
 
-    public void setBeepoVacDir(String dirs) {
-        this.direction = switch (dirs) {
-            case "d" -> 0;
-            case "s" -> 2;
-            case "a" -> 4;
-            case "w" -> 6;
-            case "ds" -> 1;
-            case "as" -> 3;
-            case "aw" -> 5;
-            case "dw" -> 7;
-            default -> this.direction;
-        };
+    public void setBeepoVacDir(int dirs) {
+
+        this.direction = dirs;
+//        this.direction = switch (dirs) {
+//            case "d" -> 0;
+//            case "s" -> 2;
+//            case "a" -> 4;
+//            case "w" -> 6;
+//            case "ds" -> 1;
+//            case "as" -> 3;
+//            case "aw" -> 5;
+//            case "dw" -> 7;
+//            default -> this.direction;
+//        };
     }
 
     public void setBeepoVacType(int vacType) {
