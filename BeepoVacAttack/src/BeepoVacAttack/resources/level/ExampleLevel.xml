@@ -84,27 +84,27 @@
 
         <FurnitureRecipe name="closet1">
             <Image src="closet1.png" x="0" y="0" w="134" h="194" />
-            <!--      Need to add bounding box      -->
+            <Wall x="0" y="0" w="134" h="194" />
         </FurnitureRecipe>
 
         <FurnitureRecipe name="closet2">
             <Image src="closet2.png" x="0" y="0" w="374" h="113" />
-            <!--      Need to add bounding box      -->
+            <Wall x="0" y="0" w="374" h="113" />
         </FurnitureRecipe>
 
         <FurnitureRecipe name="closet3">
             <Image src="closet3.png" x="0" y="0" w="155" h="90" />
-            <!--      Need to add bounding box      -->
+            <Wall x="0" y="0" w="155" h="90" />
         </FurnitureRecipe>
 
         <FurnitureRecipe name="coats1">
             <Image src="coats1.png" x="0" y="0" w="178" h="116" />
-            <!--      Need to add bounding box      -->
+            <Wall x="0" y="0" w="178" h="116" />
         </FurnitureRecipe>
 
         <FurnitureRecipe name="coats2">
             <Image src="coats2.png" x="0" y="0" w="286" h="112" />
-            <!--      Need to add bounding box      -->
+            <Wall x="0" y="0" w="286" h="112" />
         </FurnitureRecipe>
 
 <!--        <FurnitureRecipe name="dock">-->
