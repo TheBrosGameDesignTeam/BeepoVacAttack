@@ -7,6 +7,7 @@
             <Wall x="68" y="186" w="24" h="24" />
             <Wall x="153" y="75" w="24" h="24" />
             <Wall x="153" y="186" w="24" h="24" />
+            <Wall x="68" y="75" w="109" h="135" />
         </FurnitureRecipe>
 
         <FurnitureRecipe name="chairLeft">
@@ -15,6 +16,7 @@
             <Wall x="60" y="186" w="24" h="24" />
             <Wall x="145" y="75" w="24" h="24" />
             <Wall x="145" y="186" w="24" h="24" />
+            <Wall x="60" y="75" w="109" h="135" />
         </FurnitureRecipe>
 
         <FurnitureRecipe name="sofa">
@@ -23,6 +25,7 @@
             <Wall x="64" y="214" w="24" h="24" />
             <Wall x="413" y="75" w="24" h="24" />
             <Wall x="413" y="214" w="24" h="24" />
+            <Wall x="64" y="75" w="373" h="163"/>
         </FurnitureRecipe>
 
         <FurnitureRecipe name="desk">
@@ -31,6 +34,7 @@
             <Wall x="65" y="333" w="31" h="31" />
             <Wall x="192" y="65" w="31" h="31" />
             <Wall x="192" y="333" w="31" h="31" />
+            <Wall x="65" y="65" w="158" h="299" />
         </FurnitureRecipe>
 
         <FurnitureRecipe name="tv">
@@ -49,6 +53,7 @@
             <Wall x="70" y="463" w="40" h="40" />
             <Wall x="343" y="84" w="40" h="40" />
             <Wall x="343" y="463" w="40" h="40" />
+            <Wall x="70" y="84" w="313" h="419" />
         </FurnitureRecipe>
 
         <FurnitureRecipe name="coffeeTable">
@@ -57,12 +62,14 @@
             <Wall x="97" y="152" r="13" />
             <Wall x="268" y="82" r="13" />
             <Wall x="268" y="152" r="13" />
+            <Wall x="84" y="69" w="197" h="96" />
         </FurnitureRecipe>
 
         <FurnitureRecipe name="smallTable">
             <Image src="smallTable.png" x="0" y="0" w="232" h="288" />
             <Wall x="120" y="105" r="40" />
             <Wall x="117" y="230" r="57" />
+            <Wall x="99" y="134" w="40" h="138" />
         </FurnitureRecipe>
 
         <FurnitureRecipe name="plant">
