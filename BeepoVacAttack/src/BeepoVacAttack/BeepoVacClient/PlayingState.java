@@ -12,7 +12,6 @@ import BeepoVacAttack.GamePlay.Level;
 
 import java.util.concurrent.TimeUnit;
 
-
 public class PlayingState extends BasicGameState {
 
     private Level level = null;
@@ -31,6 +30,9 @@ public class PlayingState extends BasicGameState {
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         container.setSoundOn(false);
+
+        MainGame bg = (MainGame)game;
+        bg.docks.add(new Dock(1745,782));
 
         try {
             level = Level.fromXML("ExampleLevel.xml");
@@ -73,6 +75,10 @@ public class PlayingState extends BasicGameState {
         centerCameraAt(cameraPosition, g);
 
         level.renderBackground(g);
+
+        bg.docks.forEach(
+                (dock) -> dock.render(g)
+        );
 
         bg.players.forEach(
             (player) -> player.render(g)
@@ -158,13 +164,10 @@ public class PlayingState extends BasicGameState {
                 for (ClientBeepoVac beepoVac : bg.players) {
                     float x = test.vacPositions.poll();
                     float y = test.vacPositions.poll();
-
                     // set vac type too
                     beepoVac.setBeepoVacType(test.vacTypes.poll());
-
                     // andddddd the direction IDK
                     beepoVac.setBeepoVacDir(test.vacDirections.poll());
-
                     beepoVac.setBeepoVacPos(x, y, level);
                 }
 
@@ -190,6 +193,7 @@ public class PlayingState extends BasicGameState {
         {
             timeRemaining -= delta;
         }
+
     }
 
     @Override

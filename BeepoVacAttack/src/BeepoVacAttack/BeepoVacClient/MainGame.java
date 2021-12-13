@@ -22,7 +22,8 @@ public class MainGame extends StateBasedGame {
     public static final int STARTUPSTATE = 0;
     public static final int PLAYINGSTATE = 1;
 
-    public static final String VAC_TEST_1 = "BeepoVacAttack/resources/Vac1.png";
+//    public static final String VAC_TEST_1 = "BeepoVacAttack/resources/Vac1.png";
+    public static final String DOCK_IMG = "BeepoVacAttack/resources/Dock.png";
 
     public static final String RES_FONT = "BeepoVacAttack/resources/font/FredokaOne-Regular.ttf";
 
@@ -39,6 +40,8 @@ public class MainGame extends StateBasedGame {
     public LinkedList<ClientBeepoVac> players;
     public LinkedList<ClientDustBunny> bunnies;
 
+    public LinkedList<Dock> docks;
+
     // store screen width and height
     public final int ScreenWidth;
     public final int ScreenHeight;
@@ -52,6 +55,7 @@ public class MainGame extends StateBasedGame {
         Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
         players = new LinkedList<ClientBeepoVac>();
         bunnies = new LinkedList<ClientDustBunny>();
+        docks = new LinkedList<Dock>();
 
         instance = this;
 
@@ -68,7 +72,7 @@ public class MainGame extends StateBasedGame {
     public void initStatesList(GameContainer container) throws SlickException {
         addState(new StartUpState());
         addState(new PlayingState());
-        ResourceManager.loadImage(VAC_TEST_1);
+        ResourceManager.loadImage(DOCK_IMG);
 
         // Load font
         normalFont = new UnicodeFont(RES_FONT, 25, false, false);

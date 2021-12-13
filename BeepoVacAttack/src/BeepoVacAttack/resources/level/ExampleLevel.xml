@@ -100,6 +100,11 @@
             <!--      Need to add bounding box      -->
         </FurnitureRecipe>
 
+<!--        <FurnitureRecipe name="dock">-->
+<!--            <Image src="Dock.png" x="0" y="0" w="100" h="70" />-->
+<!--            &lt;!&ndash;      Need to add bounding box      &ndash;&gt;-->
+<!--        </FurnitureRecipe>-->
+
     </FurnitureRecipes>
 
     <World>
