@@ -22,6 +22,8 @@ public class PlayingState extends BasicGameState {
     private final int initialTime = 1000 * 50;
     private int timeRemaining = initialTime;
 
+    private boolean canChange = false;
+
     @Override
     public void init(GameContainer container, StateBasedGame game)
             throws SlickException {
@@ -83,9 +85,16 @@ public class PlayingState extends BasicGameState {
         bg.players.forEach(
             (player) -> player.render(g)
         );
+
         bg.bunnies.forEach(
             (bunny) -> bunny.render(g)
         );
+
+        // render the switch icon when you are near a dock
+        if (this.canChange) {
+            g.drawImage(ResourceManager.getImage(MainGame.SWITCH_IMG),bg.players.get(bg.whichPlayer-1).getX()-50,
+                    bg.players.get(bg.whichPlayer-1).getY()-88);
+        }
 
         level.renderOverlay(g);
 
@@ -137,20 +146,21 @@ public class PlayingState extends BasicGameState {
             cameraPosition = cameraPosition.add(up.scale(deltaAdjustedSpeed));
         }
 
-        // switching vacs
-        if (input.isKeyPressed(Input.KEY_E)) {
+        // check proximity between docker and this client
+        for (Dock dock : bg.docks) {
+            float dockDistance = dock.getPosition().distance(bg.players.get(bg.whichPlayer-1).getPos());
+            this.canChange = dockDistance < 50;
+        }
+
+        // check if you want to change vac
+        if (input.isKeyPressed(Input.KEY_E) && this.canChange) {
             sendMove += "e";
         }
 
-        // set the direction
-//        myBeepoVac.setBeepoVacDir(sendMove);
-
         // send concatenated string
-//        if (sendMove.compareTo("") != 0) {
         pack = new Packet(sendMove);
         pack.setPlayer(bg.whichPlayer);
         bg.caller.push(pack);
-//        }
 
         // take in the game state and apply it.
         while (!MainGame.queue.isEmpty()) {

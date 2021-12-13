@@ -32,19 +32,7 @@ public class ClientBeepoVac {
     }
 
     public void setBeepoVacDir(int dirs) {
-
         this.direction = dirs;
-//        this.direction = switch (dirs) {
-//            case "d" -> 0;
-//            case "s" -> 2;
-//            case "a" -> 4;
-//            case "w" -> 6;
-//            case "ds" -> 1;
-//            case "as" -> 3;
-//            case "aw" -> 5;
-//            case "dw" -> 7;
-//            default -> this.direction;
-//        };
     }
 
     public void setBeepoVacType(int vacType) {
@@ -80,5 +68,7 @@ public class ClientBeepoVac {
 
     public float getX() { return this.x; }
     public float getY() { return this.y; }
+
+    public Vector getPos() { return new Vector(this.x, this.y); }
 
 }

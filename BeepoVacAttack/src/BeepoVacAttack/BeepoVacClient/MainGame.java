@@ -24,6 +24,7 @@ public class MainGame extends StateBasedGame {
 
 //    public static final String VAC_TEST_1 = "BeepoVacAttack/resources/Vac1.png";
     public static final String DOCK_IMG = "BeepoVacAttack/resources/Dock.png";
+    public static final String SWITCH_IMG = "BeepoVacAttack/resources/switch.png";
 
     public static final String RES_FONT = "BeepoVacAttack/resources/font/FredokaOne-Regular.ttf";
 
@@ -73,6 +74,7 @@ public class MainGame extends StateBasedGame {
         addState(new StartUpState());
         addState(new PlayingState());
         ResourceManager.loadImage(DOCK_IMG);
+        ResourceManager.loadImage(SWITCH_IMG);
 
         // Load font
         normalFont = new UnicodeFont(RES_FONT, 25, false, false);
