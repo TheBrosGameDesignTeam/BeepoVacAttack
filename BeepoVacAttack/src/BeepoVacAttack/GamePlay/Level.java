@@ -275,13 +275,13 @@ public class Level {
             g.setDrawMode(Graphics.MODE_NORMAL);
         }
 
-//        for (LevelSurface surface : getSurfaces()) {
-//            renderLevelSurface(surface, g);
-//        }
-//
-//        for (LevelWall wall : getWalls()) {
-//            renderLevelWall(wall, g);
-//        }
+        for (LevelSurface surface : getSurfaces()) {
+            renderLevelSurface(surface, g);
+        }
+
+        for (LevelWall wall : getWalls()) {
+            renderLevelWall(wall, g);
+        }
     }
 
     public void renderOverlay(Graphics g) {        // Render the furniture!
