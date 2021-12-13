@@ -223,7 +223,7 @@ public class Level {
         staticDustMapImage = dustMap.getSlickImage();
     }
 
-    public float getPercentClear() { return dustMap.getPercentClear(); }
+    public float getPercentClear() { return dustMap.getPercentRemaining(); }
 
     public Image getSlickDustMapImage()
     {

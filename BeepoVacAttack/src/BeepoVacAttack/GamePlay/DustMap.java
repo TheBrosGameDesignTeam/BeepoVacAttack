@@ -138,7 +138,7 @@ public class DustMap {
         return clearedPixels;
     }
 
-    public float getPercentClear()
+    public float getPercentRemaining()
     {
         return (getFilledPixels() * 100f) / initialFillAmount;
     }
