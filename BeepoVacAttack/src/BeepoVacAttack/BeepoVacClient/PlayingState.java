@@ -28,10 +28,14 @@ public class PlayingState extends BasicGameState {
 
     private GameOverScreen gameOverScreen;
 
+    private boolean canQuitOrPlayAgain = false;
+
+
+
     @Override
     public void init(GameContainer container, StateBasedGame game)
             throws SlickException {
-        gameOverScreen = new GameOverScreen();
+        gameOverScreen = new GameOverScreen(() -> { canQuitOrPlayAgain = true; System.out.println("Player can now quit or play again"); });
     }
 
     @Override
@@ -106,12 +110,36 @@ public class PlayingState extends BasicGameState {
     public void update(GameContainer container, StateBasedGame game,
                        int delta) throws SlickException {
         TweenManager.update(delta);
-
-        // If the game is over, don't send any more output
-        if (timeRemaining < 0) { return; }
-
         Input input = container.getInput();
         MainGame bg = (MainGame)game;
+        // If the game is over, don't send any more output
+        if (timeRemaining < 0)
+        {
+
+            // If the player can quit or play again, handle those options!
+            if (canQuitOrPlayAgain && bg.whichPlayer == 1)
+            {
+                // Quit game
+                if (input.isKeyDown(Input.KEY_Q))
+                {
+                    System.exit(0);
+                }
+
+                // Restart the level
+                else if (input.isKeyPressed(Input.KEY_P))
+                {
+                    // TODO: send a "restart level" signal to other player
+                    Packet pack = new Packet("restart");
+                    pack.setPlayer(bg.whichPlayer);
+                    bg.caller.push(pack);
+                    System.out.println("restart message sent");
+                }
+            }
+
+            return;
+        }
+
+
 
         Vector up = new Vector(0, -1);
         Vector right = new Vector(1, 0);
