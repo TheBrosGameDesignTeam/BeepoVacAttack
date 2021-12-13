@@ -6,8 +6,6 @@ import jig.Vector;
 
 public class Dock extends Entity {
 
-//    public static final String DOCK_IMG = "BeepoVacAttack/resources/Dock.png";
-
     public Dock(final float x, final float y) {
         super(x,y);
         addImageWithBoundingBox(ResourceManager

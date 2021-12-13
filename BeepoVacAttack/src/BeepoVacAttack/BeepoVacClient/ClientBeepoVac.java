@@ -38,8 +38,6 @@ public class ClientBeepoVac {
     public void setBeepoVacType(int vacType) {
         // cycle threw values for vacs
         this.vacType = vacType;
-//        if (this.vacType == 2) this.vacType = 0;
-//        else this.vacType++;
     }
 
     public int getBeepoVacType() {

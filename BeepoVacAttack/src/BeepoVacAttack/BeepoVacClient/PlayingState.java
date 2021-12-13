@@ -34,7 +34,11 @@ public class PlayingState extends BasicGameState {
         container.setSoundOn(false);
 
         MainGame bg = (MainGame)game;
+
+        // init dock stations for this level
         bg.docks.add(new Dock(1745,782));
+        bg.docks.add(new Dock(531,1057));
+        bg.docks.add(new Dock(2080,135));
 
         try {
             level = Level.fromXML("ExampleLevel.xml");
@@ -149,7 +153,12 @@ public class PlayingState extends BasicGameState {
         // check proximity between docker and this client
         for (Dock dock : bg.docks) {
             float dockDistance = dock.getPosition().distance(bg.players.get(bg.whichPlayer-1).getPos());
-            this.canChange = dockDistance < 50;
+            if (dockDistance < 50) {
+                this.canChange = true;
+                break;
+            } else {
+                this.canChange = false;
+            }
         }
 
         // check if you want to change vac
