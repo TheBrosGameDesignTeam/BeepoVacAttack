@@ -22,6 +22,7 @@ public class ClientBeepoVac {
 
     private int direction = 0;
     private int radius = 30;
+    private int vacType = 1;
 
     // Store where to draw the image
     public void setBeepoVacPos(float x, float y, Level l) {
@@ -30,18 +31,17 @@ public class ClientBeepoVac {
         l.eraseCircle(Math.round(x) + radius / 2, Math.round(y) + radius / 2, Math.round(radius));
     }
 
-    public void setBeepoVacDir(String dirs) {
-        this.direction = switch (dirs) {
-            case "d" -> 0;
-            case "s" -> 2;
-            case "a" -> 4;
-            case "w" -> 6;
-            case "ds" -> 1;
-            case "as" -> 3;
-            case "aw" -> 5;
-            case "dw" -> 7;
-            default -> this.direction;
-        };
+    public void setBeepoVacDir(int dirs) {
+        this.direction = dirs;
+    }
+
+    public void setBeepoVacType(int vacType) {
+        // cycle threw values for vacs
+        this.vacType = vacType;
+    }
+
+    public int getBeepoVacType() {
+        return this.vacType;
     }
 
     public void render(Graphics g) {
@@ -56,7 +56,7 @@ public class ClientBeepoVac {
         int srcY2 = sprite.getHeight() / rows;
 
         g.drawImage(
-                sprite.getSprite(direction, 1),
+                sprite.getSprite(direction, this.vacType),
                 getX() - radius, getY() - radius,
                 getX() + radius * 2, getY() + radius * 2,
                 srcX, srcY,     // what sprite
@@ -66,5 +66,7 @@ public class ClientBeepoVac {
 
     public float getX() { return this.x; }
     public float getY() { return this.y; }
+
+    public Vector getPos() { return new Vector(this.x, this.y); }
 
 }

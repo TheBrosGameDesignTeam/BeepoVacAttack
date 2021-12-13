@@ -58,7 +58,9 @@ public class PlayingState extends BasicGameState {
             Packet retPack = new Packet("snapshot");
             retPack.setSnapshot(MainGame.players, MainGame.bunnies);
             MainGame.observer.send(retPack);
+
         }
+
     }
 
     @Override

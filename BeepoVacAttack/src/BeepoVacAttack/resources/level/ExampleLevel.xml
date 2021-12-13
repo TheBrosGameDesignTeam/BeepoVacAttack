@@ -40,7 +40,7 @@
 
         <FurnitureRecipe name="lamp">
             <Image src="lamp.png" x="0" y="0" w="147" h="144" />
-            <Wall x="78" y="92" r="38" />
+            <Wall x="78" y="90" r="35" />
         </FurnitureRecipe>
 
         <FurnitureRecipe name="bed">
@@ -62,23 +62,60 @@
         <FurnitureRecipe name="smallTable">
             <Image src="smallTable.png" x="0" y="0" w="232" h="288" />
             <Wall x="120" y="105" r="40" />
-            <Wall x="99" y="134" w="40" h="20" />
-            <Wall x="99" y="252" w="40" h="20" />
+            <Wall x="117" y="230" r="57" />
         </FurnitureRecipe>
+
+        <FurnitureRecipe name="plant">
+            <Image src="plant.png" x="0" y="0" w="111" h="113" />
+            <Wall x="58" y="70" r="33" />
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="bedside">
+            <Image src="bedTable.png" x="0" y="0" w="194" h="140" />
+            <Wall x="40" y="40" w="114" h="90" />
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="closet1">
+            <Image src="closet1.png" x="0" y="0" w="134" h="194" />
+            <!--      Need to add bounding box      -->
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="closet2">
+            <Image src="closet2.png" x="0" y="0" w="374" h="113" />
+            <!--      Need to add bounding box      -->
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="closet3">
+            <Image src="closet3.png" x="0" y="0" w="155" h="90" />
+            <!--      Need to add bounding box      -->
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="coats1">
+            <Image src="coats1.png" x="0" y="0" w="178" h="116" />
+            <!--      Need to add bounding box      -->
+        </FurnitureRecipe>
+
+        <FurnitureRecipe name="coats2">
+            <Image src="coats2.png" x="0" y="0" w="286" h="112" />
+            <!--      Need to add bounding box      -->
+        </FurnitureRecipe>
+
+<!--        <FurnitureRecipe name="dock">-->
+<!--            <Image src="Dock.png" x="0" y="0" w="100" h="70" />-->
+<!--            &lt;!&ndash;      Need to add bounding box      &ndash;&gt;-->
+<!--        </FurnitureRecipe>-->
 
     </FurnitureRecipes>
 
     <World>
         <Image src="BasicFloorPlansL1.png" x="36" y="9" w="2600" h="1900" />
 
-        <Wall x="142" y="10" w="2426" h="120" />
+        <Wall x="142" y="14" w="2426" h="116" />
         <Wall x="22" y="14" w="120" h="1851" />
         <Wall x="1230" y="130" w="215" h="652" />
         <Wall x="1445" y="130" w="230" h="134" />
-        <Wall x="1675" y="130" w="163" h="610" />
-        <Wall x="1838" y="130" w="57" h="652" />
+        <Wall x="1673" y="125" w="224" h="657" />
         <Wall x="2513" y="130" w="55" h="1616" />
-        <Wall x="1660" y="740" w="200" h="42" />
         <Wall x="2086" y="734" w="427" h="48" />
         <Wall x="142" y="996" w="1072" h="60" />
         <Wall x="289" y="1056" w="67" h="135" />
@@ -108,9 +145,9 @@
         <Wall x="2102" y="1603" w="228" h="142" />
         <Wall x="1972" y="1603" w="92" h="142" />
 
+        <Surface x="1445" y="264" w="228" h="517" type="tile" /> <!-- kitchen tile -->
 
-        <Surface x="1445" y="264" w="230" h="490" type="tile" /> <!-- kitchen tile -->
-        <Surface x="1445" y="754" w="214" h="27" type="tile" /> <!-- small kitchen tile -->
+
         <Surface x="1933" y="1278" w="427" h="462" type="tile" /> <!-- bathroom tile -->
         <Surface x="1908" y="1340" w="25" h="157" type="tile" /> <!-- small bathroom tile left -->
         <Surface x="2149" y="1257" w="149" h="20" type="tile" /> <!-- small bathroom tile up -->
@@ -129,18 +166,33 @@
         <Furniture name="coffeeTable" x="459" y="360" />
         <Furniture name="tv" x="492" y="908" />
         <Furniture name="smallTable" x="119" y="677" />
+        <Furniture name="plant" x="148" y="125" />
+        <Furniture name="plant" x="1114" y="141" />
 
         <!-- Den -->
         <Surface x="1998" y="233" w="421" h="395" type="carpet" />
         <Furniture name="chairRight" x="2058" y="230" />
         <Furniture name="desk" x="2240" y="155" />
+        <Furniture name="lamp" x="1922" y="98" />
 
         <!-- Bedroom -->
         <Surface x="574" y="1230" w="421" h="395" type="carpet" />
         <Furniture name="chairLeft" x="1163" y="1501" />
         <Furniture name="tv" x="625" y="1025" />
-        <Furniture name="lamp" x="482" y="1611" />
+        <Furniture name="lamp" x="380" y="1050" />
         <Furniture name="bed" x="561" y="1235" />
-        <Furniture name="lamp" x="940" y="1611" />
+        <Furniture name="bedside" x="445" y="1624" />
+        <Furniture name="bedside" x="940" y="1624" />
+
+        <!-- Patio -->
+        <Furniture name="plant" x="172" y="1068" />
+
+        <!-- Closets -->
+        <Furniture name="closet1" x="1857" y="1037" />
+        <Furniture name="closet2" x="1450" y="1118" />
+        <Furniture name="closet3" x="1450" y="1658" />
+        <Furniture name="coats2" x="1607" y="1636" />
+        <Furniture name="coats1" x="2348" y="1114" />
+
     </World>
 </Level>

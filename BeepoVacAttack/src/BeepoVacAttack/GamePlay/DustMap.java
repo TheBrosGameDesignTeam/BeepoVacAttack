@@ -44,6 +44,11 @@ public class DustMap {
         imageGraphics = (Graphics2D) image.getGraphics();
         imageGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 
+        try {
+            slickImage = new org.newdawn.slick.Image(Math.round(MainGame.getWidth() * ratio), Math.round(MainGame.getHeight() * ratio));
+        }  catch (SlickException e) {
+            e.printStackTrace();
+        }
         resetClear();
     }
 
@@ -133,7 +138,7 @@ public class DustMap {
         return clearedPixels;
     }
 
-    public float getPercentClear()
+    public float getPercentRemaining()
     {
         return (getFilledPixels() * 100f) / initialFillAmount;
     }
@@ -145,12 +150,13 @@ public class DustMap {
         Texture i = null;
         try
         {
-            ClientBeepoVac myBeepoVac = MainGame.instance.players.get(MainGame.instance.whichPlayer - 1);
-            float x = myBeepoVac.getX();
-            float y = myBeepoVac.getY();
+            ClientBeepoVac b = MainGame.instance.players.get(MainGame.instance.whichPlayer - 1);
 
-            int subimageX = Math.round(Math.max(0, (x - MainGame.getWidth() / 2)) * ratio);
-            int subimageY = Math.round(Math.max(0, (y - MainGame.getHeight() / 2)) * ratio);
+            float x = Math.min(Math.max(0, b.getX() - MainGame.getWidth() / 2), 2671 - MainGame.getWidth());
+            float y = Math.min(Math.max(0, b.getY() - MainGame.getHeight() / 2), 1917 - MainGame.getHeight());
+
+            int subimageX = Math.round(x * ratio);
+            int subimageY = Math.round(y * ratio);
 
 
             BufferedImage subimage = image.getSubimage(
@@ -164,11 +170,6 @@ public class DustMap {
             e.printStackTrace();
         } catch (RasterFormatException e) {
             e.printStackTrace();
-            try {
-                slickImage = new org.newdawn.slick.Image(Math.round(MainGame.getWidth() * ratio), Math.round(MainGame.getHeight() * ratio));
-            } catch (SlickException e2) {
-                e2.printStackTrace();
-            }
         }
 
 

@@ -223,7 +223,7 @@ public class Level {
         staticDustMapImage = dustMap.getSlickImage();
     }
 
-    public float getPercentClear() { return dustMap.getPercentClear(); }
+    public float getPercentClear() { return dustMap.getPercentRemaining(); }
 
     public Image getSlickDustMapImage()
     {
@@ -253,8 +253,8 @@ public class Level {
 
 
             ClientBeepoVac b = MainGame.instance.players.get(MainGame.instance.whichPlayer - 1);
-            float x = b.getX() - MainGame.getWidth() / 2;
-            float y = b.getY() - MainGame.getHeight() / 2;
+            float x = Math.min(Math.max(0, b.getX() - MainGame.getWidth() / 2), 2671 - MainGame.getWidth());
+            float y = Math.min(Math.max(0, b.getY() - MainGame.getHeight() / 2), 1917 - MainGame.getHeight());
 
             g.setDrawMode(Graphics.MODE_ALPHA_MAP);
             dustMapImage.draw(
@@ -275,13 +275,13 @@ public class Level {
             g.setDrawMode(Graphics.MODE_NORMAL);
         }
 
-        for (LevelSurface surface : getSurfaces()) {
-            renderLevelSurface(surface, g);
-        }
-
-        for (LevelWall wall : getWalls()) {
-            renderLevelWall(wall, g);
-        }
+//        for (LevelSurface surface : getSurfaces()) {
+//            renderLevelSurface(surface, g);
+//        }
+//
+//        for (LevelWall wall : getWalls()) {
+//            renderLevelWall(wall, g);
+//        }
     }
 
     public void renderOverlay(Graphics g) {        // Render the furniture!

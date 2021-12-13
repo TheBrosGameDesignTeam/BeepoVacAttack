@@ -1,21 +1,20 @@
 package BeepoVacAttack.BeepoVacClient;
 
 //import BeepoVacAttack.BeepoVacServer.MainGame;
-import jig.ResourceManager;
+import BeepoVacAttack.GamePlay.GameOverScreen;
+import Tweeninator.TweenManager;
 import jig.Vector;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import BeepoVacAttack.Networking.Packet;
 
+import jig.ResourceManager;
 import BeepoVacAttack.GamePlay.Level;
 
 import java.util.concurrent.TimeUnit;
 
-
 public class PlayingState extends BasicGameState {
-
-//    public float p1X = 0, p1Y = 0;
 
     private Level level = null;
     private Vector cameraPosition = new Vector(0,0);
@@ -25,14 +24,27 @@ public class PlayingState extends BasicGameState {
     private final int initialTime = 1000 * 50;
     private int timeRemaining = initialTime;
 
+    private boolean canChange = false;
+
+	private GameOverScreen gameOverScreen;
+	private boolean canQuitOrPlayAgain = false;
+
     @Override
     public void init(GameContainer container, StateBasedGame game)
             throws SlickException {
+        gameOverScreen = new GameOverScreen(() -> { canQuitOrPlayAgain = true; System.out.println("Player can now quit or play again"); });
     }
 
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         container.setSoundOn(false);
+
+        MainGame bg = (MainGame)game;
+
+        // init dock stations for this level
+        bg.docks.add(new Dock(1745,782));
+        bg.docks.add(new Dock(531,1057));
+        bg.docks.add(new Dock(2080,135));
 
         try {
             level = Level.fromXML("ExampleLevel.xml");
@@ -76,12 +88,23 @@ public class PlayingState extends BasicGameState {
 
         level.renderBackground(g);
 
+        bg.docks.forEach(
+                (dock) -> dock.render(g)
+        );
+
         bg.players.forEach(
             (player) -> player.render(g)
         );
+
         bg.bunnies.forEach(
             (bunny) -> bunny.render(g)
         );
+
+        // render the switch icon when you are near a dock
+        if (this.canChange) {
+            g.drawImage(ResourceManager.getImage(MainGame.SWITCH_IMG),bg.players.get(bg.whichPlayer-1).getX()-50,
+                    bg.players.get(bg.whichPlayer-1).getY()-88);
+        }
 
         level.renderOverlay(g);
 
@@ -90,19 +113,48 @@ public class PlayingState extends BasicGameState {
         g.setFont(MainGame.getNormalFont());
 
         g.drawString(msToTimeString(timeRemaining), 10, 40);
-        g.drawString(String.format("%.0f", level.getDustMap().getPercentClear()) + "%", 10, 40 + 5 + 25);
+        g.drawString(String.format("%.0f", 100 - level.getDustMap().getPercentRemaining()) + "%", 10, 40 + 5 + 25);
+
+
+        // Draw game over stuff
+        gameOverScreen.render(g);
 
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game,
                        int delta) throws SlickException {
-
-        // If the game is over, don't send any more output
-        if (timeRemaining < 0) { return; }
-
+        TweenManager.update(delta);
         Input input = container.getInput();
         MainGame bg = (MainGame)game;
+        // If the game is over, don't send any more output
+        if (timeRemaining < 0)
+        {
+
+            // If the player can quit or play again, handle those options!
+            if (canQuitOrPlayAgain && bg.whichPlayer == 1)
+            {
+                // Quit game
+                if (input.isKeyDown(Input.KEY_Q))
+                {
+                    System.exit(0);
+                }
+
+                // Restart the level
+                else if (input.isKeyPressed(Input.KEY_P))
+                {
+                    // TODO: send a "restart level" signal to other player
+                    Packet pack = new Packet("restart");
+                    pack.setPlayer(bg.whichPlayer);
+                    bg.caller.push(pack);
+                    System.out.println("restart message sent");
+                }
+            }
+
+            return;
+        }
+
+
 
         Vector up = new Vector(0, -1);
         Vector right = new Vector(1, 0);
@@ -133,16 +185,26 @@ public class PlayingState extends BasicGameState {
             cameraPosition = cameraPosition.add(up.scale(deltaAdjustedSpeed));
         }
 
-        // set the direction
-        myBeepoVac.setBeepoVacDir(sendMove);
+        // check proximity between docker and this client
+        for (Dock dock : bg.docks) {
+            float dockDistance = dock.getPosition().distance(bg.players.get(bg.whichPlayer-1).getPos());
+            if (dockDistance < 50) {
+                this.canChange = true;
+                break;
+            } else {
+                this.canChange = false;
+            }
+        }
 
-        // send concatenated string only if values are assigned
-        //if (sendMove.compareTo("") != 0) {
-        System.out.println(sendMove);
+        // check if you want to change vac
+        if (input.isKeyPressed(Input.KEY_E) && this.canChange) {
+            sendMove += "e";
+        }
+
+        // send concatenated string
         pack = new Packet(sendMove);
         pack.setPlayer(bg.whichPlayer);
         bg.caller.push(pack);
-        //}
 
         // take in the game state and apply it.
         while (!MainGame.queue.isEmpty()) {
@@ -156,6 +218,10 @@ public class PlayingState extends BasicGameState {
                 for (ClientBeepoVac beepoVac : bg.players) {
                     float x = test.vacPositions.poll();
                     float y = test.vacPositions.poll();
+                    // set vac type too
+                    beepoVac.setBeepoVacType(test.vacTypes.poll());
+                    // andddddd the direction IDK
+                    beepoVac.setBeepoVacDir(test.vacDirections.poll());
                     beepoVac.setBeepoVacPos(x, y, level);
                 }
 
@@ -171,16 +237,14 @@ public class PlayingState extends BasicGameState {
         // TODO: bound camera at edges of level
         cameraPosition = new Vector(myBeepoVac.getX(), myBeepoVac.getY());
 
-
+        timeRemaining -= delta;
         // TODO: Handle time up!
         if (timeRemaining < 0)
         {
             System.out.println("TIME UP");
+            gameOverScreen.animateIn(level.getPercentClear());
         }
-        else
-        {
-            timeRemaining -= delta;
-        }
+
     }
 
     @Override
