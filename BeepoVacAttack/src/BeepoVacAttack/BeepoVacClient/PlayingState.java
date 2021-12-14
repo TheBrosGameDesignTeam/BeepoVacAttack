@@ -46,6 +46,9 @@ public class PlayingState extends BasicGameState {
         bg.docks.add(new Dock(531,1057));
         bg.docks.add(new Dock(2080,135));
 
+        // init bunnies
+        for (int i=0; i<3; i++) bg.bunnies.add(new ClientDustBunny());
+
         try {
             level = Level.fromXML("ExampleLevel.xml");
         }
@@ -89,16 +92,16 @@ public class PlayingState extends BasicGameState {
         level.renderBackground(g);
 
         bg.docks.forEach(
-                (dock) -> dock.render(g)
+            (dock) -> dock.render(g)
         );
 
         bg.players.forEach(
             (player) -> player.render(g)
         );
 
-        bg.bunnies.forEach(
-            (bunny) -> bunny.render(g)
-        );
+        for (ClientDustBunny bunny : bg.bunnies)  {
+            if (!bunny.caught) bunny.render(g);
+        }
 
         // render the switch icon when you are near a dock
         if (this.canChange) {
@@ -124,6 +127,7 @@ public class PlayingState extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game,
                        int delta) throws SlickException {
+
         TweenManager.update(delta);
         Input input = container.getInput();
         MainGame bg = (MainGame)game;
@@ -225,11 +229,18 @@ public class PlayingState extends BasicGameState {
                     beepoVac.setBeepoVacPos(x, y, level);
                 }
 
+                // set the caught bunny to caught
+                if (test.getRemoveThisBun() != 100) {
+                    bg.bunnies.get(test.getRemoveThisBun()).setCaught();
+                }
+
                 // load all positions into dustBunnies
                 for (ClientDustBunny dustBunny : bg.bunnies) {
-                    float x = test.enemyPositions.poll();
-                    float y = test.enemyPositions.poll();
-                    dustBunny.setDustBunnyPos(x, y);
+                    if (test.enemyPositions.size() > 0) {
+                        float x = test.enemyPositions.poll();
+                        float y = test.enemyPositions.poll();
+                        if (!dustBunny.caught) dustBunny.setDustBunnyPos(x, y);
+                    }
                 }
             }
         }

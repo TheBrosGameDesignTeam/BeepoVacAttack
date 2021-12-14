@@ -11,11 +11,22 @@ public class ClientDustBunny {
 
     public static String RES_PLAYER_IMG_SRC = "BeepoVacAttack/resources/beepovacs_v3.png";
     public static String RES_BUNNY_IMG_SRC = "BeepoVacAttack/resources/bunny.png";
+
+    public boolean caught = false;
+
+    int aniPoint1 = 0;
+    int aniPoint2 = 0;
+
+    // testing
+    public static String RES_BUNNY_ANI = "BeepoVacAttack/resources/dustbunny.png";
+
     private static Image playerImage = null;
 
     public static void loadResources() {
         ResourceManager.loadImage(RES_PLAYER_IMG_SRC);
         ResourceManager.loadImage(RES_BUNNY_IMG_SRC);
+
+        ResourceManager.loadImage(RES_BUNNY_ANI);
     }
 
     // default starting position
@@ -46,20 +57,32 @@ public class ClientDustBunny {
 
     public void render(Graphics g) {
         // Image img = ResourceManager.getImage(RES_PLAYER_IMG_SRC);
-        //SpriteSheet sprite = new SpriteSheet(ResourceManager.getImage(RES_PLAYER_IMG_SRC), 205, 205);
-        Image img = ResourceManager.getImage(RES_BUNNY_IMG_SRC);
-        int rows = 3;
-        int cols = 8;
+        SpriteSheet sprite = new SpriteSheet(ResourceManager.getImage(RES_BUNNY_ANI), 485, 387);
+//        Image img = ResourceManager.getImage(RES_BUNNY_IMG_SRC);
+        int rows = 2;
+        int cols = 4;
 
         int srcX = 0;
         int srcY = 0;
-        int srcX2 = img.getWidth() / cols;
-        int srcY2 = img.getHeight() / rows;
+//        int srcX2 = img.getWidth() / cols;
+//        int srcY2 = img.getHeight() / rows;
 
-        g.drawImage( img, getX(), getY() );
+        int srcX2 = sprite.getWidth() / cols;
+        int srcY2 = sprite.getHeight() / rows;
+
+        g.drawImage(
+                sprite.getSprite(aniPoint1, aniPoint2),
+                getX() - radius, getY() - radius, // position
+                getX() + radius * 2, getY() + radius * 2,
+                srcX, srcY,     // what sprite
+                srcX2, srcY2
+        );
+
     }
 
     public float getX() { return this.x; }
     public float getY() { return this.y; }
+
+    public void setCaught() { this.caught = true;}
 
 }

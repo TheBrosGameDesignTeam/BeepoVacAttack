@@ -1,5 +1,7 @@
 package BeepoVacAttack.BeepoVacServer;
 
+import BeepoVacAttack.GamePlay.BeepoVac;
+import BeepoVacAttack.GamePlay.DustBunny;
 import BeepoVacAttack.Networking.Listener;
 import BeepoVacAttack.Networking.Packet;
 import com.sun.tools.javac.Main;
@@ -21,6 +23,12 @@ public class PlayingState extends BasicGameState {
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         container.setSoundOn(false);
+
+        // add bunnies for level 1
+        MainGame.bunnies.add(new DustBunny(900, 900)); // front room
+        MainGame.bunnies.add(new DustBunny(2085, 1419)); // bathroom
+        MainGame.bunnies.add(new DustBunny(318, 1422)); // balcony
+
     }
 
     @Override
@@ -54,8 +62,20 @@ public class PlayingState extends BasicGameState {
             // update the dust bunnies
             MainGame.bunnies.forEach((bunny) -> bunny.update(delta));
 
-            // get the pos of each player and save it in a snapshot
+            // get the pos of each player and each bun and save it in a snapshot
             Packet retPack = new Packet("snapshot");
+
+            // check if any of the bunnies intersect with any of the vacs
+            for (DustBunny bun: MainGame.bunnies) {
+                for (BeepoVac vac: MainGame.players) {
+                    float distance = bun.getPosition().distance(vac.getPosition());
+                    if (distance < vac.getRadius()){
+                        System.out.println("Take this bun off the list: " + MainGame.bunnies.indexOf(bun));
+                        retPack.setRemoveThisBun(MainGame.bunnies.indexOf(bun));
+                    }
+                }
+            }
+
             retPack.setSnapshot(MainGame.players, MainGame.bunnies);
             MainGame.observer.send(retPack);
 
