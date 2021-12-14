@@ -1,5 +1,7 @@
 package BeepoVacAttack.BeepoVacServer;
 
+import BeepoVacAttack.GamePlay.Map;
+import BeepoVacAttack.GamePlay.MapNode;
 import BeepoVacAttack.Networking.Listener;
 import BeepoVacAttack.Networking.Packet;
 import com.sun.tools.javac.Main;

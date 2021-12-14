@@ -22,16 +22,24 @@ public class DustBunny extends Entity {
         timer = time;
     }
 
-    public void setMove() {
+    public void setRandomMove() {
         float length = start.length();
         move = Vector.getRandom(length);
+
+        // collision detection to stay within walls
+    }
+
+    public void setFollowMove() {
+        int ratio = 100;
+        MapNode current = Map.getMap()[5][5];
+        move = current.getPi();
     }
 
     public void update(final int delta) {
         timer -= delta;
 
         if (timer <= 0) {
-            this.setMove();
+            this.setRandomMove();
             reset();
         }
 

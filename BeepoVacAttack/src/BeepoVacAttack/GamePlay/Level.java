@@ -217,6 +217,7 @@ public class Level {
 
         for (LevelWall wall : walls) {
             dustMap.clearDustInRectangle(wall.getPosition(), wall.getSize());
+            Map.setWallsUnreachable(wall.getPosition(), wall.getSize());
         }
 
         dustMap.updateInitialFillAmount();
