@@ -131,6 +131,7 @@ public class PlayingState extends BasicGameState {
     public void update(GameContainer container, StateBasedGame game,
                        int delta) throws SlickException {
 
+        MainGame.deltaDup = delta;
         TweenManager.update(delta);
         Input input = container.getInput();
         MainGame bg = (MainGame)game;

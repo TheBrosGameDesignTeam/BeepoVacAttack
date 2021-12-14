@@ -22,6 +22,7 @@ public class MainGame extends StateBasedGame {
 
     public static final int STARTUPSTATE = 0;
     public static final int PLAYINGSTATE = 1;
+    public static int deltaDup; 
 
 //    public static final String VAC_TEST_1 = "BeepoVacAttack/resources/Vac1.png";
     public static final String DOCK_IMG = "BeepoVacAttack/resources/Dock.png";

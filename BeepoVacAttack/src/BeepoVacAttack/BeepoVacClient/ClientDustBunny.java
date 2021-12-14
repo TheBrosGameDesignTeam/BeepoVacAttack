@@ -3,16 +3,16 @@ package BeepoVacAttack.BeepoVacClient;
 import BeepoVacAttack.GamePlay.Level;
 import jig.ResourceManager;
 import jig.Vector;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
 public class ClientDustBunny {
 
-    public static String RES_PLAYER_IMG_SRC = "BeepoVacAttack/resources/beepovacs_v3.png";
-    public static String RES_BUNNY_IMG_SRC = "BeepoVacAttack/resources/bunny.png";
-
     public boolean caught = false;
+
+    int aniTimer = 175;
 
     int aniPoint1 = 0;
     int aniPoint2 = 0;
@@ -20,12 +20,7 @@ public class ClientDustBunny {
     // testing
     public static String RES_BUNNY_ANI = "BeepoVacAttack/resources/dustbunny.png";
 
-    private static Image playerImage = null;
-
     public static void loadResources() {
-        ResourceManager.loadImage(RES_PLAYER_IMG_SRC);
-        ResourceManager.loadImage(RES_BUNNY_IMG_SRC);
-
         ResourceManager.loadImage(RES_BUNNY_ANI);
     }
 
@@ -57,6 +52,7 @@ public class ClientDustBunny {
 
     public void render(Graphics g) {
         SpriteSheet sprite = new SpriteSheet(ResourceManager.getImage(RES_BUNNY_ANI), 485, 387);
+
         int rows = 2;
         int cols = 4;
 
@@ -65,6 +61,16 @@ public class ClientDustBunny {
 
         int srcX2 = sprite.getWidth() / cols;
         int srcY2 = sprite.getHeight() / rows;
+
+        this.aniTimer-=MainGame.deltaDup;
+
+        if (this.aniTimer < 0) {
+            if (this.aniPoint1 == 3) this.aniPoint1 = 0;
+            if (this.aniPoint2 == 1) this.aniPoint2 = 0;
+            this.aniPoint1++;
+            this.aniPoint2++;
+            this.aniTimer = 175;
+        }
 
         g.drawImage(
                 sprite.getSprite(aniPoint1, aniPoint2),
