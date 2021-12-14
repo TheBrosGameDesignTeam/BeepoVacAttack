@@ -56,16 +56,12 @@ public class ClientDustBunny {
     }
 
     public void render(Graphics g) {
-        // Image img = ResourceManager.getImage(RES_PLAYER_IMG_SRC);
         SpriteSheet sprite = new SpriteSheet(ResourceManager.getImage(RES_BUNNY_ANI), 485, 387);
-//        Image img = ResourceManager.getImage(RES_BUNNY_IMG_SRC);
         int rows = 2;
         int cols = 4;
 
         int srcX = 0;
         int srcY = 0;
-//        int srcX2 = img.getWidth() / cols;
-//        int srcY2 = img.getHeight() / rows;
 
         int srcX2 = sprite.getWidth() / cols;
         int srcY2 = sprite.getHeight() / rows;

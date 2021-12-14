@@ -103,6 +103,9 @@ public class PlayingState extends BasicGameState {
             if (!bunny.caught) bunny.render(g);
         }
 
+        for (Bang b : bg.explosions)
+            b.render(g);
+
         // render the switch icon when you are near a dock
         if (this.canChange) {
             g.drawImage(ResourceManager.getImage(MainGame.SWITCH_IMG),bg.players.get(bg.whichPlayer-1).getX()-50,
@@ -230,7 +233,10 @@ public class PlayingState extends BasicGameState {
                 }
 
                 // set the caught bunny to caught
-                if (test.getRemoveThisBun() != 100) {
+                if (test.getRemoveThisBun() != 100 && !bg.bunnies.get(test.getRemoveThisBun()).caught) {
+                    // add bang animation to array
+                    bg.explosions.add(new Bang(bg.bunnies.get(test.getRemoveThisBun()).getX(),
+                            bg.bunnies.get(test.getRemoveThisBun()).getY()));
                     bg.bunnies.get(test.getRemoveThisBun()).setCaught();
                 }
 

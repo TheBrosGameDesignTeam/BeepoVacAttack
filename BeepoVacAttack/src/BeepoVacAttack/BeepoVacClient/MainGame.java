@@ -13,6 +13,7 @@ import org.newdawn.slick.font.effects.OutlineEffect;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -27,6 +28,7 @@ public class MainGame extends StateBasedGame {
     public static final String SWITCH_IMG = "BeepoVacAttack/resources/switch.png";
 
     public static final String RES_FONT = "BeepoVacAttack/resources/font/FredokaOne-Regular.ttf";
+    public static String BANG_SPRITE = "BeepoVacAttack/resources/dustexplosion.png";
 
     private UnicodeFont normalFont;
     public static UnicodeFont getNormalFont() { return instance.normalFont; }
@@ -44,6 +46,9 @@ public class MainGame extends StateBasedGame {
     public LinkedList<ClientBeepoVac> players;
     public LinkedList<ClientDustBunny> bunnies;
 
+    // animations
+    public ArrayList<Bang> explosions;
+
     public LinkedList<Dock> docks;
 
     // store screen width and height
@@ -60,6 +65,9 @@ public class MainGame extends StateBasedGame {
         players = new LinkedList<ClientBeepoVac>();
         bunnies = new LinkedList<ClientDustBunny>();
         docks = new LinkedList<Dock>();
+
+        // add an array of explosions
+        explosions = new ArrayList<Bang>(3);
 
         instance = this;
 
@@ -83,6 +91,7 @@ public class MainGame extends StateBasedGame {
         addState(new PlayingState());
         ResourceManager.loadImage(DOCK_IMG);
         ResourceManager.loadImage(SWITCH_IMG);
+        ResourceManager.loadImage(BANG_SPRITE);
 
         // Load font
         normalFont = new UnicodeFont(RES_FONT, 25, false, false);
