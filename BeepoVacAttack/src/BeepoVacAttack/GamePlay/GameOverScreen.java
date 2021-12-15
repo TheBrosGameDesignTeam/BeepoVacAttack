@@ -32,8 +32,17 @@ public class GameOverScreen
     public GameOverScreen(Runnable onAnimationFinished)
     {
         this.onAnimationFinished = onAnimationFinished;
+        reset();
     }
 
+    public void reset()
+    {
+        dimOpacity = 0f;
+        gameOverLabelY = -200;
+        percentCleanLabelY = MainGame.getHeight() + 100;
+        instructionsLabelY = MainGame.getHeight() + 100;
+        percentClean = 0f;
+    }
     public void animateIn(float percentClean)
     {
         this.percentClean = percentClean;

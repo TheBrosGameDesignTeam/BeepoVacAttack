@@ -57,6 +57,16 @@ public class PlayingState extends BasicGameState {
             Object message = MainGame.queue.poll();
             Packet pack = (Packet) message;
 
+            System.out.println("Packet message is " + pack.getMessage());
+            // Check if this is a "restart" command
+            if (pack.getMessage().equals("restart"))
+            {
+                Packet ret = new Packet("restart");
+                ret.setRestart();
+                MainGame.observer.send(ret);
+                return;
+            }
+
             // move which player that pack belongs to
             if (pack.getPlayer() == 1) {
                 MainGame.players.get(0).setMove(pack.getMessage());

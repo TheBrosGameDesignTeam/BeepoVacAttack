@@ -50,7 +50,14 @@ public class PlayingState extends BasicGameState {
 
         MainGame bg = (MainGame)game;
 
+        cameraPosition = new Vector(0,0);
+        timeRemaining = initialTime;
+        gameOverScreen.reset();
+        canQuitOrPlayAgain = false;
+
+
         // init dock stations for this level
+        bg.docks.clear();
         bg.docks.add(new Dock(1745,782));
         bg.docks.add(new Dock(531,1057));
         bg.docks.add(new Dock(2080,135));
@@ -175,6 +182,17 @@ public class PlayingState extends BasicGameState {
             return;
         }
 
+        // Restart the level
+        if (input.isKeyPressed(Input.KEY_P))
+        {
+            // TODO: send a "restart level" signal to other player
+            Packet pack = new Packet("restart");
+            pack.setPlayer(bg.whichPlayer);
+            bg.caller.push(pack);
+            System.out.println("restart message sent");
+            return;
+        }
+
         float deltaAdjustedSpeed = playerSpeed * ((float)delta / 1000.0f);
 
         // Deal with player input. Get it ready to send
@@ -226,6 +244,12 @@ public class PlayingState extends BasicGameState {
             Object message = MainGame.queue.poll();
             Packet test = (Packet) message;
 
+            // Check if this packet is telling us to restart
+            if (test.getRestart())
+            {
+                bg.enterState(MainGame.PLAYINGSTATE);
+                return;
+            }
             // make sure this is a snapshot
             if (test.getMessage().compareTo("snapshot")==0) {
 
