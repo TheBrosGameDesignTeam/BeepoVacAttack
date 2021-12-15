@@ -1,5 +1,6 @@
 package BeepoVacAttack.GamePlay;
 
+import jig.ConvexPolygon;
 import jig.Entity;
 import jig.ResourceManager;
 import jig.Vector;
@@ -11,16 +12,20 @@ public class BeepoVac extends MapNode {
     private final Vector down = new Vector(0,3);
     private final Vector right = new Vector(3,0);
     Vector move;
+    Vector lastPosition;
 
     private int vacType = 1;
     private int direction = 0;
 
     public BeepoVac(final float x, final float y) {
-        super(x,y);
-        this.move = new Vector(0,0);
+        super(x, y);
+        this.move = new Vector(0, 0);
+        lastPosition = getPosition();
+        addShape(new ConvexPolygon(32f));
     }
 
     public void setMove(String move) {
+        lastPosition = getPosition();
 
         Vector newMove = new Vector(0,0);
 
@@ -69,4 +74,8 @@ public class BeepoVac extends MapNode {
 
     public void update(final int delta) {}
 
+    public void handleCollision() {
+        move = new Vector(0,0);
+        setPosition(lastPosition);
+    }
 }

@@ -47,7 +47,7 @@ public class Level {
     public static Level fromXML(String pathToXML) throws Exception {
         Level newLevel = new Level();
 
-        File xmlFile = new File("BeepoVacAttack/BeepoVacAttack/src/BeepoVacAttack/resources/level/" + pathToXML);
+        File xmlFile = new File("BeepoVacAttack/src/BeepoVacAttack/resources/level/" + pathToXML);
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
