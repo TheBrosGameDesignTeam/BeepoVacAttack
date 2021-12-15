@@ -21,7 +21,7 @@ public class BeepoVac extends MapNode {
         super(x, y);
         this.move = new Vector(0, 0);
         lastPosition = getPosition();
-        addShape(new ConvexPolygon(32f));
+        addShape(new ConvexPolygon(30f), new Vector(15f,15f));
     }
 
     public void setMove(String move) {

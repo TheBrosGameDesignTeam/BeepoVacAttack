@@ -44,23 +44,30 @@ public class PlayingState extends BasicGameState {
         recipes = level.getFurnitureRecipes();
 
         for (LevelWall obj: level.getWalls()) {
+            Vector offset;
             if (obj.getRadius() != null) {
-                environment.addShape(new ConvexPolygon(obj.getRadius()), obj.getPosition());
+                offset = new Vector(obj.getPosition().add(new Vector(obj.getRadius(), obj.getRadius())));
+                environment.addShape(new ConvexPolygon(obj.getRadius()), offset);
             } else {
-                environment.addShape(new ConvexPolygon(obj.getSize().getX(), obj.getSize().getY()), obj.getPosition());
+                offset = new Vector(obj.getPosition().add(new Vector(obj.getSize().scale(0.5f))));
+//                environment.addShape(new ConvexPolygon(obj.getSize().getX(), obj.getSize().getY()), obj.getPosition());
+                environment.addShape(new ConvexPolygon(obj.getSize().getX(), obj.getSize().getY()), offset);
             }
         }
         for (LevelFurnitureInstance furn: level.getFurnitureInstances()) {
             LevelFurnitureRecipe furnType = recipes.get(furn.getName());
             for (LevelObject obj: furnType.getSubobjects()) {
+                Vector offset;
                 if (!(obj instanceof LevelWall)) {
                     continue;
                 }
                 LevelWall wall = (LevelWall) obj;
                 if (wall.getRadius() != null) {
-                    environment.addShape(new ConvexPolygon(wall.getRadius()), wall.getPosition());
+                    offset = new Vector(furn.getPosition().add(wall.getPosition()));
+                    environment.addShape(new ConvexPolygon(wall.getRadius()), offset);
                 } else {
-                    environment.addShape(new ConvexPolygon(wall.getSize().getX(), wall.getSize().getY()), wall.getPosition());
+                    offset = new Vector(furn.getPosition().add(wall.getPosition().add(wall.getSize().scale(0.5f))));
+                    environment.addShape(new ConvexPolygon(wall.getSize().getX(), wall.getSize().getY()), offset);
                 }
             }
         }
@@ -71,8 +78,10 @@ public class PlayingState extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game,
                        Graphics g) throws SlickException {
         MainGame bg = (MainGame)game;
-        g.drawString("We are playing!", 100, 100);
 
+        environment.render(g);
+        MainGame.players.forEach((player) -> player.render(g));
+        MainGame.bunnies.forEach((bunny) -> bunny.render(g));
     }
 
     @Override

@@ -18,7 +18,7 @@ public class DustBunny extends Entity {
         super(x,y);
         this.move = start;
         timer = time;
-        addShape(new ConvexPolygon(32f));
+        addShape(new ConvexPolygon(30f), new Vector(30f,30f));
         lastPosition = getPosition();
     }
 
