@@ -1,16 +1,21 @@
 package BeepoVacAttack.BeepoVacClient;
 
 import BeepoVacAttack.GamePlay.Level;
+import BeepoVacAttack.GamePlay.MapNode;
 import jig.ResourceManager;
 import jig.Vector;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
-public class ClientBeepoVac {
+public class ClientBeepoVac extends MapNode {
 
     public static String RES_PLAYER_IMG_SRC = "BeepoVacAttack/resources/beepovacs_v3.png";
     private static Image playerImage = null;
+
+    public ClientBeepoVac(float x, float y) {
+        super(x, y);
+    }
 
     public static void loadResources() {
         ResourceManager.loadImage(RES_PLAYER_IMG_SRC);

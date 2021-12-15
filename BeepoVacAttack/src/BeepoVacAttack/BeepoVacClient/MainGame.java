@@ -1,5 +1,6 @@
 package BeepoVacAttack.BeepoVacClient;
 import BeepoVacAttack.GamePlay.Level;
+import BeepoVacAttack.GamePlay.Map;
 import BeepoVacAttack.Networking.*;
 import jig.Entity;
 
@@ -43,8 +44,8 @@ public class MainGame extends StateBasedGame {
     public int whichPlayer = 0;
     public LinkedList<ClientBeepoVac> players;
     public LinkedList<ClientDustBunny> bunnies;
-
     public LinkedList<Dock> docks;
+    // public Map map;
 
     // store screen width and height
     public final int ScreenWidth;
@@ -60,6 +61,7 @@ public class MainGame extends StateBasedGame {
         players = new LinkedList<ClientBeepoVac>();
         bunnies = new LinkedList<ClientDustBunny>();
         docks = new LinkedList<Dock>();
+        // map = new Map();
 
         instance = this;
 

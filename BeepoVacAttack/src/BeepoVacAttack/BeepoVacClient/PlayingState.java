@@ -2,6 +2,8 @@ package BeepoVacAttack.BeepoVacClient;
 
 //import BeepoVacAttack.BeepoVacServer.MainGame;
 import BeepoVacAttack.GamePlay.GameOverScreen;
+import BeepoVacAttack.GamePlay.Map;
+import BeepoVacAttack.GamePlay.MapNode;
 import Tweeninator.TweenManager;
 import jig.Vector;
 import org.newdawn.slick.*;
@@ -12,6 +14,7 @@ import BeepoVacAttack.Networking.Packet;
 import jig.ResourceManager;
 import BeepoVacAttack.GamePlay.Level;
 
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class PlayingState extends BasicGameState {
@@ -25,9 +28,15 @@ public class PlayingState extends BasicGameState {
     private int timeRemaining = initialTime;
 
     private boolean canChange = false;
+    private boolean debug = true;
 
 	private GameOverScreen gameOverScreen;
 	private boolean canQuitOrPlayAgain = false;
+
+    private Vector up = new Vector(0, -1);
+    private Vector right = new Vector(1, 0);
+    private Vector left = right.scale(-1);
+    private Vector down = up.scale(-1);
 
     @Override
     public void init(GameContainer container, StateBasedGame game)
@@ -89,7 +98,7 @@ public class PlayingState extends BasicGameState {
         level.renderBackground(g);
 
         bg.docks.forEach(
-                (dock) -> dock.render(g)
+             (dock) -> dock.render(g)
         );
 
         bg.players.forEach(
@@ -154,12 +163,6 @@ public class PlayingState extends BasicGameState {
             return;
         }
 
-
-
-        Vector up = new Vector(0, -1);
-        Vector right = new Vector(1, 0);
-        Vector left = right.scale(-1);
-        Vector down = up.scale(-1);
         float deltaAdjustedSpeed = playerSpeed * ((float)delta / 1000.0f);
 
         // Deal with player input. Get it ready to send

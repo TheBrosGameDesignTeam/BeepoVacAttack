@@ -10,7 +10,7 @@ public class DustBunny extends Entity {
     Vector move;
 
     private int timer;
-    private int time = 2000;
+    private int time = 500;
 
     public DustBunny(final float x, final float y) {
         super(x,y);
@@ -22,16 +22,28 @@ public class DustBunny extends Entity {
         timer = time;
     }
 
-    public void setMove() {
+    public void setRandomMove() {
         float length = start.length();
         move = Vector.getRandom(length);
+
+        // collision detection to stay within walls
     }
 
-    public void update(final int delta) {
+    public void setFollowMove() {
+        int ratio = 100;
+        // MapNode current = Map.getMap()[(int)this.getX()/ratio][(int)this.getY()/ratio];
+        MapNode current = Map.getMap()[5][5];
+        move = current.getPi();
+    }
+
+    public void update(final int delta, Vector pos) {
         timer -= delta;
+        System.out.println("Setting bun direction to: " + pos);
 
         if (timer <= 0) {
-            this.setMove();
+            // this.setFollowMove();
+            if (pos != null) move = pos;
+            else setRandomMove();
             reset();
         }
 
