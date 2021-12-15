@@ -13,7 +13,7 @@ public class Packet implements Serializable {
     int player = 0;
     int howManyPlayers = 0;
     int howManyEnemies = 0;
-//    int whatVac;
+    int removeThisBun = 100;
 
     public LinkedList<Float> vacPositions = new LinkedList<Float>();
     public LinkedList<Float> enemyPositions = new LinkedList<Float>();
@@ -32,10 +32,8 @@ public class Packet implements Serializable {
     public int getHowManyPlayers() { return this.howManyPlayers; }
     public void setHowManyPlayers(int howManyPlayers) { this.howManyPlayers = howManyPlayers; }
 
-//    public void setWhatVac(int whatVac) { this.whatVac = whatVac; }
-
-//    public void setP1(Vector p1Pos) { this.p1X = p1Pos.getX(); this.p1Y = p1Pos.getY(); }
-//    public void setP2(Vector p2Pos) { this.p2X = p2Pos.getX(); this.p2Y = p2Pos.getY(); }
+    public int getRemoveThisBun() { return this.removeThisBun; }
+    public void setRemoveThisBun(int bun) { this.removeThisBun = bun; }
 
     public void setSnapshot(LinkedList<BeepoVac> players, LinkedList<DustBunny> bunnies) {
 

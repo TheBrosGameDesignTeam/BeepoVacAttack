@@ -4,6 +4,8 @@ import BeepoVacAttack.BeepoVacClient.ClientBeepoVac;
 import BeepoVacAttack.GamePlay.BeepoVac;
 import BeepoVacAttack.GamePlay.Map;
 import BeepoVacAttack.GamePlay.MapNode;
+import BeepoVacAttack.GamePlay.BeepoVac;
+import BeepoVacAttack.GamePlay.DustBunny;
 import BeepoVacAttack.Networking.Listener;
 import BeepoVacAttack.Networking.Packet;
 import com.sun.tools.javac.Main;
@@ -24,6 +26,14 @@ public class PlayingState extends BasicGameState {
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         container.setSoundOn(false);
+
+        // add bunnies for level 1
+//        MainGame.bunnies.add(new DustBunny(800, 900)); // testing
+//        MainGame.bunnies.add(new DustBunny(900, 900)); // testing
+        MainGame.bunnies.add(new DustBunny(1000, 900)); // front room
+        MainGame.bunnies.add(new DustBunny(2085, 1419)); // bathroom
+        MainGame.bunnies.add(new DustBunny(318, 1422)); // balcony
+
     }
 
     @Override
@@ -62,8 +72,20 @@ public class PlayingState extends BasicGameState {
             Vector pos = Map.getMap()[Math.round(bun.getX()/100)][Math.round(bun.getY()/100)].getPi();
             MainGame.bunnies.forEach((bunny) -> bunny.update(delta, pos));
 
-            // get the pos of each player and save it in a snapshot
+            // get the pos of each player and each bun and save it in a snapshot
             Packet retPack = new Packet("snapshot");
+
+            // check if any of the bunnies intersect with any of the vacs
+            for (DustBunny bunny: MainGame.bunnies) {
+                for (BeepoVac vac: MainGame.players) {
+                    float distance = bunny.getPosition().distance(vac.getPosition());
+                    if (distance < vac.getRadius()){
+                        System.out.println("Take this bun off the list: " + MainGame.bunnies.indexOf(bunny));
+                        retPack.setRemoveThisBun(MainGame.bunnies.indexOf(bunny));
+                    }
+                }
+            }
+
             retPack.setSnapshot(MainGame.players, MainGame.bunnies);
             MainGame.observer.send(retPack);
 
