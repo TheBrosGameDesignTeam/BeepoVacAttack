@@ -33,6 +33,11 @@ public class PlayingState extends BasicGameState {
 	private GameOverScreen gameOverScreen;
 	private boolean canQuitOrPlayAgain = false;
 
+    private Vector up = new Vector(0, -1);
+    private Vector right = new Vector(1, 0);
+    private Vector left = right.scale(-1);
+    private Vector down = up.scale(-1);
+
     @Override
     public void init(GameContainer container, StateBasedGame game)
             throws SlickException {
@@ -112,16 +117,6 @@ public class PlayingState extends BasicGameState {
 
         level.renderOverlay(g);
 
-        MapNode[][] map = Map.getMap();
-        if (debug) {
-            for (int y = 0; y < Map.getCols(); y++) {
-                for (int x = 0; x < Map.getRows(); x++) {
-                    MapNode node = map[x][y];
-                    g.drawString(String.valueOf(node.getDi()), node.getX(), node.getY());
-                }
-            }
-        }
-
         g.resetTransform();
         g.setColor(Color.white);
         g.setFont(MainGame.getNormalFont());
@@ -168,10 +163,6 @@ public class PlayingState extends BasicGameState {
             return;
         }
 
-        Vector up = new Vector(0, -1);
-        Vector right = new Vector(1, 0);
-        Vector left = right.scale(-1);
-        Vector down = up.scale(-1);
         float deltaAdjustedSpeed = playerSpeed * ((float)delta / 1000.0f);
 
         // Deal with player input. Get it ready to send
@@ -212,9 +203,6 @@ public class PlayingState extends BasicGameState {
         if (input.isKeyPressed(Input.KEY_E) && this.canChange) {
             sendMove += "e";
         }
-
-        // update node values using dijkstra's
-        dijkstras(bg, myBeepoVac);
 
         // send concatenated string
         pack = new Packet(sendMove);
@@ -260,74 +248,6 @@ public class PlayingState extends BasicGameState {
             gameOverScreen.animateIn(level.getPercentClear());
         }
 
-    }
-
-    public void dijkstras(MainGame game, ClientBeepoVac target) {
-        MapNode[][] map = Map.getMap();
-
-        int ratio = 100;
-        Vector up = new Vector(0, -1);
-        Vector right = new Vector(1, 0);
-        Vector left = right.scale(-1);
-        Vector down = up.scale(-1);
-
-        Set<MapNode> seen = new HashSet<>();
-        PriorityQueue<MapNode> pq = new PriorityQueue<>(Comparator.comparingInt(node -> node.getDi()));
-
-        for (MapNode[] nodes : map) {
-            for (MapNode node : nodes) {
-                node.setDi(1000);
-                node.setPi(null);
-                pq.add(node);
-            }
-        }
-
-        MapNode current = map[(int)target.getX()/ratio][(int)target.getY()/ratio];
-        pq.remove(current);
-        current.setDi(0);
-        target.setDi(0);
-        pq.add(current);
-
-        while (!pq.isEmpty()) {
-            MapNode u = pq.remove();
-            seen.add(u);
-
-            int weight = u.getDi() + 1;
-            int ux = (int) u.getX()/ratio;
-            int uy = (int) u.getY()/ratio;
-            ArrayList<MapNode> adjacents = getAdjacents(game, u);
-
-            for (MapNode n : adjacents) {
-                if (n.getDi() > weight) {
-                    pq.remove(n);
-                    n.setDi(weight);
-                    Vector point;
-                    if (n.getX()/ratio == ux + 1) { point = left; }
-                    else if (n.getX()/ratio == ux - 1) { point = right; }
-                    else if (n.getY()/ratio == uy + 1) { point = up; }
-                    else { point = down; }
-                    n.setPi(point);
-                    pq.add(n);
-                }
-            }
-
-        }
-
-    }
-
-    public ArrayList<MapNode> getAdjacents(MainGame game, MapNode u) {
-        MapNode[][] map = Map.getMap();
-        int ratio = 100;
-        int ux = (int) u.getX()/ratio;
-        int uy = (int) u.getY()/ratio;
-
-        ArrayList<MapNode> adjacents = new ArrayList<>(8);
-        if (ux < Map.getRows()-1) adjacents.add(map[(ux)+1][uy]);
-        if (ux > 0)             adjacents.add(map[(ux)-1][uy]);
-        if (uy < Map.getCols()-1) adjacents.add(map[ux][(uy)+1]);
-        if (uy > 0)             adjacents.add(map[ux][(uy)-1]);
-
-        return adjacents;
     }
 
     @Override

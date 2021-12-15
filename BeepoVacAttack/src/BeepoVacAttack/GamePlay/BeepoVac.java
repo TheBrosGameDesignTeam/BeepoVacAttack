@@ -4,7 +4,7 @@ import jig.Entity;
 import jig.ResourceManager;
 import jig.Vector;
 
-public class BeepoVac extends Entity {
+public class BeepoVac extends MapNode {
 
     private final Vector up = new Vector(0,-3);
     private final Vector left = new Vector(-3,0);

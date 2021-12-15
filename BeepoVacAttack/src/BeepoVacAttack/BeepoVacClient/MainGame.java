@@ -45,7 +45,7 @@ public class MainGame extends StateBasedGame {
     public LinkedList<ClientBeepoVac> players;
     public LinkedList<ClientDustBunny> bunnies;
     public LinkedList<Dock> docks;
-    public Map map;
+    // public Map map;
 
     // store screen width and height
     public final int ScreenWidth;
@@ -61,7 +61,7 @@ public class MainGame extends StateBasedGame {
         players = new LinkedList<ClientBeepoVac>();
         bunnies = new LinkedList<ClientDustBunny>();
         docks = new LinkedList<Dock>();
-        map = new Map();
+        // map = new Map();
 
         instance = this;
 

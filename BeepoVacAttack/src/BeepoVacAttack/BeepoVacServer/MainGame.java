@@ -2,6 +2,7 @@ package BeepoVacAttack.BeepoVacServer;
 
 import BeepoVacAttack.GamePlay.BeepoVac;
 import BeepoVacAttack.GamePlay.DustBunny;
+import BeepoVacAttack.GamePlay.Map;
 import BeepoVacAttack.Networking.Listener;
 import jig.Entity;
 import org.newdawn.slick.AppGameContainer;
@@ -25,6 +26,7 @@ public class MainGame extends StateBasedGame {
     // gameplay
     public static LinkedList<BeepoVac> players;
     public static LinkedList<DustBunny> bunnies;
+    public Map map;
 
     public MainGame(String title, int width, int height) {
         super(title);
@@ -34,6 +36,7 @@ public class MainGame extends StateBasedGame {
         listeners = new LinkedList<Listener>();
         players = new LinkedList<BeepoVac>();
         bunnies = new LinkedList<DustBunny>();
+        map = new Map();
 
     }
 

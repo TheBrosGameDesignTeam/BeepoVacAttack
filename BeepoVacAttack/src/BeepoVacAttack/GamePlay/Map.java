@@ -16,7 +16,7 @@ public class Map {
         }
     }
 
-    public static void setWallsUnreachable(Vector pos, Vector size) {
+    /*public static void setWallsUnreachable(Vector pos, Vector size) {
         int starty = (int) (cols*(Math.ceil(pos.getY()/cols)));
         int startx = (int) (rows*(Math.ceil(pos.getX()/rows)));
         for (int y = starty; y < (starty + size.getY()); y += cols) {
@@ -25,7 +25,7 @@ public class Map {
                 current.setDi(-1);
             }
         }
-    }
+    }*/
 
     public static int getRows() { return rows; }
     public static int getCols() { return cols; }
