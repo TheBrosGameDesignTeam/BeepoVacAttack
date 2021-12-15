@@ -45,6 +45,9 @@ public class ClientBeepoVac extends MapNode {
     public void setBeepoVacType(int vacType) {
         // cycle threw values for vacs
         this.vacType = vacType;
+        if (vacType == 0) this.radius = 25;
+        else if (vacType == 1) this.radius = 30;
+        else this.radius = 40;
     }
 
     public int getBeepoVacType() {

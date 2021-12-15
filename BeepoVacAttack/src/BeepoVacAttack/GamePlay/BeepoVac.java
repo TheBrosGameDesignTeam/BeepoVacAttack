@@ -45,6 +45,7 @@ public class BeepoVac extends MapNode {
         if (move.contains("e")) {
             if (this.vacType == 2) this.vacType = 0;
             else this.vacType++;
+            this.setRadius();
         }
 
 //        System.out.println(newMove);
@@ -70,6 +71,11 @@ public class BeepoVac extends MapNode {
     public int getVacDirection() { return this.direction; }
 
     public int getRadius() { return this.radius; }
+    public void setRadius() {
+        if (this.vacType == 0) this.radius = 25;
+        else if (this.vacType == 1) this.radius = 30;
+        else this.radius = 40;
+    }
 
     public void update(final int delta) {}
 
