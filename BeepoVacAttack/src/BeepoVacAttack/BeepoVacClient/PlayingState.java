@@ -103,13 +103,18 @@ public class PlayingState extends BasicGameState {
             if (!bunny.caught) bunny.render(g);
         }
 
-        for (Bang b : bg.explosions)
-            b.render(g);
-
         // render the switch icon when you are near a dock
         if (this.canChange) {
             g.drawImage(ResourceManager.getImage(MainGame.SWITCH_IMG),bg.players.get(bg.whichPlayer-1).getX()-50,
                     bg.players.get(bg.whichPlayer-1).getY()-88);
+        }
+
+        g.setColor(Color.white);
+        g.setFont(MainGame.getNormalFont());
+
+        for (Bang b : bg.explosions) {
+            b.render(g);
+            if (b.isActive()) g.drawString("+30 sec", b.getX(), b.getY());
         }
 
         level.renderOverlay(g);
@@ -120,7 +125,6 @@ public class PlayingState extends BasicGameState {
 
         g.drawString(msToTimeString(timeRemaining), 10, 40);
         g.drawString(String.format("%.0f", 100 - level.getDustMap().getPercentRemaining()) + "%", 10, 40 + 5 + 25);
-
 
         // Draw game over stuff
         gameOverScreen.render(g);
@@ -242,12 +246,14 @@ public class PlayingState extends BasicGameState {
                     }
                 }
 
-                // set the caught bunny to caught
+                // set the caught bunny to caught and add seconds to timer
                 if (test.getRemoveThisBun() != 100 && !bg.bunnies.get(test.getRemoveThisBun()).caught) {
                     // add bang animation to array
                     bg.explosions.add(new Bang(bg.bunnies.get(test.getRemoveThisBun()).getX()+10,
                             bg.bunnies.get(test.getRemoveThisBun()).getY()+10));
                     bg.bunnies.get(test.getRemoveThisBun()).setCaught();
+                    // add 30 secs to the timer
+                    timeRemaining+=30000;
                 }
 
             }

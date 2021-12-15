@@ -24,6 +24,8 @@ public class ClientBeepoVac {
     private int radius = 30;
     private int vacType = 1;
 
+    public int timer = -100;
+
     // Store where to draw the image
     public void setBeepoVacPos(float x, float y, Level l) {
         this.x = x; this.y = y;

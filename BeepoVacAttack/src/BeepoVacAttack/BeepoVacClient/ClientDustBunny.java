@@ -12,7 +12,7 @@ public class ClientDustBunny {
 
     public boolean caught = false;
 
-    int aniTimer = 200;
+    int aniTimer = 150;
     int aniPoint1 = 0;
     int aniPoint2 = 0;
 
@@ -54,21 +54,25 @@ public class ClientDustBunny {
 
         int rows = 2;
         int cols = 4;
-
         int srcX = 0;
         int srcY = 0;
 
         int srcX2 = sprite.getWidth() / cols;
         int srcY2 = sprite.getHeight() / rows;
 
+        // OOOOF THIS IS BAD. OH WELL
         this.aniTimer-=MainGame.deltaDup;
-
-        if (this.aniTimer < 0) {
-            if (this.aniPoint1 == 3) this.aniPoint1 = 0;
-            if (this.aniPoint2 == 1) this.aniPoint2 = 0;
+        if (this.aniTimer <= 0) {
+            if (this.aniPoint1 == 3) {
+                this.aniPoint1 = 0;
+                this.aniPoint2 = 1;
+            }
+            if(this.aniPoint2 == 1 && this.aniPoint1 == 2) {
+                this.aniPoint1 = 0;
+                this.aniPoint2 = 0;
+            }
             this.aniPoint1++;
-            this.aniPoint2++;
-            this.aniTimer = 200;
+            this.aniTimer = 150;
         }
 
         g.drawImage(

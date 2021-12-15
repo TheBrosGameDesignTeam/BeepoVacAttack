@@ -25,7 +25,9 @@ public class PlayingState extends BasicGameState {
         container.setSoundOn(false);
 
         // add bunnies for level 1
-        MainGame.bunnies.add(new DustBunny(900, 900)); // front room
+//        MainGame.bunnies.add(new DustBunny(800, 900)); // testing
+//        MainGame.bunnies.add(new DustBunny(900, 900)); // testing
+        MainGame.bunnies.add(new DustBunny(1000, 900)); // front room
         MainGame.bunnies.add(new DustBunny(2085, 1419)); // bathroom
         MainGame.bunnies.add(new DustBunny(318, 1422)); // balcony
 
