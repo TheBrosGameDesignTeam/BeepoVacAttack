@@ -1,8 +1,7 @@
 package BeepoVacAttack.BeepoVacServer;
 
 import BeepoVacAttack.BeepoVacClient.ClientBeepoVac;
-import BeepoVacAttack.GamePlay.BeepoVac;
-import BeepoVacAttack.GamePlay.DustBunny;
+import BeepoVacAttack.GamePlay.*;
 import BeepoVacAttack.GamePlay.Map;
 import BeepoVacAttack.GamePlay.MapNode;
 import BeepoVacAttack.GamePlay.BeepoVac;
@@ -11,6 +10,8 @@ import BeepoVacAttack.Networking.Listener;
 import BeepoVacAttack.Networking.Packet;
 import com.sun.tools.javac.Main;
 import jig.Collision;
+import jig.ConvexPolygon;
+import jig.Entity;
 import jig.Vector;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -18,7 +19,12 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.*;
 
+import static java.lang.System.exit;
+
 public class PlayingState extends BasicGameState {
+    public Level level;
+    public Entity environment;
+    public HashMap<String, LevelFurnitureRecipe> recipes;
 
     @Override
     public void init(GameContainer container, StateBasedGame game)
@@ -35,6 +41,38 @@ public class PlayingState extends BasicGameState {
         MainGame.bunnies.add(new DustBunny(1000, 900)); // front room
         MainGame.bunnies.add(new DustBunny(2085, 1419)); // bathroom
         MainGame.bunnies.add(new DustBunny(318, 1422)); // balcony
+        environment = new Entity();
+
+        try {
+            level = Level.fromXML("ExampleLevel.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+            exit(1);
+        }
+
+        recipes = level.getFurnitureRecipes();
+
+        for (LevelWall obj: level.getWalls()) {
+            if (obj.getRadius() != null) {
+                environment.addShape(new ConvexPolygon(obj.getRadius()), obj.getPosition());
+            } else {
+                environment.addShape(new ConvexPolygon(obj.getSize().getX(), obj.getSize().getY()), obj.getPosition());
+            }
+        }
+        for (LevelFurnitureInstance furn: level.getFurnitureInstances()) {
+            LevelFurnitureRecipe furnType = recipes.get(furn.getName());
+            for (LevelObject obj: furnType.getSubobjects()) {
+                if (!(obj instanceof LevelWall)) {
+                    continue;
+                }
+                LevelWall wall = (LevelWall) obj;
+                if (wall.getRadius() != null) {
+                    environment.addShape(new ConvexPolygon(wall.getRadius()), wall.getPosition());
+                } else {
+                    environment.addShape(new ConvexPolygon(wall.getSize().getX(), wall.getSize().getY()), wall.getPosition());
+                }
+            }
+        }
 
     }
 
@@ -104,6 +142,11 @@ public class PlayingState extends BasicGameState {
                         player.handleCollision();
                     }
                 }
+
+                if (player.collides(environment) != null) {
+                    System.out.println("Player colliding with environment");
+                    player.handleCollision();
+                }
             }
 
             for (DustBunny bunny: MainGame.bunnies) {
@@ -122,6 +165,9 @@ public class PlayingState extends BasicGameState {
                         bunny.handleCollision();
                         other.handleCollision();
                     }
+                }
+                if (bunny.collides(environment) != null) {
+                    System.out.println("Bunny colliding with environment");
                 }
             }
 
