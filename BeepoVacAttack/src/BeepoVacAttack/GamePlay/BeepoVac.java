@@ -14,6 +14,8 @@ public class BeepoVac extends MapNode {
 
     private int vacType = 1;
     private int direction = 0;
+    private int radius = 50;
+
 
     public BeepoVac(final float x, final float y) {
         super(x,y);
@@ -66,6 +68,8 @@ public class BeepoVac extends MapNode {
 
     public int getVacType() { return this.vacType; }
     public int getVacDirection() { return this.direction; }
+
+    public int getRadius() { return this.radius; }
 
     public void update(final int delta) {}
 
