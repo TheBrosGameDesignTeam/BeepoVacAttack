@@ -11,9 +11,9 @@ public class Bang extends Entity {
 
     public Bang(final float x, final float y) {
         super(x, y);
-        SpriteSheet sprite = new SpriteSheet(ResourceManager.getImage(MainGame.BANG_SPRITE), 566, 493);
+        SpriteSheet sprite = new SpriteSheet(ResourceManager.getImage(MainGame.BANG_SPRITE), 294, 256);
 
-        explosion = new Animation(sprite, 40);
+        explosion = new Animation(sprite, 50);
         addAnimation(explosion);
         explosion.setLooping(false);
 

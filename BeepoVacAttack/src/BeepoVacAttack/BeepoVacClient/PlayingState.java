@@ -233,14 +233,6 @@ public class PlayingState extends BasicGameState {
                     beepoVac.setBeepoVacPos(x, y, level);
                 }
 
-                // set the caught bunny to caught
-                if (test.getRemoveThisBun() != 100 && !bg.bunnies.get(test.getRemoveThisBun()).caught) {
-                    // add bang animation to array
-                    bg.explosions.add(new Bang(bg.bunnies.get(test.getRemoveThisBun()).getX(),
-                            bg.bunnies.get(test.getRemoveThisBun()).getY()));
-                    bg.bunnies.get(test.getRemoveThisBun()).setCaught();
-                }
-
                 // load all positions into dustBunnies
                 for (ClientDustBunny dustBunny : bg.bunnies) {
                     if (test.enemyPositions.size() > 0) {
@@ -249,6 +241,15 @@ public class PlayingState extends BasicGameState {
                         if (!dustBunny.caught) dustBunny.setDustBunnyPos(x, y);
                     }
                 }
+
+                // set the caught bunny to caught
+                if (test.getRemoveThisBun() != 100 && !bg.bunnies.get(test.getRemoveThisBun()).caught) {
+                    // add bang animation to array
+                    bg.explosions.add(new Bang(bg.bunnies.get(test.getRemoveThisBun()).getX()+10,
+                            bg.bunnies.get(test.getRemoveThisBun()).getY()+10));
+                    bg.bunnies.get(test.getRemoveThisBun()).setCaught();
+                }
+
             }
         }
 

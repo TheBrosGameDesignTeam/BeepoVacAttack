@@ -12,8 +12,7 @@ public class ClientDustBunny {
 
     public boolean caught = false;
 
-    int aniTimer = 175;
-
+    int aniTimer = 200;
     int aniPoint1 = 0;
     int aniPoint2 = 0;
 
@@ -69,7 +68,7 @@ public class ClientDustBunny {
             if (this.aniPoint2 == 1) this.aniPoint2 = 0;
             this.aniPoint1++;
             this.aniPoint2++;
-            this.aniTimer = 175;
+            this.aniTimer = 200;
         }
 
         g.drawImage(
