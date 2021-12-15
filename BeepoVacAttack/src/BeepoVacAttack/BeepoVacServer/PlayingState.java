@@ -68,9 +68,15 @@ public class PlayingState extends BasicGameState {
             dijkstras(bg, MainGame.players.get(0));
 
             // update the dust bunnies
-            Vector bun = MainGame.bunnies.getFirst().getPosition();
-            Vector pos = Map.getMap()[Math.round(bun.getX()/100)][Math.round(bun.getY()/100)].getPi();
-            MainGame.bunnies.forEach((bunny) -> bunny.update(delta, pos));
+
+            for (DustBunny bun: MainGame.bunnies) {
+                Vector bunPos = MainGame.bunnies.get(MainGame.bunnies.indexOf(bun)).getPosition();
+                Vector finalPos = Map.getMap()[Math.round(bun.getX()/100)][Math.round(bun.getY()/100)].getPi();
+                bun.update(delta, finalPos);
+            }
+//            Vector bun = MainGame.bunnies.getFirst().getPosition();
+//            Vector pos = Map.getMap()[Math.round(bun.getX()/100)][Math.round(bun.getY()/100)].getPi();
+//            MainGame.bunnies.forEach((bunny) -> bunny.update(delta, pos));
 
             // get the pos of each player and each bun and save it in a snapshot
             Packet retPack = new Packet("snapshot");
