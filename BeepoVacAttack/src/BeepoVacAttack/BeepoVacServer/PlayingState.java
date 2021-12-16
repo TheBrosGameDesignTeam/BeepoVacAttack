@@ -24,6 +24,7 @@ import static java.lang.System.exit;
 public class PlayingState extends BasicGameState {
     public Level level;
     public Entity environment;
+    public Entity underneath;
     public Entity carpet;
     public HashMap<String, LevelFurnitureRecipe> recipes;
 
@@ -44,6 +45,7 @@ public class PlayingState extends BasicGameState {
         MainGame.bunnies.add(new DustBunny(318, 1422)); // balcony
         environment = new Entity();
         carpet = new Entity();
+        underneath = new Entity();
 
         try {
             level = Level.fromXML("ExampleLevel.xml");
@@ -67,12 +69,34 @@ public class PlayingState extends BasicGameState {
         }
         for (LevelFurnitureInstance furn: level.getFurnitureInstances()) {
             LevelFurnitureRecipe furnType = recipes.get(furn.getName());
-            for (LevelObject obj: furnType.getSubobjects()) {
+//            for (LevelObject obj: furnType.getSubobjects()) {
+//                Vector offset;
+//                if (!(obj instanceof LevelWall)) {
+//                    continue;
+//                }
+//                LevelWall wall = (LevelWall) obj;
+//                if (wall.getRadius() != null) {
+//                    offset = new Vector(furn.getPosition().add(wall.getPosition()));
+//                    environment.addShape(new ConvexPolygon(wall.getRadius()), offset);
+//                } else {
+//                    offset = new Vector(furn.getPosition().add(wall.getPosition().add(wall.getSize().scale(0.5f))));
+//                    environment.addShape(new ConvexPolygon(wall.getSize().getX(), wall.getSize().getY()), offset);
+//                }
+//            }
+            for (int i = 0; i < furnType.getSubobjects().size(); i++) {
+                LevelObject obj = furnType.getSubobjects().get(i);
                 Vector offset;
                 if (!(obj instanceof LevelWall)) {
                     continue;
                 }
+
                 LevelWall wall = (LevelWall) obj;
+                if (furnType.getSubobjects().size() == 4 && i == 3 ||
+                    furnType.getSubobjects().size() == 6 && i == 5) {
+                    offset = new Vector(furn.getPosition().add(wall.getPosition().add(wall.getSize().scale(0.5f))));
+                    underneath.addShape(new ConvexPolygon(wall.getSize().getX(), wall.getSize().getY()), offset);
+                    continue;
+                }
                 if (wall.getRadius() != null) {
                     offset = new Vector(furn.getPosition().add(wall.getPosition()));
                     environment.addShape(new ConvexPolygon(wall.getRadius()), offset);
