@@ -16,10 +16,19 @@ public class BeepoVac extends MapNode {
     private int direction = 0;
     private int radius = 50;
 
+    private Vector defaultPosition;
 
     public BeepoVac(final float x, final float y) {
         super(x,y);
+        this.defaultPosition = new Vector(x, y);
         this.move = new Vector(0,0);
+    }
+
+    public void resetPosition()
+    {
+        this.setPosition(defaultPosition);
+        direction = 0;
+        vacType = 1;
     }
 
     public void setMove(String move) {

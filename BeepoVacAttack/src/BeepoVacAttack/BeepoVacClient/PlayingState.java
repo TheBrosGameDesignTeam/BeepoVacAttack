@@ -50,12 +50,20 @@ public class PlayingState extends BasicGameState {
 
         MainGame bg = (MainGame)game;
 
+        cameraPosition = new Vector(0,0);
+        timeRemaining = initialTime;
+        gameOverScreen.reset();
+        canQuitOrPlayAgain = false;
+
+
         // init dock stations for this level
+        bg.docks.clear();
         bg.docks.add(new Dock(1745,782));
         bg.docks.add(new Dock(531,1057));
         bg.docks.add(new Dock(2080,135));
 
         // init bunnies
+        bg.bunnies.clear();
         for (int i=0; i<3; i++) bg.bunnies.add(new ClientDustBunny());
 
         try {
@@ -172,6 +180,28 @@ public class PlayingState extends BasicGameState {
                 }
             }
 
+            // Wait for a restart command
+            while (!MainGame.queue.isEmpty()) {
+                Object message = MainGame.queue.poll();
+                Packet test = (Packet) message;
+
+                // Check if this packet is telling us to restart
+                if (test.getRestart()) {
+                    System.out.println("Time to restart!");
+                    bg.enterState(MainGame.PLAYINGSTATE);
+                }
+            }
+            return;
+        }
+
+        // Restart the level
+        if (input.isKeyPressed(Input.KEY_P))
+        {
+            // TODO: send a "restart level" signal to other player
+            Packet pack = new Packet("restart");
+            pack.setPlayer(bg.whichPlayer);
+            bg.caller.push(pack);
+            System.out.println("restart message sent");
             return;
         }
 
@@ -226,6 +256,13 @@ public class PlayingState extends BasicGameState {
             Object message = MainGame.queue.poll();
             Packet test = (Packet) message;
 
+            // Check if this packet is telling us to restart
+            if (test.getRestart())
+            {
+                System.out.println("Time to restart!");
+                bg.enterState(MainGame.PLAYINGSTATE);
+                return;
+            }
             // make sure this is a snapshot
             if (test.getMessage().compareTo("snapshot")==0) {
 
