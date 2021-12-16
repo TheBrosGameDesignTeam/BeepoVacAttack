@@ -57,7 +57,7 @@ class StartUpState extends BasicGameState {
 
                     // create each BeepoVac
                     for (int i=0; i < MainGame.listeners.size(); i++){
-                        MainGame.players.add(new BeepoVac(1000, 1000));
+                        MainGame.players.add(new BeepoVac(1000, 600 + i * 100));
                     }
 
                     // prepare and send new packet
