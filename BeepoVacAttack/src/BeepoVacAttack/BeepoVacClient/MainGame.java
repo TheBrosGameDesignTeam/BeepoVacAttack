@@ -111,6 +111,7 @@ public class MainGame extends StateBasedGame {
         ResourceManager.loadSound(POOF_SOUND);
         ResourceManager.loadSound(CLICK_SOUND);
         ResourceManager.loadSound(VAC_GO_SOUND);
+        ResourceManager.loadSound(VAC_ON_SOUND);
         ResourceManager.loadSound(VAC_OFF_SOUND);
 
         // Load font

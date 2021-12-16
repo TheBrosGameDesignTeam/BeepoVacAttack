@@ -24,6 +24,9 @@ public class ClientBeepoVac extends MapNode {
     private float x = 100;
     private float y = 100;
 
+    private float volume = .2f;
+    private float pitch = 1f;
+
     private int direction = 0;
     private int radius = 30;
     private int vacType = 1;
@@ -48,13 +51,31 @@ public class ClientBeepoVac extends MapNode {
     public void setBeepoVacType(int vacType) {
         // cycle through values for vacs
         this.vacType = vacType;
-        if (vacType == 0) this.radius = 25;
-        else if (vacType == 1) this.radius = 30;
-        else this.radius = 40;
+        setRadiusAndSound(vacType);
     }
 
     public int getBeepoVacType() {
         return this.vacType;
+    }
+
+    public void setRadiusAndSound(int vacType) {
+        switch (vacType) {
+            case 0 -> {
+                this.radius = 25;
+                this.volume = .1f;
+                this.pitch = .7f;
+            }
+            case 2 -> {
+                this.radius = 40;
+                this.volume = .3f;
+                this.pitch = 1.5f;
+            }
+            default -> {
+                this.radius = 30;
+                this.volume = .2f;
+                this.pitch = 1f;
+            }
+        }
     }
 
     public void render(Graphics g) {
@@ -78,17 +99,17 @@ public class ClientBeepoVac extends MapNode {
 
     public void onVacSound() {
         ResourceManager.getSound(MainGame.VAC_OFF_SOUND).stop();
-        ResourceManager.getSound(MainGame.VAC_ON_SOUND).play(1f, .5f);
+        ResourceManager.getSound(MainGame.VAC_ON_SOUND).play(pitch, volume);
     }
 
     public void contVacSound() {
-        ResourceManager.getSound(MainGame.VAC_GO_SOUND).loop(1f, .5f);
+        ResourceManager.getSound(MainGame.VAC_GO_SOUND).loop(pitch, volume);
     }
 
     public void stopVacSound() {
         ResourceManager.getSound(MainGame.VAC_ON_SOUND).stop();
         ResourceManager.getSound(MainGame.VAC_GO_SOUND).stop();
-        ResourceManager.getSound(MainGame.VAC_OFF_SOUND).play(1f, .5f);
+        ResourceManager.getSound(MainGame.VAC_OFF_SOUND).play(pitch, volume);
     }
 
     public boolean getIsMoving() { return this.isMoving; }
