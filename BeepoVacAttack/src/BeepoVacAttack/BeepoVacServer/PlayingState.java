@@ -63,6 +63,8 @@ public class PlayingState extends BasicGameState {
             {
                 Packet ret = new Packet("restart");
                 ret.setRestart();
+                MainGame.players.forEach(beepoVac -> beepoVac.resetPosition());
+                MainGame.bunnies.forEach(bunny -> bunny.resetPosition());
                 MainGame.observer.send(ret);
                 return;
             }

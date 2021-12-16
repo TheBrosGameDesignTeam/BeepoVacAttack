@@ -12,10 +12,19 @@ public class DustBunny extends Entity {
     private int timer;
     private int time = 500;
 
+    private Vector defaultPosition;
+
     public DustBunny(final float x, final float y) {
         super(x,y);
+        this.defaultPosition = new Vector(x, y);
         this.move = start;
         timer = time;
+    }
+
+    public void resetPosition()
+    {
+        this.setPosition(defaultPosition);
+        reset();
     }
 
     public void reset() {

@@ -63,6 +63,7 @@ public class PlayingState extends BasicGameState {
         bg.docks.add(new Dock(2080,135));
 
         // init bunnies
+        bg.bunnies.clear();
         for (int i=0; i<3; i++) bg.bunnies.add(new ClientDustBunny());
 
         try {
@@ -179,6 +180,17 @@ public class PlayingState extends BasicGameState {
                 }
             }
 
+            // Wait for a restart command
+            while (!MainGame.queue.isEmpty()) {
+                Object message = MainGame.queue.poll();
+                Packet test = (Packet) message;
+
+                // Check if this packet is telling us to restart
+                if (test.getRestart()) {
+                    System.out.println("Time to restart!");
+                    bg.enterState(MainGame.PLAYINGSTATE);
+                }
+            }
             return;
         }
 
@@ -247,6 +259,7 @@ public class PlayingState extends BasicGameState {
             // Check if this packet is telling us to restart
             if (test.getRestart())
             {
+                System.out.println("Time to restart!");
                 bg.enterState(MainGame.PLAYINGSTATE);
                 return;
             }
