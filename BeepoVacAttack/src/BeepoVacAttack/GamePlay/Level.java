@@ -39,6 +39,8 @@ public class Level {
 
     public static final String RES_NOISE_IMG = "BeepoVacAttack/resources/noise4.png";
 
+    private static final boolean DEBUG = true;
+
     public static void loadResources()
     {
         ResourceManager.loadImage(RES_NOISE_IMG);
@@ -278,13 +280,17 @@ public class Level {
             g.setDrawMode(Graphics.MODE_NORMAL);
         }
 
-//        for (LevelSurface surface : getSurfaces()) {
-//            renderLevelSurface(surface, g);
-//        }
-//
-//        for (LevelWall wall : getWalls()) {
-//            renderLevelWall(wall, g);
-//        }
+        if (DEBUG)
+        {
+            for (LevelSurface surface : getSurfaces()) {
+                renderLevelSurface(surface, g);
+            }
+
+            for (LevelWall wall : getWalls()) {
+                renderLevelWall(wall, g);
+            }
+        }
+
     }
 
     public void renderOverlay(Graphics g, boolean loweredOpacity) {        // Render the furniture!
@@ -293,12 +299,15 @@ public class Level {
                 if (LevelImage.class.isAssignableFrom(object.getClass())) {
                     renderLevelImage((LevelImage) object, g, loweredOpacity ? 0.3f : 1.0f);
                 }
-//                else if (LevelWall.class.isAssignableFrom(object.getClass())) {
-//                    renderLevelWall((LevelWall) object, g);
-//                }
-//                else if (LevelSurface.class.isAssignableFrom(object.getClass())) {
-//                    renderLevelSurface((LevelSurface) object, g);
-//                }
+                if (DEBUG)
+                {
+                    if (LevelWall.class.isAssignableFrom(object.getClass())) {
+                        renderLevelWall((LevelWall) object, g);
+                    }
+                    else if (LevelSurface.class.isAssignableFrom(object.getClass())) {
+                        renderLevelSurface((LevelSurface) object, g);
+                    }
+                }
             }
         }
     }
