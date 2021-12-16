@@ -176,6 +176,7 @@ public class PlayingState extends BasicGameState {
                     }
                 }
                 if (bunny.collides(environment) != null) {
+                    bunny.handleCollision();
                     System.out.println("Bunny colliding with environment");
                 }
             }
