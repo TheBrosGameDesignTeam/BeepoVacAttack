@@ -15,6 +15,8 @@ public class BeepoVac extends MapNode {
     Vector move;
     Vector lastPosition;
 
+    private boolean onCarpet = false;
+
     private int vacType = 1;
     private int direction = 0;
     private int radius = 50;
@@ -37,6 +39,7 @@ public class BeepoVac extends MapNode {
 
     public void setMove(String move, int delta) {
         lastPosition = getPosition();
+        float moveScale = 1f;
 
         Vector newMove = new Vector(0,0);
 
@@ -63,7 +66,12 @@ public class BeepoVac extends MapNode {
         }
 
 //        System.out.println(newMove);
-        this.translate(newMove.scale(delta));
+        if (onCarpet) {
+            moveScale = getVacType() == 0 ? 0.3f :
+                    getVacType() == 1 ? 0.5f :
+                            1f;
+        }
+        this.translate(newMove.scale(delta).scale(moveScale));
 
     }
 
@@ -96,5 +104,9 @@ public class BeepoVac extends MapNode {
     public void handleCollision() {
         move = new Vector(0,0);
         setPosition(lastPosition);
+    }
+
+    public void setOnCarpet(boolean onCarpet) {
+        this.onCarpet = onCarpet;
     }
 }

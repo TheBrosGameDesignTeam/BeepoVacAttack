@@ -24,6 +24,7 @@ import static java.lang.System.exit;
 public class PlayingState extends BasicGameState {
     public Level level;
     public Entity environment;
+    public Entity carpet;
     public HashMap<String, LevelFurnitureRecipe> recipes;
 
     @Override
@@ -42,6 +43,7 @@ public class PlayingState extends BasicGameState {
         MainGame.bunnies.add(new DustBunny(2085, 1419)); // bathroom
         MainGame.bunnies.add(new DustBunny(318, 1422)); // balcony
         environment = new Entity();
+        carpet = new Entity();
 
         try {
             level = Level.fromXML("ExampleLevel.xml");
@@ -80,7 +82,13 @@ public class PlayingState extends BasicGameState {
                 }
             }
         }
-
+        for (LevelSurface surface: level.getSurfaces()) {
+            Vector offset = surface.getPosition().add(surface.getSize().scale(0.5f));
+            if (surface.getType() == LevelSurfaceType.CARPET) {
+                System.out.println(surface.getSize());
+                carpet.addShape(new ConvexPolygon(surface.getSize().getX(),surface.getSize().getY()), offset);
+            }
+        }
     }
 
     @Override
@@ -156,6 +164,12 @@ public class PlayingState extends BasicGameState {
                 if (player.collides(environment) != null) {
                     System.out.println("Player colliding with environment");
                     player.handleCollision();
+                }
+                if (player.collides(carpet) != null) {
+                    System.out.println("On carpet");
+                    player.setOnCarpet(true);
+                } else {
+                    player.setOnCarpet(false);
                 }
             }
 
