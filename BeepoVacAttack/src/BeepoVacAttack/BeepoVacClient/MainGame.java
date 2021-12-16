@@ -31,6 +31,11 @@ public class MainGame extends StateBasedGame {
     public static final String RES_FONT = "BeepoVacAttack/resources/font/FredokaOne-Regular.ttf";
     public static String BANG_SPRITE = "BeepoVacAttack/resources/dustexplosion.png";
 
+    public static int JOYCON_RIGHT = 5;
+    public static int JOYCON_LEFT = 6;
+    public static int JOYCON_UP = 7;
+    public static int JOYCON_DOWN = 8;
+
     private UnicodeFont normalFont;
     public static UnicodeFont getNormalFont() { return instance.normalFont; }
 
