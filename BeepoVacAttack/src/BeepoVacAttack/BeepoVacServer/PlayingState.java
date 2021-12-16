@@ -109,7 +109,7 @@ public class PlayingState extends BasicGameState {
         for (LevelSurface surface: level.getSurfaces()) {
             Vector offset = surface.getPosition().add(surface.getSize().scale(0.5f));
             if (surface.getType() == LevelSurfaceType.CARPET) {
-                System.out.println(surface.getSize());
+//                System.out.println(surface.getSize());
                 carpet.addShape(new ConvexPolygon(surface.getSize().getX(),surface.getSize().getY()), offset);
             }
         }
@@ -139,7 +139,7 @@ public class PlayingState extends BasicGameState {
             Object message = MainGame.queue.poll();
             Packet pack = (Packet) message;
 
-            System.out.println("Packet message is " + pack.getMessage());
+//            System.out.println("Packet message is " + pack.getMessage());
             // Check if this is a "restart" command
             if (pack.getMessage().equals("restart"))
             {
@@ -171,7 +171,7 @@ public class PlayingState extends BasicGameState {
                 for (BeepoVac other: MainGame.players) {
                     collision = player.collides(other);
                     if (collision != null && other != player) {
-                        System.out.println("Collision (BeepoVac v BeepoVac");
+//                        System.out.println("Collision (BeepoVac v BeepoVac");
                         player.handleCollision();
                         other.handleCollision();
                     }
@@ -179,18 +179,18 @@ public class PlayingState extends BasicGameState {
                 for (DustBunny other: MainGame.bunnies) {
                     collision = player.collides(other);
                     if (collision != null && !other.isCaught) {
-                        System.out.println("Collision (BeepoVac v Bunny");
+//                        System.out.println("Collision (BeepoVac v Bunny");
                         other.isCaught = true;
 //                        player.handleCollision();
                     }
                 }
 
                 if (player.collides(environment) != null) {
-                    System.out.println("Player colliding with environment");
+//                    System.out.println("Player colliding with environment");
                     player.handleCollision();
                 }
                 if (player.collides(carpet) != null) {
-                    System.out.println("On carpet");
+//                    System.out.println("On carpet");
                     player.setOnCarpet(true);
                 } else {
                     player.setOnCarpet(false);
@@ -212,14 +212,14 @@ public class PlayingState extends BasicGameState {
                 for (DustBunny other: MainGame.bunnies) {
                     collision = bunny.collides(other);
                     if (collision != null && other != bunny) {
-                        System.out.println("Collision (Bunny v Bunny)");
+//                        System.out.println("Collision (Bunny v Bunny)");
                         bunny.handleCollision();
                         other.handleCollision();
                     }
                 }
                 if (bunny.collides(environment) != null) {
                     bunny.handleCollision();
-                    System.out.println("Bunny colliding with environment");
+//                    System.out.println("Bunny colliding with environment");
                 }
             }
 
@@ -231,7 +231,7 @@ public class PlayingState extends BasicGameState {
                 for (BeepoVac vac: MainGame.players) {
                     float distance = bunny.getPosition().distance(vac.getPosition());
                     if (distance < vac.getRadius()){
-                        System.out.println("Take this bun off the list: " + MainGame.bunnies.indexOf(bunny));
+//                        System.out.println("Take this bun off the list: " + MainGame.bunnies.indexOf(bunny));
                         retPack.setRemoveThisBun(MainGame.bunnies.indexOf(bunny));
                     }
                 }

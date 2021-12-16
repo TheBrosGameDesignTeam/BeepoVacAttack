@@ -72,7 +72,7 @@ class StartUpState extends BasicGameState {
             } else if (message instanceof Listener listener) {
 
                 MainGame.listeners.add(listener);
-                System.out.println("Player " + listener.getPlayer() + " has joined!!!");
+//                System.out.println("Player " + listener.getPlayer() + " has joined!!!");
 
                 // send back which player the client is
                 Packet retPack = new Packet("player");
