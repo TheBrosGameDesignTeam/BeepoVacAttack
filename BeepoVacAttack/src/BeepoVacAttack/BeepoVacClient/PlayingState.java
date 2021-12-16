@@ -249,7 +249,7 @@ public class PlayingState extends BasicGameState {
         }
 
         // check if you want to change vac
-        if (input.isKeyPressed(Input.KEY_E) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT, 0)) && this.canChange) {
+        if ((input.isKeyPressed(Input.KEY_E) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT, 0))) && this.canChange) {
             sendMove += "e";
         }
 
