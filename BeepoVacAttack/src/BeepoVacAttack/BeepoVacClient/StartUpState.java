@@ -84,7 +84,7 @@ class StartUpState extends BasicGameState {
         g.drawString(line1, MainGame.xPosForStringCenteredAt(MainGame.getWidth() / 2, line1, MainGame.getNormalFont()), MainGame.getHeight() * 0.6f);
 
         String line2 = "---";
-        if (bg.whichPlayer == 1) line2 = "Press Space to Start!";
+        if (bg.whichPlayer == 1) line2 = "Press " + (container.getInput().getControllerCount() > 0 ? "East" : "Space") + " to Start!";
         else  line2 = "Waiting for Player 1 to Start...";
 
         g.drawString(line2, MainGame.xPosForStringCenteredAt(MainGame.getWidth() / 2, line2, MainGame.getNormalFont()), MainGame.getHeight() * 0.65f);

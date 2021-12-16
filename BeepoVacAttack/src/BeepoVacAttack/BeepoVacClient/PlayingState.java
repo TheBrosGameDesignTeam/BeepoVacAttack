@@ -106,6 +106,8 @@ public class PlayingState extends BasicGameState {
                        Graphics g) throws SlickException {
         MainGame bg = (MainGame)game;
 
+        boolean c = container.getInput().getControllerCount() > 0;
+
         centerCameraAt(cameraPosition, g);
 
         level.renderBackground(g);
@@ -124,7 +126,7 @@ public class PlayingState extends BasicGameState {
 
         // render the switch icon when you are near a dock
         if (this.canChange) {
-            g.drawImage(ResourceManager.getImage(MainGame.SWITCH_IMG),bg.players.get(bg.whichPlayer-1).getX()-50,
+            g.drawImage(ResourceManager.getImage(c ? MainGame.SWITCH_JOYCON_IMG : MainGame.SWITCH_IMG),bg.players.get(bg.whichPlayer-1).getX()-50,
                     bg.players.get(bg.whichPlayer-1).getY()-88);
         }
 
@@ -146,7 +148,7 @@ public class PlayingState extends BasicGameState {
         g.drawString(String.format("%.0f", 100 - level.getDustMap().getPercentRemaining()) + "%", 10, 40 + 5 + 25);
 
         // Draw game over stuff
-        gameOverScreen.render(g);
+        gameOverScreen.render(g, c);
 
     }
 
@@ -200,14 +202,14 @@ public class PlayingState extends BasicGameState {
 
 
         // Restart the level
-        if (input.isKeyPressed(Input.KEY_P) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT)))
-        {
-            Packet pack = new Packet("restart");
-            pack.setPlayer(bg.whichPlayer);
-            bg.caller.push(pack);
-            System.out.println("restart message sent");
-            return;
-        }
+//        if (input.isKeyPressed(Input.KEY_P) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT)))
+//        {
+//            Packet pack = new Packet("restart");
+//            pack.setPlayer(bg.whichPlayer);
+//            bg.caller.push(pack);
+//            System.out.println("restart message sent");
+//            return;
+//        }
 
         float deltaAdjustedSpeed = playerSpeed * ((float)delta / 1000.0f);
 
@@ -247,7 +249,7 @@ public class PlayingState extends BasicGameState {
         }
 
         // check if you want to change vac
-        if (input.isKeyPressed(Input.KEY_E) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT, 0)) && this.canChange) {
+        if ((input.isKeyPressed(Input.KEY_E) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT, 0))) && this.canChange) {
             sendMove += "e";
         }
 

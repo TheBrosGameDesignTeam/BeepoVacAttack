@@ -24,7 +24,7 @@ public class GameOverScreen
     private Runnable onAnimationFinished;
     private final String gameOverString = "Game Over!";
     private final String youGotStringTemplate = "The House is [P]% Clean!";
-    private final String instructionsHostString = "Q to Quit, P to Play Again";
+    private final String instructionsHostString = "[QUIT] to Quit, [PLAYAGAIN] to Play Again";
     private final String instructionsNonHostString = "Waiting for Host...";
 
     private float percentClean = 0f;
@@ -56,7 +56,7 @@ public class GameOverScreen
                 ;
         TweenManager.add(seq);
     }
-    public void render(Graphics g)
+    public void render(Graphics g, boolean c)
     {
         g.setColor(new Color(0.0f, 0.0f, 0.0f, dimOpacity));
         g.fillRect(0, 0, MainGame.getWidth(), MainGame.getHeight());
@@ -70,7 +70,8 @@ public class GameOverScreen
         );
         g.drawString(gameOverString, gameOverLabelX, gameOverLabelY);
 
-        String youGotString = youGotStringTemplate.replace("[P]", String.format("%.0f", 100 - percentClean));
+        String youGotString = youGotStringTemplate
+                .replace("[P]", String.format("%.0f", 100 - percentClean));
         float percentCleanLabelX = MainGame.xPosForStringCenteredAt(
                 MainGame.getWidth() / 2,
                 youGotString,
@@ -78,12 +79,15 @@ public class GameOverScreen
         );
         g.drawString(youGotString, percentCleanLabelX, percentCleanLabelY);
 
-        String instructionsString = MainGame.instance.whichPlayer == 1 ? instructionsHostString : instructionsNonHostString;
+        String instructionsString = (MainGame.instance.whichPlayer == 1 ? instructionsHostString : instructionsNonHostString)
+                .replace("[QUIT]", c ? "South" : "Q")
+                .replace("[PLAYAGAIN]", c ? "East" : "P");
         float instructionsLabelX = MainGame.xPosForStringCenteredAt(
                 MainGame.getWidth() / 2,
                 instructionsString,
-                MainGame.getLargeFont()
+                MainGame.getNormalFont()
         );
+        g.setFont(MainGame.getNormalFont());
         g.drawString(instructionsString, instructionsLabelX, instructionsLabelY);
     }
 }
