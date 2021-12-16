@@ -50,12 +50,20 @@ public class PlayingState extends BasicGameState {
 
         MainGame bg = (MainGame)game;
 
+        cameraPosition = new Vector(0,0);
+        timeRemaining = initialTime;
+        gameOverScreen.reset();
+        canQuitOrPlayAgain = false;
+
+
         // init dock stations for this level
+        bg.docks.clear();
         bg.docks.add(new Dock(1745,782));
         bg.docks.add(new Dock(531,1057));
         bg.docks.add(new Dock(2080,135));
 
         // init bunnies
+        bg.bunnies.clear();
         for (int i=0; i<3; i++) bg.bunnies.add(new ClientDustBunny());
 
         try {
@@ -148,6 +156,9 @@ public class PlayingState extends BasicGameState {
         TweenManager.update(delta);
         Input input = container.getInput();
         MainGame bg = (MainGame)game;
+
+        boolean c = input.getControllerCount() > 0;
+
         // If the game is over, don't send any more output
         if (timeRemaining < 0)
         {
@@ -156,13 +167,13 @@ public class PlayingState extends BasicGameState {
             if (canQuitOrPlayAgain && bg.whichPlayer == 1)
             {
                 // Quit game
-                if (input.isKeyDown(Input.KEY_Q))
+                if (input.isKeyDown(Input.KEY_Q) || (c && input.isControlPressed(MainGame.JOYCON_DOWN)))
                 {
                     System.exit(0);
                 }
 
                 // Restart the level
-                else if (input.isKeyPressed(Input.KEY_P))
+                else if (input.isKeyPressed(Input.KEY_P) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT)))
                 {
                     // TODO: send a "restart level" signal to other player
                     Packet pack = new Packet("restart");
@@ -172,6 +183,17 @@ public class PlayingState extends BasicGameState {
                 }
             }
 
+            // Wait for a restart command
+            while (!MainGame.queue.isEmpty()) {
+                Object message = MainGame.queue.poll();
+                Packet test = (Packet) message;
+
+                // Check if this packet is telling us to restart
+                if (test.getRestart()) {
+                    System.out.println("Time to restart!");
+                    bg.enterState(MainGame.PLAYINGSTATE);
+                }
+            }
             return;
         }
 
@@ -183,19 +205,20 @@ public class PlayingState extends BasicGameState {
 
         ClientBeepoVac myBeepoVac = bg.players.get(bg.whichPlayer - 1);
 
-        if (input.isKeyDown(Input.KEY_A)){
+
+        if (input.isKeyDown(Input.KEY_A) || (c && input.isControllerLeft(0))) {
             sendMove += "a";
             cameraPosition = cameraPosition.add(left.scale(deltaAdjustedSpeed));
         }
-        if (input.isKeyDown(Input.KEY_D)){
+        if (input.isKeyDown(Input.KEY_D) || (c && input.isControllerRight(0))) {
             sendMove += "d";
             cameraPosition = cameraPosition.add(right.scale(deltaAdjustedSpeed));
         }
-        if (input.isKeyDown(Input.KEY_S)){
+        if (input.isKeyDown(Input.KEY_S) || (c && input.isControllerDown(0))) {
             sendMove += "s";
             cameraPosition = cameraPosition.add(down.scale(deltaAdjustedSpeed));
         }
-        if (input.isKeyDown(Input.KEY_W)){
+        if (input.isKeyDown(Input.KEY_W) || (c && input.isControllerUp(0))) {
             sendMove += "w";
             cameraPosition = cameraPosition.add(up.scale(deltaAdjustedSpeed));
         }
@@ -212,7 +235,7 @@ public class PlayingState extends BasicGameState {
         }
 
         // check if you want to change vac
-        if (input.isKeyPressed(Input.KEY_E) && this.canChange) {
+        if (input.isKeyPressed(Input.KEY_E) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT, 0)) && this.canChange) {
             sendMove += "e";
         }
 
@@ -226,6 +249,13 @@ public class PlayingState extends BasicGameState {
             Object message = MainGame.queue.poll();
             Packet test = (Packet) message;
 
+            // Check if this packet is telling us to restart
+            if (test.getRestart())
+            {
+                System.out.println("Time to restart!");
+                bg.enterState(MainGame.PLAYINGSTATE);
+                return;
+            }
             // make sure this is a snapshot
             if (test.getMessage().compareTo("snapshot")==0) {
 

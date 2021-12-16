@@ -15,6 +15,8 @@ public class Packet implements Serializable {
     int howManyEnemies = 0;
     int removeThisBun = 100;
 
+    boolean restart = false;
+
     public LinkedList<Float> vacPositions = new LinkedList<Float>();
     public LinkedList<Float> enemyPositions = new LinkedList<Float>();
     public LinkedList<Integer> vacTypes = new LinkedList<Integer>();
@@ -23,6 +25,9 @@ public class Packet implements Serializable {
     public Packet(String message) {
         this.message = message;
     }
+
+    public boolean getRestart() { return this.restart; }
+    public void setRestart() { this.restart = true; }
 
     public String getMessage(){ return this.message; }
 

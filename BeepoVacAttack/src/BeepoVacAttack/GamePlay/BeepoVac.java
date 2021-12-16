@@ -1,28 +1,45 @@
 package BeepoVacAttack.GamePlay;
 
+import jig.ConvexPolygon;
 import jig.Entity;
 import jig.ResourceManager;
 import jig.Vector;
 
 public class BeepoVac extends MapNode {
 
-    private final Vector up = new Vector(0,-3);
-    private final Vector left = new Vector(-3,0);
-    private final Vector down = new Vector(0,3);
-    private final Vector right = new Vector(3,0);
+    private final float speed = 0.2f;
+    private final Vector up = new Vector(0,-speed);
+    private final Vector left = new Vector(-speed,0);
+    private final Vector down = new Vector(0,speed);
+    private final Vector right = new Vector(speed,0);
     Vector move;
+    Vector lastPosition;
+
+    private boolean onCarpet = false;
 
     private int vacType = 1;
     private int direction = 0;
     private int radius = 50;
 
+    private Vector defaultPosition;
 
     public BeepoVac(final float x, final float y) {
-        super(x,y);
-        this.move = new Vector(0,0);
+        super(x, y);
+        this.move = new Vector(0, 0);
+        lastPosition = getPosition();
+        addShape(new ConvexPolygon(30f), new Vector(15f,15f));
     }
 
-    public void setMove(String move) {
+    public void resetPosition()
+    {
+        this.setPosition(defaultPosition);
+        direction = 0;
+        vacType = 1;
+    }
+
+    public void setMove(String move, int delta) {
+        lastPosition = getPosition();
+        float moveScale = 1f;
 
         Vector newMove = new Vector(0,0);
 
@@ -49,7 +66,12 @@ public class BeepoVac extends MapNode {
         }
 
 //        System.out.println(newMove);
-        this.translate(newMove);
+        if (onCarpet) {
+            moveScale = getVacType() == 0 ? 0.3f :
+                    getVacType() == 1 ? 0.5f :
+                            1f;
+        }
+        this.translate(newMove.scale(delta).scale(moveScale));
 
     }
 
@@ -79,4 +101,12 @@ public class BeepoVac extends MapNode {
 
     public void update(final int delta) {}
 
+    public void handleCollision() {
+        move = new Vector(0,0);
+        setPosition(lastPosition);
+    }
+
+    public void setOnCarpet(boolean onCarpet) {
+        this.onCarpet = onCarpet;
+    }
 }

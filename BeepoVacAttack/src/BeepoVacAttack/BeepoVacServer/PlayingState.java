@@ -1,7 +1,7 @@
 package BeepoVacAttack.BeepoVacServer;
 
 import BeepoVacAttack.BeepoVacClient.ClientBeepoVac;
-import BeepoVacAttack.GamePlay.BeepoVac;
+import BeepoVacAttack.GamePlay.*;
 import BeepoVacAttack.GamePlay.Map;
 import BeepoVacAttack.GamePlay.MapNode;
 import BeepoVacAttack.GamePlay.BeepoVac;
@@ -9,6 +9,9 @@ import BeepoVacAttack.GamePlay.DustBunny;
 import BeepoVacAttack.Networking.Listener;
 import BeepoVacAttack.Networking.Packet;
 import com.sun.tools.javac.Main;
+import jig.Collision;
+import jig.ConvexPolygon;
+import jig.Entity;
 import jig.Vector;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -16,7 +19,14 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.*;
 
+import static java.lang.System.exit;
+
 public class PlayingState extends BasicGameState {
+    public Level level;
+    public Entity environment;
+    public Entity underneath;
+    public Entity carpet;
+    public HashMap<String, LevelFurnitureRecipe> recipes;
 
     @Override
     public void init(GameContainer container, StateBasedGame game)
@@ -33,15 +43,86 @@ public class PlayingState extends BasicGameState {
         MainGame.bunnies.add(new DustBunny(1000, 900)); // front room
         MainGame.bunnies.add(new DustBunny(2085, 1419)); // bathroom
         MainGame.bunnies.add(new DustBunny(318, 1422)); // balcony
+        environment = new Entity();
+        carpet = new Entity();
+        underneath = new Entity();
 
+        try {
+            level = Level.fromXML("ExampleLevel.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+            exit(1);
+        }
+
+        recipes = level.getFurnitureRecipes();
+
+        for (LevelWall obj: level.getWalls()) {
+            Vector offset;
+            if (obj.getRadius() != null) {
+                offset = new Vector(obj.getPosition().add(new Vector(obj.getRadius(), obj.getRadius())));
+                environment.addShape(new ConvexPolygon(obj.getRadius()), offset);
+            } else {
+                offset = new Vector(obj.getPosition().add(new Vector(obj.getSize().scale(0.5f))));
+//                environment.addShape(new ConvexPolygon(obj.getSize().getX(), obj.getSize().getY()), obj.getPosition());
+                environment.addShape(new ConvexPolygon(obj.getSize().getX(), obj.getSize().getY()), offset);
+            }
+        }
+        for (LevelFurnitureInstance furn: level.getFurnitureInstances()) {
+            LevelFurnitureRecipe furnType = recipes.get(furn.getName());
+//            for (LevelObject obj: furnType.getSubobjects()) {
+//                Vector offset;
+//                if (!(obj instanceof LevelWall)) {
+//                    continue;
+//                }
+//                LevelWall wall = (LevelWall) obj;
+//                if (wall.getRadius() != null) {
+//                    offset = new Vector(furn.getPosition().add(wall.getPosition()));
+//                    environment.addShape(new ConvexPolygon(wall.getRadius()), offset);
+//                } else {
+//                    offset = new Vector(furn.getPosition().add(wall.getPosition().add(wall.getSize().scale(0.5f))));
+//                    environment.addShape(new ConvexPolygon(wall.getSize().getX(), wall.getSize().getY()), offset);
+//                }
+//            }
+            for (int i = 0; i < furnType.getSubobjects().size(); i++) {
+                LevelObject obj = furnType.getSubobjects().get(i);
+                Vector offset;
+                if (!(obj instanceof LevelWall)) {
+                    continue;
+                }
+
+                LevelWall wall = (LevelWall) obj;
+                if (furnType.getSubobjects().size() == 4 && i == 3 ||
+                    furnType.getSubobjects().size() == 6 && i == 5) {
+                    offset = new Vector(furn.getPosition().add(wall.getPosition().add(wall.getSize().scale(0.5f))));
+                    underneath.addShape(new ConvexPolygon(wall.getSize().getX(), wall.getSize().getY()), offset);
+                    continue;
+                }
+                if (wall.getRadius() != null) {
+                    offset = new Vector(furn.getPosition().add(wall.getPosition()));
+                    environment.addShape(new ConvexPolygon(wall.getRadius()), offset);
+                } else {
+                    offset = new Vector(furn.getPosition().add(wall.getPosition().add(wall.getSize().scale(0.5f))));
+                    environment.addShape(new ConvexPolygon(wall.getSize().getX(), wall.getSize().getY()), offset);
+                }
+            }
+        }
+        for (LevelSurface surface: level.getSurfaces()) {
+            Vector offset = surface.getPosition().add(surface.getSize().scale(0.5f));
+            if (surface.getType() == LevelSurfaceType.CARPET) {
+//                System.out.println(surface.getSize());
+                carpet.addShape(new ConvexPolygon(surface.getSize().getX(),surface.getSize().getY()), offset);
+            }
+        }
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game,
                        Graphics g) throws SlickException {
         MainGame bg = (MainGame)game;
-        g.drawString("We are playing!", 100, 100);
 
+        environment.render(g);
+        MainGame.players.forEach((player) -> player.render(g));
+        MainGame.bunnies.forEach((bunny) -> bunny.render(g));
     }
 
     @Override
@@ -50,6 +131,7 @@ public class PlayingState extends BasicGameState {
 
         Input input = container.getInput();
         MainGame bg = (MainGame)game;
+        Collision collision;
 
         // read from ConcurrentLinkedQueue
         while (!MainGame.queue.isEmpty()) {
@@ -57,11 +139,23 @@ public class PlayingState extends BasicGameState {
             Object message = MainGame.queue.poll();
             Packet pack = (Packet) message;
 
+//            System.out.println("Packet message is " + pack.getMessage());
+            // Check if this is a "restart" command
+            if (pack.getMessage().equals("restart"))
+            {
+                Packet ret = new Packet("restart");
+                ret.setRestart();
+                MainGame.players.forEach(beepoVac -> beepoVac.resetPosition());
+                MainGame.bunnies.forEach(bunny -> bunny.resetPosition());
+                MainGame.observer.send(ret);
+                return;
+            }
+
             // move which player that pack belongs to
             if (pack.getPlayer() == 1) {
-                MainGame.players.get(0).setMove(pack.getMessage());
+                MainGame.players.get(0).setMove(pack.getMessage(), delta);
             } else if (pack.getPlayer() == 2){
-                MainGame.players.get(1).setMove(pack.getMessage());
+                MainGame.players.get(1).setMove(pack.getMessage(), delta);
             }
 
             // update node values using dijkstra's
@@ -73,6 +167,63 @@ public class PlayingState extends BasicGameState {
             MainGame.bunnies.forEach((bunny) -> bunny.update(delta, pos));
 
             // get the pos of each player and each bun and save it in a snapshot
+            for (BeepoVac player: MainGame.players) {
+                for (BeepoVac other: MainGame.players) {
+                    collision = player.collides(other);
+                    if (collision != null && other != player) {
+//                        System.out.println("Collision (BeepoVac v BeepoVac");
+                        player.handleCollision();
+                        other.handleCollision();
+                    }
+                }
+                for (DustBunny other: MainGame.bunnies) {
+                    collision = player.collides(other);
+                    if (collision != null && !other.isCaught) {
+//                        System.out.println("Collision (BeepoVac v Bunny");
+                        other.isCaught = true;
+//                        player.handleCollision();
+                    }
+                }
+
+                if (player.collides(environment) != null) {
+//                    System.out.println("Player colliding with environment");
+                    player.handleCollision();
+                }
+                if (player.collides(carpet) != null) {
+//                    System.out.println("On carpet");
+                    player.setOnCarpet(true);
+                } else {
+                    player.setOnCarpet(false);
+                }
+                if (player.getVacType() == 2 && player.collides(underneath) != null) {
+                    player.handleCollision();
+                }
+            }
+
+            for (DustBunny bunny: MainGame.bunnies) {
+//                for (BeepoVac other: MainGame.players) {
+//                    collision = bunny.collides(other);
+//                    if (collision != null) {
+//                        System.out.println("Collision (Bunny v BeepoVac)");
+////                        bunny.handleCollision();
+////                        other.handleCollision();
+//                    }
+//                }
+                for (DustBunny other: MainGame.bunnies) {
+                    collision = bunny.collides(other);
+                    if (collision != null && other != bunny) {
+//                        System.out.println("Collision (Bunny v Bunny)");
+                        bunny.handleCollision();
+                        other.handleCollision();
+                    }
+                }
+                if (bunny.collides(environment) != null) {
+                    bunny.handleCollision();
+//                    System.out.println("Bunny colliding with environment");
+                }
+            }
+
+            // get the pos of each player and save it in a snapshot
             Packet retPack = new Packet("snapshot");
 
             // check if any of the bunnies intersect with any of the vacs
@@ -80,7 +231,7 @@ public class PlayingState extends BasicGameState {
                 for (BeepoVac vac: MainGame.players) {
                     float distance = bunny.getPosition().distance(vac.getPosition());
                     if (distance < vac.getRadius()){
-                        System.out.println("Take this bun off the list: " + MainGame.bunnies.indexOf(bunny));
+//                        System.out.println("Take this bun off the list: " + MainGame.bunnies.indexOf(bunny));
                         retPack.setRemoveThisBun(MainGame.bunnies.indexOf(bunny));
                     }
                 }

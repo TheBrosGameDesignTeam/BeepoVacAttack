@@ -31,11 +31,19 @@ public class MainGame extends StateBasedGame {
     public static final String RES_FONT = "BeepoVacAttack/resources/font/FredokaOne-Regular.ttf";
     public static String BANG_SPRITE = "BeepoVacAttack/resources/dustexplosion.png";
 
+    public static int JOYCON_RIGHT = 5;
+    public static int JOYCON_LEFT = 6;
+    public static int JOYCON_UP = 7;
+    public static int JOYCON_DOWN = 8;
+
     private UnicodeFont normalFont;
     public static UnicodeFont getNormalFont() { return instance.normalFont; }
 
     private UnicodeFont largeFont;
     public static UnicodeFont getLargeFont() { return instance.largeFont; }
+
+    private UnicodeFont titleFont;
+    public static UnicodeFont getTitleFont() { return instance.titleFont; }
 
     // networking
     public static ConcurrentLinkedQueue<Object> queue;
@@ -103,13 +111,17 @@ public class MainGame extends StateBasedGame {
         normalFont.addAsciiGlyphs();
         normalFont.loadGlyphs();
 
-
-        // Load font
         largeFont = new UnicodeFont(RES_FONT, 50, false, false);
         largeFont.getEffects().add(new OutlineEffect(3, Color.black));
         largeFont.getEffects().add(new ColorEffect(Color.white));
         largeFont.addAsciiGlyphs();
         largeFont.loadGlyphs();
+
+        titleFont = new UnicodeFont(RES_FONT, 70, false, false);
+        titleFont.getEffects().add(new OutlineEffect(3, Color.black));
+        titleFont.getEffects().add(new ColorEffect(Color.white));
+        titleFont.addAsciiGlyphs();
+        titleFont.loadGlyphs();
 
         container.setDefaultFont(getNormalFont());
     }
