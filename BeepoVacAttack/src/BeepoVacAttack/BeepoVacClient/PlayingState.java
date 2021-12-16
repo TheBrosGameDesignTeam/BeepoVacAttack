@@ -26,6 +26,7 @@ public class PlayingState extends BasicGameState {
 
     private final int initialTime = 1000 * 50;
     private int timeRemaining = initialTime;
+    private int vacSoundTimer = 2000;
 
     private boolean canChange = false;
     private boolean debug = true;
@@ -237,6 +238,16 @@ public class PlayingState extends BasicGameState {
             cameraPosition = cameraPosition.add(up.scale(deltaAdjustedSpeed));
         }
 
+        // check if moved
+        if (sendMove.compareTo("") == 0) {
+            if (myBeepoVac.getIsMoving()) myBeepoVac.setIsMoving(false);
+        } else if (!myBeepoVac.getIsMoving()) myBeepoVac.setIsMoving(true);
+
+        // check if still moving to loop non-start sound
+        if (myBeepoVac.getIsMoving() && !ResourceManager.getSound(MainGame.VAC_ON_SOUND).playing()) {
+            myBeepoVac.contVacSound();
+        }
+
         // check proximity between docker and this client
         for (Dock dock : bg.docks) {
             float dockDistance = dock.getPosition().distance(bg.players.get(bg.whichPlayer-1).getPos());
@@ -251,6 +262,7 @@ public class PlayingState extends BasicGameState {
         // check if you want to change vac
         if ((input.isKeyPressed(Input.KEY_E) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT, 0))) && this.canChange) {
             sendMove += "e";
+            ResourceManager.getSound(MainGame.CLICK_SOUND).play();
         }
 
         // send concatenated string
