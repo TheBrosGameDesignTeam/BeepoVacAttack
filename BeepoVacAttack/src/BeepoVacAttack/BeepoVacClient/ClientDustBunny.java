@@ -35,20 +35,6 @@ public class ClientDustBunny {
         this.x = x; this.y = y;
     }
 
-    public void setDustBunnyDir(String dirs) {
-        this.direction = switch (dirs) {
-            case "d" -> 0;
-            case "s" -> 2;
-            case "a" -> 4;
-            case "w" -> 6;
-            case "ds" -> 1;
-            case "as" -> 3;
-            case "aw" -> 5;
-            case "dw" -> 7;
-            default -> this.direction;
-        };
-    }
-
     public void render(Graphics g) {
         SpriteSheet sprite = new SpriteSheet(ResourceManager.getImage(RES_BUNNY_ANI), 485, 387);
 
