@@ -163,8 +163,8 @@ public class PlayingState extends BasicGameState {
                     collision = bunny.collides(other);
                     if (collision != null) {
                         System.out.println("Collision (Bunny v BeepoVac)");
-                        bunny.handleCollision();
-                        other.handleCollision();
+//                        bunny.handleCollision();
+//                        other.handleCollision();
                     }
                 }
                 for (DustBunny other: MainGame.bunnies) {
