@@ -7,9 +7,11 @@ import jig.Vector;
 
 public class DustBunny extends Entity {
 
+    private final float speed = 0.15f;
     private final Vector start = new Vector(1,0);
     Vector move;
     Vector lastPosition;
+    public boolean isCaught = false;
 
     private int timer;
     private int time = 500;
@@ -61,7 +63,7 @@ public class DustBunny extends Entity {
             reset();
         }
 
-        this.translate(move);
+        this.translate(move.scale(delta));
     }
 
     public void handleCollision() {

@@ -121,9 +121,9 @@ public class PlayingState extends BasicGameState {
 
             // move which player that pack belongs to
             if (pack.getPlayer() == 1) {
-                MainGame.players.get(0).setMove(pack.getMessage());
+                MainGame.players.get(0).setMove(pack.getMessage(), delta);
             } else if (pack.getPlayer() == 2){
-                MainGame.players.get(1).setMove(pack.getMessage());
+                MainGame.players.get(1).setMove(pack.getMessage(), delta);
             }
 
             // update node values using dijkstra's
@@ -146,9 +146,10 @@ public class PlayingState extends BasicGameState {
                 }
                 for (DustBunny other: MainGame.bunnies) {
                     collision = player.collides(other);
-                    if (collision != null) {
+                    if (collision != null && !other.isCaught) {
                         System.out.println("Collision (BeepoVac v Bunny");
-                        player.handleCollision();
+                        other.isCaught = true;
+//                        player.handleCollision();
                     }
                 }
 
@@ -159,14 +160,14 @@ public class PlayingState extends BasicGameState {
             }
 
             for (DustBunny bunny: MainGame.bunnies) {
-                for (BeepoVac other: MainGame.players) {
-                    collision = bunny.collides(other);
-                    if (collision != null) {
-                        System.out.println("Collision (Bunny v BeepoVac)");
-//                        bunny.handleCollision();
-//                        other.handleCollision();
-                    }
-                }
+//                for (BeepoVac other: MainGame.players) {
+//                    collision = bunny.collides(other);
+//                    if (collision != null) {
+//                        System.out.println("Collision (Bunny v BeepoVac)");
+////                        bunny.handleCollision();
+////                        other.handleCollision();
+//                    }
+//                }
                 for (DustBunny other: MainGame.bunnies) {
                     collision = bunny.collides(other);
                     if (collision != null && other != bunny) {

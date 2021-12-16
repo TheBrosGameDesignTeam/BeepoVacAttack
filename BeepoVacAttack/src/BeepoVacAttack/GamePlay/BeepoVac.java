@@ -7,10 +7,11 @@ import jig.Vector;
 
 public class BeepoVac extends MapNode {
 
-    private final Vector up = new Vector(0,-3);
-    private final Vector left = new Vector(-3,0);
-    private final Vector down = new Vector(0,3);
-    private final Vector right = new Vector(3,0);
+    private final float speed = 0.2f;
+    private final Vector up = new Vector(0,-speed);
+    private final Vector left = new Vector(-speed,0);
+    private final Vector down = new Vector(0,speed);
+    private final Vector right = new Vector(speed,0);
     Vector move;
     Vector lastPosition;
 
@@ -34,7 +35,7 @@ public class BeepoVac extends MapNode {
         vacType = 1;
     }
 
-    public void setMove(String move) {
+    public void setMove(String move, int delta) {
         lastPosition = getPosition();
 
         Vector newMove = new Vector(0,0);
@@ -62,7 +63,7 @@ public class BeepoVac extends MapNode {
         }
 
 //        System.out.println(newMove);
-        this.translate(newMove);
+        this.translate(newMove.scale(delta));
 
     }
 
