@@ -195,6 +195,9 @@ public class PlayingState extends BasicGameState {
                 } else {
                     player.setOnCarpet(false);
                 }
+                if (player.getVacType() == 2 && player.collides(underneath) != null) {
+                    player.handleCollision();
+                }
             }
 
             for (DustBunny bunny: MainGame.bunnies) {
