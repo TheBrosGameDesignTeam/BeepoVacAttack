@@ -1,11 +1,9 @@
 package BeepoVacAttack.BeepoVacServer;
 
 import BeepoVacAttack.BeepoVacClient.ClientBeepoVac;
+import BeepoVacAttack.GamePlay.*;
 import BeepoVacAttack.GamePlay.BeepoVac;
 import BeepoVacAttack.GamePlay.Map;
-import BeepoVacAttack.GamePlay.MapNode;
-import BeepoVacAttack.GamePlay.BeepoVac;
-import BeepoVacAttack.GamePlay.DustBunny;
 import BeepoVacAttack.Networking.Listener;
 import BeepoVacAttack.Networking.Packet;
 import com.sun.tools.javac.Main;
@@ -33,6 +31,8 @@ public class PlayingState extends BasicGameState {
         MainGame.bunnies.add(new DustBunny(1000, 900)); // front room
         MainGame.bunnies.add(new DustBunny(2085, 1419)); // bathroom
         MainGame.bunnies.add(new DustBunny(318, 1422)); // balcony
+
+        MainGame.enemy = new Enemy(500, 500);
 
     }
 

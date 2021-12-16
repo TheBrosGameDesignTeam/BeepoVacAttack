@@ -2,6 +2,7 @@ package BeepoVacAttack.BeepoVacServer;
 
 import BeepoVacAttack.GamePlay.BeepoVac;
 import BeepoVacAttack.GamePlay.DustBunny;
+import BeepoVacAttack.GamePlay.Enemy;
 import BeepoVacAttack.GamePlay.Map;
 import BeepoVacAttack.Networking.Listener;
 import jig.Entity;
@@ -26,6 +27,7 @@ public class MainGame extends StateBasedGame {
     // gameplay
     public static LinkedList<BeepoVac> players;
     public static LinkedList<DustBunny> bunnies;
+    public static Enemy enemy;
     public Map map;
 
     public MainGame(String title, int width, int height) {
