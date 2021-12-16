@@ -156,6 +156,9 @@ public class PlayingState extends BasicGameState {
         TweenManager.update(delta);
         Input input = container.getInput();
         MainGame bg = (MainGame)game;
+
+        boolean c = input.getControllerCount() > 0;
+
         // If the game is over, don't send any more output
         if (timeRemaining < 0)
         {
@@ -164,13 +167,13 @@ public class PlayingState extends BasicGameState {
             if (canQuitOrPlayAgain && bg.whichPlayer == 1)
             {
                 // Quit game
-                if (input.isKeyDown(Input.KEY_Q))
+                if (input.isKeyDown(Input.KEY_Q) || (c && input.isControlPressed(MainGame.JOYCON_DOWN)))
                 {
                     System.exit(0);
                 }
 
                 // Restart the level
-                else if (input.isKeyPressed(Input.KEY_P))
+                else if (input.isKeyPressed(Input.KEY_P) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT)))
                 {
                     // TODO: send a "restart level" signal to other player
                     Packet pack = new Packet("restart");
@@ -194,17 +197,6 @@ public class PlayingState extends BasicGameState {
             return;
         }
 
-        // Restart the level
-        if (input.isKeyPressed(Input.KEY_P))
-        {
-            // TODO: send a "restart level" signal to other player
-            Packet pack = new Packet("restart");
-            pack.setPlayer(bg.whichPlayer);
-            bg.caller.push(pack);
-            System.out.println("restart message sent");
-            return;
-        }
-
         float deltaAdjustedSpeed = playerSpeed * ((float)delta / 1000.0f);
 
         // Deal with player input. Get it ready to send
@@ -213,19 +205,20 @@ public class PlayingState extends BasicGameState {
 
         ClientBeepoVac myBeepoVac = bg.players.get(bg.whichPlayer - 1);
 
-        if (input.isKeyDown(Input.KEY_A)){
+
+        if (input.isKeyDown(Input.KEY_A) || (c && input.isControllerLeft(0))) {
             sendMove += "a";
             cameraPosition = cameraPosition.add(left.scale(deltaAdjustedSpeed));
         }
-        if (input.isKeyDown(Input.KEY_D)){
+        if (input.isKeyDown(Input.KEY_D) || (c && input.isControllerRight(0))) {
             sendMove += "d";
             cameraPosition = cameraPosition.add(right.scale(deltaAdjustedSpeed));
         }
-        if (input.isKeyDown(Input.KEY_S)){
+        if (input.isKeyDown(Input.KEY_S) || (c && input.isControllerDown(0))) {
             sendMove += "s";
             cameraPosition = cameraPosition.add(down.scale(deltaAdjustedSpeed));
         }
-        if (input.isKeyDown(Input.KEY_W)){
+        if (input.isKeyDown(Input.KEY_W) || (c && input.isControllerUp(0))) {
             sendMove += "w";
             cameraPosition = cameraPosition.add(up.scale(deltaAdjustedSpeed));
         }
@@ -242,7 +235,7 @@ public class PlayingState extends BasicGameState {
         }
 
         // check if you want to change vac
-        if (input.isKeyPressed(Input.KEY_E) && this.canChange) {
+        if (input.isKeyPressed(Input.KEY_E) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT, 0)) && this.canChange) {
             sendMove += "e";
         }
 

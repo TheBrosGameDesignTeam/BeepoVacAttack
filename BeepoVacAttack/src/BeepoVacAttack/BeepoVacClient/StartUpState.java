@@ -97,8 +97,10 @@ class StartUpState extends BasicGameState {
         Input input = container.getInput();
         MainGame bg = (MainGame)game;
 
+        boolean c = input.getControllerCount() > 0;
+
         // press space if you are ready to start the game!
-        if (input.isKeyPressed(Input.KEY_SPACE)){
+        if (input.isKeyPressed(Input.KEY_SPACE) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT))) {
             // send both the player and the message.
             Packet pack = new Packet("space");
             pack.setPlayer(bg.whichPlayer);
