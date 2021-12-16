@@ -123,6 +123,8 @@ public class Level {
 
         String r = e.getAttribute("r");
 
+        boolean onlyForTall = e.getAttribute("onlyForTall").equalsIgnoreCase("true");
+
         Vector pos = null;
         if (!x.equals("") && !y.equals("")) {
             pos = new Vector(Float.parseFloat(x), Float.parseFloat(y));
@@ -147,7 +149,7 @@ public class Level {
         }
 
         else if (name == "Wall") {
-            object = new LevelWall(pos, dim, radius);
+            object = new LevelWall(pos, dim, radius, onlyForTall);
         }
 
         else if (name == "Surface") {
@@ -246,7 +248,7 @@ public class Level {
 
     public void renderBackground(Graphics g) {
         for (LevelImage image : getImages()) {
-            renderLevelImage(image, g);
+            renderLevelImage(image, g, 1.0f);
         }
 
         Image dustMapImage = getSlickDustMapImage();
@@ -276,32 +278,32 @@ public class Level {
             g.setDrawMode(Graphics.MODE_NORMAL);
         }
 
-        for (LevelSurface surface : getSurfaces()) {
-            renderLevelSurface(surface, g);
-        }
-
-        for (LevelWall wall : getWalls()) {
-            renderLevelWall(wall, g);
-        }
+//        for (LevelSurface surface : getSurfaces()) {
+//            renderLevelSurface(surface, g);
+//        }
+//
+//        for (LevelWall wall : getWalls()) {
+//            renderLevelWall(wall, g);
+//        }
     }
 
-    public void renderOverlay(Graphics g) {        // Render the furniture!
+    public void renderOverlay(Graphics g, boolean loweredOpacity) {        // Render the furniture!
         for (LevelFurnitureInstance item : getFurnitureInstances()) {
             for (LevelObject object : item.getSubobjects()) {
                 if (LevelImage.class.isAssignableFrom(object.getClass())) {
-                    renderLevelImage((LevelImage) object, g);
+                    renderLevelImage((LevelImage) object, g, loweredOpacity ? 0.3f : 1.0f);
                 }
-                else if (LevelWall.class.isAssignableFrom(object.getClass())) {
-                    renderLevelWall((LevelWall) object, g);
-                }
-                else if (LevelSurface.class.isAssignableFrom(object.getClass())) {
-                    renderLevelSurface((LevelSurface) object, g);
-                }
+//                else if (LevelWall.class.isAssignableFrom(object.getClass())) {
+//                    renderLevelWall((LevelWall) object, g);
+//                }
+//                else if (LevelSurface.class.isAssignableFrom(object.getClass())) {
+//                    renderLevelSurface((LevelSurface) object, g);
+//                }
             }
         }
     }
 
-    private void renderLevelImage(LevelImage image, Graphics g) {
+    private void renderLevelImage(LevelImage image, Graphics g, float opacity) {
         if (image.getImage() == null) return;
 
         float x = image.getPosition().getX();
@@ -310,7 +312,9 @@ public class Level {
         float h = image.getSize().getY();
 
         Image img = image.getImage();
-        image.getImage().draw(x, y, w, h);
+        g.setColor(new Color(1.0f, 1.0f, 1.0f, opacity));
+
+        image.getImage().draw(x, y, w, h, new Color(1.0f, 1.0f, 1.0f, opacity));
     }
 
     private void renderLevelWall(LevelWall wall, Graphics g) {

@@ -13,6 +13,11 @@ public class ClientBeepoVac extends MapNode {
     public static String RES_PLAYER_IMG_SRC = "BeepoVacAttack/resources/beepovacs_v3.png";
     private static Image playerImage = null;
 
+    private boolean underSomething = false;
+    public boolean getUnderSomething() { return this.underSomething; }
+    public void setUnderSomething(boolean value) { this.underSomething = value; }
+
+
     public ClientBeepoVac(float x, float y) {
         super(x, y);
     }

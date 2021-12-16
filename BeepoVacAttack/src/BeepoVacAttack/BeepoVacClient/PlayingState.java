@@ -1,10 +1,11 @@
 package BeepoVacAttack.BeepoVacClient;
 
 //import BeepoVacAttack.BeepoVacServer.MainGame;
-import BeepoVacAttack.GamePlay.GameOverScreen;
+import BeepoVacAttack.GamePlay.*;
 import BeepoVacAttack.GamePlay.Map;
-import BeepoVacAttack.GamePlay.MapNode;
 import Tweeninator.TweenManager;
+import jig.ConvexPolygon;
+import jig.Entity;
 import jig.Vector;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -12,7 +13,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import BeepoVacAttack.Networking.Packet;
 
 import jig.ResourceManager;
-import BeepoVacAttack.GamePlay.Level;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -32,6 +32,8 @@ public class PlayingState extends BasicGameState {
 
 	private GameOverScreen gameOverScreen;
 	private boolean canQuitOrPlayAgain = false;
+
+    public Entity underneath;
 
     private Vector up = new Vector(0, -1);
     private Vector right = new Vector(1, 0);
@@ -134,7 +136,7 @@ public class PlayingState extends BasicGameState {
             if (b.isActive()) g.drawString("+30 sec", b.getX(), b.getY());
         }
 
-        level.renderOverlay(g);
+        level.renderOverlay(g, bg.players.get(bg.whichPlayer-1).getUnderSomething());
 
         g.resetTransform();
         g.setColor(Color.white);
@@ -175,7 +177,6 @@ public class PlayingState extends BasicGameState {
                 // Restart the level
                 else if (input.isKeyPressed(Input.KEY_P) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT)))
                 {
-                    // TODO: send a "restart level" signal to other player
                     Packet pack = new Packet("restart");
                     pack.setPlayer(bg.whichPlayer);
                     bg.caller.push(pack);
@@ -194,6 +195,17 @@ public class PlayingState extends BasicGameState {
                     bg.enterState(MainGame.PLAYINGSTATE);
                 }
             }
+            return;
+        }
+
+
+        // Restart the level
+        if (input.isKeyPressed(Input.KEY_P) || (c && input.isControlPressed(MainGame.JOYCON_RIGHT)))
+        {
+            Packet pack = new Packet("restart");
+            pack.setPlayer(bg.whichPlayer);
+            bg.caller.push(pack);
+            System.out.println("restart message sent");
             return;
         }
 
@@ -268,6 +280,7 @@ public class PlayingState extends BasicGameState {
                     // andddddd the direction IDK
                     beepoVac.setBeepoVacDir(test.vacDirections.poll());
                     beepoVac.setBeepoVacPos(x, y, level);
+                    beepoVac.setUnderSomething(test.underSomething.poll());
                 }
 
                 // load all positions into dustBunnies
@@ -292,11 +305,10 @@ public class PlayingState extends BasicGameState {
             }
         }
 
-        // TODO: bound camera at edges of level
+
         cameraPosition = new Vector(myBeepoVac.getX(), myBeepoVac.getY());
 
         timeRemaining -= delta;
-        // TODO: Handle time up!
         if (timeRemaining < 0)
         {
             System.out.println("TIME UP");

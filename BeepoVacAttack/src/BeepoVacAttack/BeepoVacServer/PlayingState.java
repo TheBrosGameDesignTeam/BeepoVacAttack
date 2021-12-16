@@ -91,8 +91,7 @@ public class PlayingState extends BasicGameState {
                 }
 
                 LevelWall wall = (LevelWall) obj;
-                if (furnType.getSubobjects().size() == 4 && i == 3 ||
-                    furnType.getSubobjects().size() == 6 && i == 5) {
+                if (wall.getOnlyForTall()) {
                     offset = new Vector(furn.getPosition().add(wall.getPosition().add(wall.getSize().scale(0.5f))));
                     underneath.addShape(new ConvexPolygon(wall.getSize().getX(), wall.getSize().getY()), offset);
                     continue;
@@ -185,6 +184,8 @@ public class PlayingState extends BasicGameState {
                     }
                 }
 
+                player.setUnderSomething(false);
+
                 if (player.collides(environment) != null) {
 //                    System.out.println("Player colliding with environment");
                     player.handleCollision();
@@ -197,6 +198,8 @@ public class PlayingState extends BasicGameState {
                 }
                 if (player.getVacType() == 2 && player.collides(underneath) != null) {
                     player.handleCollision();
+                } else if (player.collides(underneath) != null) {
+                    player.setUnderSomething(true);
                 }
             }
 
