@@ -37,6 +37,9 @@ public class MainGame extends StateBasedGame {
     private UnicodeFont largeFont;
     public static UnicodeFont getLargeFont() { return instance.largeFont; }
 
+    private UnicodeFont titleFont;
+    public static UnicodeFont getTitleFont() { return instance.titleFont; }
+
     // networking
     public static ConcurrentLinkedQueue<Object> queue;
     Caller caller;
@@ -103,13 +106,17 @@ public class MainGame extends StateBasedGame {
         normalFont.addAsciiGlyphs();
         normalFont.loadGlyphs();
 
-
-        // Load font
         largeFont = new UnicodeFont(RES_FONT, 50, false, false);
         largeFont.getEffects().add(new OutlineEffect(3, Color.black));
         largeFont.getEffects().add(new ColorEffect(Color.white));
         largeFont.addAsciiGlyphs();
         largeFont.loadGlyphs();
+
+        titleFont = new UnicodeFont(RES_FONT, 70, false, false);
+        titleFont.getEffects().add(new OutlineEffect(3, Color.black));
+        titleFont.getEffects().add(new ColorEffect(Color.white));
+        titleFont.addAsciiGlyphs();
+        titleFont.loadGlyphs();
 
         container.setDefaultFont(getNormalFont());
     }

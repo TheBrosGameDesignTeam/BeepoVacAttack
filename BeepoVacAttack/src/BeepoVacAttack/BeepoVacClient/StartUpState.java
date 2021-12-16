@@ -11,6 +11,11 @@ import java.net.Socket;
 
 class StartUpState extends BasicGameState {
 
+    private static final String gameName = "BeepoVac Attack!!";
+    private static final String gameInfo = "Laurel A., Malcolm A., Irina B., John S.";
+
+    private static final int cX = MainGame.getWidth() / 2;
+
     @Override
     public void init(GameContainer container, StateBasedGame game)
             throws SlickException {
@@ -64,16 +69,25 @@ class StartUpState extends BasicGameState {
         g.fillRect(0, 0, MainGame.getWidth(), MainGame.getHeight());
 
         g.setColor(Color.white);
+
+
+        // Draw title
+        g.setFont(MainGame.getTitleFont());
+        g.drawString(gameName,
+                MainGame.xPosForStringCenteredAt(cX, gameName, MainGame.getTitleFont()), 100);
+
         g.setFont(MainGame.getNormalFont());
+        g.drawString(gameInfo,
+                MainGame.xPosForStringCenteredAt(cX, gameInfo, MainGame.getNormalFont()), 180);
 
         String line1 = "You Are Player " + bg.whichPlayer;
-        g.drawString(line1, MainGame.xPosForStringCenteredAt(MainGame.getWidth() / 2, line1, MainGame.getNormalFont()), MainGame.getHeight() * 0.4f);
+        g.drawString(line1, MainGame.xPosForStringCenteredAt(MainGame.getWidth() / 2, line1, MainGame.getNormalFont()), MainGame.getHeight() * 0.6f);
 
         String line2 = "---";
         if (bg.whichPlayer == 1) line2 = "Press Space to Start!";
         else  line2 = "Waiting for Player 1 to Start...";
 
-        g.drawString(line2, MainGame.xPosForStringCenteredAt(MainGame.getWidth() / 2, line2, MainGame.getNormalFont()), MainGame.getHeight() * 0.5f);
+        g.drawString(line2, MainGame.xPosForStringCenteredAt(MainGame.getWidth() / 2, line2, MainGame.getNormalFont()), MainGame.getHeight() * 0.65f);
     }
 
     @Override
