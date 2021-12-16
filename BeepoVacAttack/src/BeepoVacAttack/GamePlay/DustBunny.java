@@ -30,10 +30,10 @@ public class DustBunny extends Entity {
     public void resetPosition()
     {
         this.setPosition(defaultPosition);
-        reset();
+        resetTimer();
     }
 
-    public void reset() {
+    public void resetTimer() {
         timer = time;
     }
 
@@ -44,23 +44,15 @@ public class DustBunny extends Entity {
         // collision detection to stay within walls
     }
 
-    public void setFollowMove() {
-        int ratio = 100;
-        // MapNode current = Map.getMap()[(int)this.getX()/ratio][(int)this.getY()/ratio];
-        MapNode current = Map.getMap()[5][5];
-        move = current.getPi();
-    }
-
     public void update(final int delta, Vector pos) {
         timer -= delta;
 //        System.out.println("Setting bun direction to: " + pos);
         lastPosition = getPosition();
 
         if (timer <= 0) {
-            // this.setFollowMove();
             if (pos != null) move = pos;
             else setRandomMove();
-            reset();
+            resetTimer();
         }
 
         this.translate(move.scale(delta));
