@@ -30,6 +30,7 @@ public class MainGame extends StateBasedGame {
 
     public static final String RES_FONT = "BeepoVacAttack/resources/font/FredokaOne-Regular.ttf";
     public static String BANG_SPRITE = "BeepoVacAttack/resources/dustexplosion.png";
+    public static String POOF_SOUND = "BeepoVacAttack/resources/sounds/poof.wav";
 
     public static int JOYCON_RIGHT = 5;
     public static int JOYCON_LEFT = 6;
@@ -103,6 +104,7 @@ public class MainGame extends StateBasedGame {
         ResourceManager.loadImage(DOCK_IMG);
         ResourceManager.loadImage(SWITCH_IMG);
         ResourceManager.loadImage(BANG_SPRITE);
+        ResourceManager.loadSound(POOF_SOUND);
 
         // Load font
         normalFont = new UnicodeFont(RES_FONT, 25, false, false);

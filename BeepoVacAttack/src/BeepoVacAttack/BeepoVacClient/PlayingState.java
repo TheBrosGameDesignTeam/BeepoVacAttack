@@ -46,7 +46,7 @@ public class PlayingState extends BasicGameState {
 
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
-        container.setSoundOn(false);
+        container.setSoundOn(true);
 
         MainGame bg = (MainGame)game;
 
