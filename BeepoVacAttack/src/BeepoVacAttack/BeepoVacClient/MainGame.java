@@ -27,6 +27,7 @@ public class MainGame extends StateBasedGame {
 
     public static final String DOCK_IMG = "BeepoVacAttack/resources/Dock.png";
     public static final String SWITCH_IMG = "BeepoVacAttack/resources/switch.png";
+    public static final String SWITCH_JOYCON_IMG = "BeepoVacAttack/resources/switch_joycon.png";
 
     public static final String RES_FONT = "BeepoVacAttack/resources/font/FredokaOne-Regular.ttf";
     public static String BANG_SPRITE = "BeepoVacAttack/resources/dustexplosion.png";
@@ -103,6 +104,7 @@ public class MainGame extends StateBasedGame {
         addState(new PlayingState());
         ResourceManager.loadImage(DOCK_IMG);
         ResourceManager.loadImage(SWITCH_IMG);
+        ResourceManager.loadImage(SWITCH_JOYCON_IMG);
         ResourceManager.loadImage(BANG_SPRITE);
         ResourceManager.loadSound(POOF_SOUND);
 
