@@ -2,6 +2,7 @@ package BeepoVacAttack.BeepoVacServer;
 
 import BeepoVacAttack.BeepoVacClient.ClientBeepoVac;
 import BeepoVacAttack.GamePlay.BeepoVac;
+import BeepoVacAttack.GamePlay.DustBunny;
 import BeepoVacAttack.GamePlay.Map;
 import BeepoVacAttack.GamePlay.MapNode;
 import BeepoVacAttack.GamePlay.BeepoVac;
@@ -9,6 +10,7 @@ import BeepoVacAttack.GamePlay.DustBunny;
 import BeepoVacAttack.Networking.Listener;
 import BeepoVacAttack.Networking.Packet;
 import com.sun.tools.javac.Main;
+import jig.Collision;
 import jig.Vector;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -50,6 +52,7 @@ public class PlayingState extends BasicGameState {
 
         Input input = container.getInput();
         MainGame bg = (MainGame)game;
+        Collision collision;
 
         // read from ConcurrentLinkedQueue
         while (!MainGame.queue.isEmpty()) {
@@ -85,6 +88,44 @@ public class PlayingState extends BasicGameState {
             MainGame.bunnies.forEach((bunny) -> bunny.update(delta, pos));
 
             // get the pos of each player and each bun and save it in a snapshot
+            for (BeepoVac player: MainGame.players) {
+                for (BeepoVac other: MainGame.players) {
+                    collision = player.collides(other);
+                    if (collision != null && other != player) {
+                        System.out.println("Collision (BeepoVac v BeepoVac");
+                        player.handleCollision();
+                        other.handleCollision();
+                    }
+                }
+                for (DustBunny other: MainGame.bunnies) {
+                    collision = player.collides(other);
+                    if (collision != null) {
+                        System.out.println("Collision (BeepoVac v Bunny");
+                        player.handleCollision();
+                    }
+                }
+            }
+
+            for (DustBunny bunny: MainGame.bunnies) {
+                for (BeepoVac other: MainGame.players) {
+                    collision = bunny.collides(other);
+                    if (collision != null) {
+                        System.out.println("Collision (Bunny v BeepoVac)");
+                        bunny.handleCollision();
+                        other.handleCollision();
+                    }
+                }
+                for (DustBunny other: MainGame.bunnies) {
+                    collision = bunny.collides(other);
+                    if (collision != null && other != bunny) {
+                        System.out.println("Collision (Bunny v Bunny)");
+                        bunny.handleCollision();
+                        other.handleCollision();
+                    }
+                }
+            }
+
+            // get the pos of each player and save it in a snapshot
             Packet retPack = new Packet("snapshot");
 
             // check if any of the bunnies intersect with any of the vacs
