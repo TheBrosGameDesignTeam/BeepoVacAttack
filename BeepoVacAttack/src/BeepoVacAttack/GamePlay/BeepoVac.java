@@ -16,6 +16,8 @@ public class BeepoVac extends MapNode {
     Vector lastPosition;
 
     private boolean onCarpet = false;
+    private boolean underSomething = false;
+
 
     private int vacType = 1;
     private int direction = 0;
@@ -25,6 +27,7 @@ public class BeepoVac extends MapNode {
 
     public BeepoVac(final float x, final float y) {
         super(x, y);
+        this.defaultPosition = new Vector(x, y);
         this.move = new Vector(0, 0);
         lastPosition = getPosition();
         addShape(new ConvexPolygon(30f), new Vector(15f,15f));
@@ -109,4 +112,7 @@ public class BeepoVac extends MapNode {
     public void setOnCarpet(boolean onCarpet) {
         this.onCarpet = onCarpet;
     }
+
+    public boolean getUnderSomething() { return this.underSomething; }
+    public void setUnderSomething(boolean value) { this.underSomething = value; }
 }
