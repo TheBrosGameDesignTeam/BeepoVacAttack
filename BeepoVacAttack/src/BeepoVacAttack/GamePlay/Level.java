@@ -37,7 +37,7 @@ public class Level {
     public HashMap<String, LevelFurnitureRecipe> getFurnitureRecipes() { return furnitureRecipes; }
     public LinkedList<LevelFurnitureInstance> getFurnitureInstances() { return furnitureInstances; }
 
-    public static final String RES_NOISE_IMG = "BeepoVacAttack/resources/noise4.png";
+    public static final String RES_NOISE_IMG = "BeepoVacAttack/BeepoVacAttack/resources/noise4.png";
 
     private static final boolean DEBUG = true;
 
@@ -49,7 +49,7 @@ public class Level {
     public static Level fromXML(String pathToXML) throws Exception {
         Level newLevel = new Level();
 
-        File xmlFile = new File("BeepoVacAttack/BeepoVacAttack/src/BeepoVacAttack/resources/level/" + pathToXML);
+        File xmlFile = new File("BeepoVacAttack/src/BeepoVacAttack/resources/level/" + pathToXML);
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
