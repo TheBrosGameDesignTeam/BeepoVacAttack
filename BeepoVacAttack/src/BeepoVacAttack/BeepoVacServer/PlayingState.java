@@ -160,11 +160,6 @@ public class PlayingState extends BasicGameState {
             // update node values using dijkstra's
             dijkstras(bg, MainGame.players.get(0));
 
-            // update the dust bunnies
-            Vector bun = MainGame.bunnies.getFirst().getPosition();
-            Vector pos = Map.getMap()[Math.round(bun.getX()/100)][Math.round(bun.getY()/100)].getPi();
-            MainGame.bunnies.forEach((bunny) -> bunny.update(delta, pos));
-
             // get the pos of each player and each bun and save it in a snapshot
             for (BeepoVac player: MainGame.players) {
                 for (BeepoVac other: MainGame.players) {
@@ -181,6 +176,17 @@ public class PlayingState extends BasicGameState {
 //                        System.out.println("Collision (BeepoVac v Bunny");
                         other.isCaught = true;
 //                        player.handleCollision();
+                    }
+                    else { // update position of bunnies
+                        int ratio = 100;
+                        Vector bun = other.getPosition();
+                        Vector pos = Map.getMap()[Math.round(bun.getX()/ratio)][Math.round(bun.getY()/ratio)].getPi();
+
+                        // check proximity
+                        float bunDistance = bun.distance(player.getPosition());
+                        if (bunDistance < 200 && other.isRoaming) other.setIsRoaming(false);
+                        else if (!other.isRoaming) other.setIsRoaming(true);
+                        other.update(delta, pos);
                     }
                 }
 
