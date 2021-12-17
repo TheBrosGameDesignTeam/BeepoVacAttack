@@ -26,4 +26,9 @@ Different surfaces that the Vacs can interact with - Done (hardwood floors and c
 Custom sprites and visuals - Done
 
 #Licensing 
+BeepoVac spritesheet - Created by Malcolm Anderson
+UI switch graphics - Malcolm Anderson
+DustBunny spritesheet, explosion spritesheet - Laurel Anderson
+Level graphics - Laurel Anderson
 
+All content can be distributed, remixed, adapted, and built upon as long as you credit us for our work.
