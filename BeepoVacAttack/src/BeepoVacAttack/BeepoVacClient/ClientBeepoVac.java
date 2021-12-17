@@ -20,7 +20,7 @@ public class ClientBeepoVac {
     private float x = 100;
     private float y = 100;
 
-    private float volume = .2f;
+    private float volume = 1f;
     private float pitch = 1f;
 
     private int direction = 0;
@@ -58,17 +58,17 @@ public class ClientBeepoVac {
         switch (vacType) {
             case 0 -> {
                 this.radius = 25;
-                this.volume = .1f;
+                this.volume = .75f;
                 this.pitch = .7f;
             }
             case 2 -> {
                 this.radius = 40;
-                this.volume = .3f;
+                this.volume = 1.5f;
                 this.pitch = 1.5f;
             }
             default -> {
                 this.radius = 30;
-                this.volume = .2f;
+                this.volume = 1f;
                 this.pitch = 1f;
             }
         }

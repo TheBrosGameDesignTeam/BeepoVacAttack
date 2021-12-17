@@ -30,5 +30,6 @@ BeepoVac spritesheet - Created by Malcolm Anderson
 UI switch graphics - Malcolm Anderson
 DustBunny spritesheet, explosion spritesheet - Laurel Anderson
 Level graphics - Laurel Anderson
+Background music - Podington Bear on <a href="https://freemusicarchive.org/music/Podington_Bear/none_given_1790/Chauncy">Free Music Archive</a>
 
 All content can be distributed, remixed, adapted, and built upon as long as you credit us for our work.

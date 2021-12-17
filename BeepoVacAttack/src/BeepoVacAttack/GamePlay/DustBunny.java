@@ -53,7 +53,7 @@ public class DustBunny extends Entity {
         lastPosition = getPosition();
 
         if (timer <= 0) {
-            if (pos != null && !isRoaming) move = pos.negate();    // set bunny direction to opposite of vac
+            if (pos != null) move = pos.negate();    // set bunny direction to opposite of vac
             else setRandomMove();
             resetTimer();
         }
