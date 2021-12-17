@@ -8,7 +8,7 @@ import jig.Vector;
 public class DustBunny extends Entity {
 
     private final float speed = 0.15f;
-    private final Vector start = new Vector(1,0);
+    private final Vector start = new Vector(speed,0);
     Vector move;
     Vector lastPosition;
     public boolean isCaught = false;

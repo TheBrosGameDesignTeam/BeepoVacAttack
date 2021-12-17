@@ -249,11 +249,12 @@ public class PlayingState extends BasicGameState {
 
     public void dijkstras(MainGame game, BeepoVac target) {
         MapNode[][] map = Map.getMap();
+        float speed = 0.15f;
 
-        Vector up = new Vector(0, -1);
-        Vector right = new Vector(1, 0);
-        Vector left = right.scale(-1);
-        Vector down = up.scale(-1);
+        Vector up = new Vector(0, -speed);
+        Vector right = new Vector(speed, 0);
+        Vector left = right.scale(-speed);
+        Vector down = up.scale(-speed);
         int ratio = 100;
 
         Set<MapNode> seen = new HashSet<>();

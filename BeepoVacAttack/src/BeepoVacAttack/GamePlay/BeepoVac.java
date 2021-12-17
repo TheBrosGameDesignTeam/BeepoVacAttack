@@ -7,17 +7,24 @@ import jig.Vector;
 
 public class BeepoVac extends MapNode {
 
-    private final float speed = 0.2f;
-    private final Vector up = new Vector(0,-speed);
-    private final Vector left = new Vector(-speed,0);
-    private final Vector down = new Vector(0,speed);
-    private final Vector right = new Vector(speed,0);
+    private float speed = 0.2f;
+    private Vector up = new Vector(0,-speed);
+    private Vector left = new Vector(-speed,0);
+    private Vector down = new Vector(0,speed);
+    private Vector right = new Vector(speed,0);
     Vector move;
     Vector lastPosition;
 
     private boolean onCarpet = false;
     private boolean underSomething = false;
 
+    private final ConvexPolygon smallShape = new ConvexPolygon(15f);
+    private final ConvexPolygon mediumShape = new ConvexPolygon(30f);
+    private final ConvexPolygon largeShape = new ConvexPolygon(45f);
+
+    private final Vector smallOffset = new Vector(7.5f,7.5f);
+    private final Vector mediumOffset = new Vector(15f,15f);
+    private final Vector largeOffset = new Vector(22.5f,22.5f);
 
     private int vacType = 1;
     private int direction = 0;
@@ -30,7 +37,7 @@ public class BeepoVac extends MapNode {
         this.defaultPosition = new Vector(x, y);
         this.move = new Vector(0, 0);
         lastPosition = getPosition();
-        addShape(new ConvexPolygon(30f), new Vector(15f,15f));
+        addShape(mediumShape, mediumOffset);
     }
 
     public void resetPosition()
@@ -66,6 +73,32 @@ public class BeepoVac extends MapNode {
             if (this.vacType == 2) this.vacType = 0;
             else this.vacType++;
             this.setRadius();
+            switch (vacType) {
+                case 0:
+                    System.out.println("Switching to small vac");
+                    removeShape(largeShape);
+                    addShape(smallShape, smallOffset);
+                    speed = 0.3f;
+                    break;
+                case 1:
+                    System.out.println("Switching to medium vac");
+                    removeShape(smallShape);
+                    addShape(mediumShape, mediumOffset);
+                    setPosition(getPosition().add(new Vector(0f,15f)));
+                    speed = 0.2f;
+                    break;
+                case 2:
+                    System.out.println("Switching to large vac");
+                    removeShape(mediumShape);
+                    addShape(largeShape, largeOffset);
+                    setPosition(getPosition().add(new Vector(0f,30f)));
+                    speed = 0.1f;
+                    break;
+            }
+            up = new Vector(0,-speed);
+            left = new Vector(-speed,0);
+            down = new Vector(0,speed);
+            right = new Vector(speed,0);
         }
 
 //        System.out.println(newMove);
