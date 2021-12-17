@@ -39,7 +39,7 @@ public class Level {
 
     public static final String RES_NOISE_IMG = "BeepoVacAttack/resources/noise4.png";
 
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     public static void loadResources()
     {
