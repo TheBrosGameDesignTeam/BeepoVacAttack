@@ -36,6 +36,7 @@ public class MainGame extends StateBasedGame {
     public static String VAC_ON_SOUND = "BeepoVacAttack/resources/sounds/vac_on.wav";
     public static String VAC_GO_SOUND = "BeepoVacAttack/resources/sounds/vac_go.wav";
     public static String VAC_OFF_SOUND = "BeepoVacAttack/resources/sounds/vac_off.wav";
+    public static String BACKGROUND_MUSIC = "BeepoVacAttack/resources/sounds/background.wav";
 
     public static int JOYCON_RIGHT = 5;
     public static int JOYCON_LEFT = 6;
@@ -115,6 +116,7 @@ public class MainGame extends StateBasedGame {
         ResourceManager.loadSound(VAC_GO_SOUND);
         ResourceManager.loadSound(VAC_ON_SOUND);
         ResourceManager.loadSound(VAC_OFF_SOUND);
+        ResourceManager.loadSound(BACKGROUND_MUSIC);
 
         // Load font
         normalFont = new UnicodeFont(RES_FONT, 25, false, false);

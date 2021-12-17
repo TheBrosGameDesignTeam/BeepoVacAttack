@@ -109,9 +109,10 @@ public class ClientBeepoVac {
     }
 
     public boolean getIsMoving() { return this.isMoving; }
+
     public void setIsMoving(boolean value) {
         if (!isMoving && value) onVacSound();
-        else if (!value) stopVacSound();
+        else if (isMoving && !value) stopVacSound();
         this.isMoving = value;
     }
 

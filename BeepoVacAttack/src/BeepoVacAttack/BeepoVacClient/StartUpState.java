@@ -2,6 +2,7 @@ package BeepoVacAttack.BeepoVacClient;
 import BeepoVacAttack.GamePlay.BeepoVac;
 import BeepoVacAttack.Networking.Packet;
 import BeepoVacAttack.Networking.*;
+import jig.ResourceManager;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -23,7 +24,8 @@ class StartUpState extends BasicGameState {
 
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
-        container.setSoundOn(false);
+        container.setSoundOn(true);
+        ResourceManager.getMusic(MainGame.BACKGROUND_MUSIC).loop(1f, 0.02f);
 
         BeepoVacAttack.BeepoVacClient.MainGame bg = (BeepoVacAttack.BeepoVacClient.MainGame)game;
 

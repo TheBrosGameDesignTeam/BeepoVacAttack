@@ -26,13 +26,13 @@ public class PlayingState extends BasicGameState {
 
     private final int initialTime = 1000 * 50;
     private int timeRemaining = initialTime;
-    private int vacSoundTimer = 2000;
 
     private boolean canChange = false;
     private boolean debug = true;
 
 	private GameOverScreen gameOverScreen;
 	private boolean canQuitOrPlayAgain = false;
+    private boolean doneWithGame = false;
 
     public Entity underneath;
 
@@ -57,7 +57,7 @@ public class PlayingState extends BasicGameState {
         timeRemaining = initialTime;
         gameOverScreen.reset();
         canQuitOrPlayAgain = false;
-
+        bg.players.get(bg.whichPlayer - 1).setIsMoving(false);
 
         // init dock stations for this level
         bg.docks.clear();
@@ -161,16 +161,22 @@ public class PlayingState extends BasicGameState {
         TweenManager.update(delta);
         Input input = container.getInput();
         MainGame bg = (MainGame)game;
+        ClientBeepoVac myBeepoVac = bg.players.get(bg.whichPlayer - 1);
 
         boolean c = input.getControllerCount() > 0;
 
         // If the game is over, don't send any more output
         if (timeRemaining < 0)
         {
+            if (!doneWithGame && myBeepoVac.getIsMoving()) {
+                myBeepoVac.stopVacSound();
+                doneWithGame = true;
+            }
 
             // If the player can quit or play again, handle those options!
             if (canQuitOrPlayAgain && bg.whichPlayer == 1)
             {
+
                 // Quit game
                 if (input.isKeyDown(Input.KEY_Q) || (c && input.isControlPressed(MainGame.JOYCON_DOWN)))
                 {
@@ -217,9 +223,6 @@ public class PlayingState extends BasicGameState {
         // Deal with player input. Get it ready to send
         Packet pack = null;
         String sendMove = "";
-
-        ClientBeepoVac myBeepoVac = bg.players.get(bg.whichPlayer - 1);
-
 
         if (input.isKeyDown(Input.KEY_A) || (c && input.isControllerLeft(0))) {
             sendMove += "a";
