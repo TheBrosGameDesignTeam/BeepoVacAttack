@@ -5,3 +5,25 @@ Laurel Anderson
 Malcolm Anderson
 Irina Bejan
 John Stevenson
+
+#Controls
+WASD + E/stick and buttons on joycon. WSAD moves the beeps and E allows you to change your beep type when next to a docking station. 
+Press S to start when in lobby, when game is done press Q to quit and P to play again. 
+
+#Cheat Code
+In the level class, you can set the DEBUG var to true to see the bounding boxes. 
+
+#Low Bar Goals 
+Networked, 2-player co-op
+3 unique levels - Partial (We had planned on a second, but we ran out of time.)
+3 different playable BeepoVac models with different strengths and weaknesses - Done
+Players will be able to return to the docking station and change their BeepoVac model - Done
+Reasonably intelligent enemies and other entities - Partial (bunnies are intelligent but that is the only enemy type.)
+Scrolling world - Done
+Stats and objectives for each level - Done (%Dust cleaned for level)
+Different ways players are able to complete a level - Done
+Different surfaces that the Vacs can interact with - Done (hardwood floors and carpet.)
+Custom sprites and visuals - Done
+
+#Licensing 
+

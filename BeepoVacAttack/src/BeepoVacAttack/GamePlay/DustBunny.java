@@ -8,7 +8,7 @@ import org.lwjgl.Sys;
 
 public class DustBunny extends Entity {
 
-    private final float speed = 0.15f;
+    private final float speed = 1f;
     private final Vector start = new Vector(speed,0);
     Vector move;
     Vector lastPosition;
@@ -58,7 +58,9 @@ public class DustBunny extends Entity {
             resetTimer();
         }
 
-        this.translate(move.scale(delta));
+        move = move.unit().scale(speed);
+
+        this.translate(move);
     }
 
     public void handleCollision() {
