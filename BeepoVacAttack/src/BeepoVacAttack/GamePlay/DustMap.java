@@ -79,6 +79,17 @@ public class DustMap {
         updateSlickImage();
     }
 
+    public void clearDustInCircle(Vector pos, float radius) {
+        imageGraphics.setComposite(AlphaComposite.Clear);
+        imageGraphics.fillOval(
+                Math.round(pos.getX() * ratio),
+                Math.round(pos.getY() * ratio),
+                Math.round(radius * 2 * ratio),
+                Math.round(radius * 2 * ratio)
+        );
+        updateSlickImage();
+    }
+
     public void clearDustInRectangle(Vector pos, Vector size) {
         imageGraphics.setComposite(AlphaComposite.Clear);
         imageGraphics.fillRect(

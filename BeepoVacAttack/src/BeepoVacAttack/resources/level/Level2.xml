@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Level>
+    <FurnitureRecipes>
+
+    </FurnitureRecipes>
+    <World>
+        <Image src="LayoutL2.png" x="0" y="0" w="1526" h="2533" />
+
+        <Wall x="248" y="2038" w="233" h="334" />
+        <Wall x="690" y="2038" w="233" h="334" />
+        <Wall x="1100" y="2043" w="233" h="334" />
+
+        <Wall x="44" y="0" w="59" h="2573" />
+        <Wall x="1477" y="0" w="59" h="2573" />
+
+        <Wall x="848" y="98" w="100" h="687" />
+        <Wall x="103" y="785" w="100" h="648" />
+        <Wall x="103" y="1433" w="282" h="481" />
+        <Wall x="103" y="2461" w="1374" h="77" />
+        <Wall x="103" y="20" w="1374" h="77" />
+        <Wall x="661" y="1842" w="816" h="77" />
+        <Wall x="862" y="977" w="615" h="69" />
+
+        <Wall x="609" y="1174" r="223" />
+
+        <DustArea x="29" y="18" w="1526" h="2533" />
+    </World>
+</Level>

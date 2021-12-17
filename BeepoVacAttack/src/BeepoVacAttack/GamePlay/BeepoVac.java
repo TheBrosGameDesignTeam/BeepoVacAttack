@@ -107,6 +107,8 @@ public class BeepoVac extends MapNode {
                     getVacType() == 1 ? 0.5f :
                             1f;
         }
+
+        moveScale *= 20f;
         this.translate(newMove.scale(delta).scale(moveScale));
 
     }

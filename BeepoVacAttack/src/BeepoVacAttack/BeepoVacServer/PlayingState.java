@@ -48,7 +48,7 @@ public class PlayingState extends BasicGameState {
         underneath = new Entity();
 
         try {
-            level = Level.fromXML("ExampleLevel.xml");
+            level = Level.fromXML("Level2.xml");
         } catch (Exception e) {
             e.printStackTrace();
             exit(1);

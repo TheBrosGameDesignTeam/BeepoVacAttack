@@ -70,7 +70,7 @@ public class PlayingState extends BasicGameState {
         for (int i=0; i<3; i++) bg.bunnies.add(new ClientDustBunny());
 
         try {
-            level = Level.fromXML("ExampleLevel.xml");
+            level = Level.fromXML("Level2.xml");
         }
         catch (Exception e) {
             e.printStackTrace();

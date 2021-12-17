@@ -3,8 +3,8 @@ package BeepoVacAttack.GamePlay;
 import jig.Vector;
 
 public class Map {
-    private static final int rows = 26;
-    private static final int cols = 19;
+    private static final int rows = 50;
+    private static final int cols = 50;
     private static final int ratio = 100;           // one node for every 100 pixels
     public static MapNode[][] map = new MapNode[rows][cols];
 
