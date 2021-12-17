@@ -25,7 +25,7 @@ class StartUpState extends BasicGameState {
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         container.setSoundOn(true);
-        ResourceManager.getMusic(MainGame.BACKGROUND_MUSIC).loop(1f, 0.1f);
+        ResourceManager.getMusic(MainGame.BACKGROUND_MUSIC).loop(1f, 0.5f);
 
         BeepoVacAttack.BeepoVacClient.MainGame bg = (BeepoVacAttack.BeepoVacClient.MainGame)game;
 

@@ -16,7 +16,7 @@ public class Bang extends Entity {
         explosion = new Animation(sprite, 50);
         addAnimation(explosion);
         explosion.setLooping(false);
-        ResourceManager.getSound(MainGame.POOF_SOUND).play(1f, .5f);
+        ResourceManager.getSound(MainGame.POOF_SOUND).play(1f, .1f);
     }
 
     public boolean isActive() {

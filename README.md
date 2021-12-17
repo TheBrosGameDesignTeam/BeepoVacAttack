@@ -1,10 +1,10 @@
 # BeepoVac Attack
 
 # Creators
-Laurel Anderson
-Malcolm Anderson
-Irina Bejan
-John Stevenson
+- Laurel Anderson
+- Malcolm Anderson
+- Irina Bejan
+- John Stevenson
 
 # Dependencies
 The library [Tweeninator](https://gitlab.com/Meorge/TweeninatorJava) must be added as a module
@@ -17,7 +17,7 @@ Press S to start when in lobby, when game is done press Q to quit and P to play 
 #Cheat Code
 In the level class, you can set the DEBUG var to true to see the bounding boxes. 
 
-#Low Bar Goals 
+#Low Bar Goals
 - Networked, 2-player co-op - Done
 - 3 unique levels - Partial (We had planned on a second, but we ran out of time.)
 - 3 different playable BeepoVac models with different strengths and weaknesses - Done
@@ -40,5 +40,6 @@ under the [Open Font License (OFL)](https://scripts.sil.org/cms/scripts/page.php
 - UI switch graphics - Malcolm Anderson
 - DustBunny spritesheet, explosion spritesheet - Laurel Anderson
 - Level graphics - Laurel Anderson
+- Background music - Podington Bear on [Free Music Archive](https://freemusicarchive.org/music/Podington_Bear/none_given_1790/Chauncy)
 
 All content can be distributed, remixed, adapted, and built upon as long as you credit us for our work.
