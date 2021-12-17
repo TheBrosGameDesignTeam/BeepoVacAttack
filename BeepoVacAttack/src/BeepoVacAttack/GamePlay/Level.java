@@ -37,7 +37,7 @@ public class Level {
     public HashMap<String, LevelFurnitureRecipe> getFurnitureRecipes() { return furnitureRecipes; }
     public LinkedList<LevelFurnitureInstance> getFurnitureInstances() { return furnitureInstances; }
 
-    public static final String RES_NOISE_IMG = "BeepoVacAttack/resources/noise4.png";
+    public static final String RES_NOISE_IMG = "BeepoVacAttack/BeepoVacAttack/resources/noise4.png";
 
     private static final boolean DEBUG = true;
 
