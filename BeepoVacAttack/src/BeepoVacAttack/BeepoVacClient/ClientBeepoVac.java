@@ -8,11 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
-public class ClientBeepoVac extends MapNode {
-
-    public ClientBeepoVac(float x, float y) {
-        super(x, y);
-    }
+public class ClientBeepoVac {
 
     public static String RES_PLAYER_IMG_SRC = "BeepoVacAttack/resources/beepovacs_v3.png";
     private static Image playerImage = null;

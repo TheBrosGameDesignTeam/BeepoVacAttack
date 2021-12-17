@@ -238,19 +238,19 @@ public class PlayingState extends BasicGameState {
             cameraPosition = cameraPosition.add(up.scale(deltaAdjustedSpeed));
         }
 
-        // check if moved
+        // SOUND: check if moved
         if (sendMove.compareTo("") == 0) {
             if (myBeepoVac.getIsMoving()) myBeepoVac.setIsMoving(false);
         } else if (!myBeepoVac.getIsMoving()) myBeepoVac.setIsMoving(true);
 
-        // check if still moving to loop non-start sound
+        // SOUND: check if still moving to loop non-start sound
         if (myBeepoVac.getIsMoving() && !ResourceManager.getSound(MainGame.VAC_ON_SOUND).playing()) {
             myBeepoVac.contVacSound();
         }
 
         // check proximity between docker and this client
         for (Dock dock : bg.docks) {
-            float dockDistance = dock.getPosition().distance(bg.players.get(bg.whichPlayer-1).getPos());
+            float dockDistance = dock.getPosition().distance(myBeepoVac.getPos());
             if (dockDistance < 50) {
                 this.canChange = true;
                 break;

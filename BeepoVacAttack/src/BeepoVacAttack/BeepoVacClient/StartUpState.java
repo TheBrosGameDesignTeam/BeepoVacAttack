@@ -124,7 +124,7 @@ class StartUpState extends BasicGameState {
                 } else if (pack.getMessage().compareTo("goToPlayingState") == 0) {
                     // create the beepovacs & bunnies
                     for (int i=0; i<pack.getHowManyPlayers(); i++) {
-                        bg.players.add(new ClientBeepoVac(100, 100));
+                        bg.players.add(new ClientBeepoVac());
                     }
                     bg.enterState(MainGame.PLAYINGSTATE);
                 }

@@ -16,17 +16,6 @@ public class Map {
         }
     }
 
-    /*public static void setWallsUnreachable(Vector pos, Vector size) {
-        int starty = (int) (cols*(Math.ceil(pos.getY()/cols)));
-        int startx = (int) (rows*(Math.ceil(pos.getX()/rows)));
-        for (int y = starty; y < (starty + size.getY()); y += cols) {
-            for (int x = startx; x < (startx + size.getX()); x += rows) {
-                MapNode current = map[x/ratio][y/ratio];
-                current.setDi(-1);
-            }
-        }
-    }*/
-
     public static int getRows() { return rows; }
     public static int getCols() { return cols; }
     public static MapNode[][] getMap() { return map; }

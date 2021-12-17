@@ -4,14 +4,16 @@ import jig.ConvexPolygon;
 import jig.Entity;
 import jig.ResourceManager;
 import jig.Vector;
+import org.lwjgl.Sys;
 
 public class DustBunny extends Entity {
 
     private final float speed = 0.15f;
-    private final Vector start = new Vector(1,0);
+    private final Vector start = new Vector(speed,0);
     Vector move;
     Vector lastPosition;
     public boolean isCaught = false;
+    public boolean isRoaming = true;
 
     private int timer;
     private int time = 500;
@@ -30,25 +32,19 @@ public class DustBunny extends Entity {
     public void resetPosition()
     {
         this.setPosition(defaultPosition);
-        reset();
+        resetTimer();
     }
 
-    public void reset() {
+    public void resetTimer() {
         timer = time;
     }
+
+    public void setIsRoaming(boolean value) { isRoaming = value; }
 
     public void setRandomMove() {
         float length = start.length();
         move = Vector.getRandom(length);
-
-        // collision detection to stay within walls
-    }
-
-    public void setFollowMove() {
-        int ratio = 100;
-        // MapNode current = Map.getMap()[(int)this.getX()/ratio][(int)this.getY()/ratio];
-        MapNode current = Map.getMap()[5][5];
-        move = current.getPi();
+        // System.out.println("Setting to random vector");
     }
 
     public void update(final int delta, Vector pos) {
@@ -57,17 +53,16 @@ public class DustBunny extends Entity {
         lastPosition = getPosition();
 
         if (timer <= 0) {
-            // this.setFollowMove();
-            if (pos != null) move = pos;
+            if (pos != null && !isRoaming) move = pos.negate();    // set bunny direction to opposite of vac
             else setRandomMove();
-            reset();
+            resetTimer();
         }
 
         this.translate(move.scale(delta));
     }
 
     public void handleCollision() {
-        move = new Vector(0,0);
+        setRandomMove();
         setPosition(lastPosition);
     }
 }
