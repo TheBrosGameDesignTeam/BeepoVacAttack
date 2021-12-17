@@ -10,14 +10,14 @@
 The library [Tweeninator](https://gitlab.com/Meorge/TweeninatorJava) must be added as a module
 dependency of BeepoVac Attack.
 
-#Controls
+# Controls
 WASD + E/stick and buttons on joycon. WSAD moves the beeps and E allows you to change your beep type when next to a docking station. 
 Press S to start when in lobby, when game is done press Q to quit and P to play again. 
 
-#Cheat Code
+# Cheat Code
 In the level class, you can set the DEBUG var to true to see the bounding boxes. 
 
-#Low Bar Goals
+# Low Bar Goals
 - Networked, 2-player co-op - Done
 - 3 unique levels - Partial (We had planned on a second, but we ran out of time.)
 - 3 different playable BeepoVac models with different strengths and weaknesses - Done
@@ -32,7 +32,7 @@ In the level class, you can set the DEBUG var to true to see the bounding boxes.
 ## Extra Thing That We Did
 - Joy-Con support
 
-#Licensing
+# Licensing
 The font ["Fredoka One"](https://fonts.google.com/specimen/Fredoka+One) is used
 under the [Open Font License (OFL)](https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL).
 
